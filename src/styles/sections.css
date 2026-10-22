@@ -12,6 +12,18 @@ main > section,
   padding-block: 48px;
 }
 
+/* Faixa de protótipo, no alto de todas as páginas (tirar com o nome definitivo).
+   Texto branco sobre Feijão: 15,75:1 */
+.faixa-teste {
+  margin: 0;
+  padding: var(--espaco-2) var(--espaco-4);
+  background: var(--cor-texto);
+  color: var(--cor-superficie);
+  font-size: var(--texto-p);
+  font-weight: 700;
+  text-align: center;
+}
+
 /* 1. Topo */
 .topo {
   display: flex;
