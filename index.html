@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Faça a compra do mês pelo celular e receba em casa, no dia e horário que você escolher." />
+    <title>Superadega — compra do mês em casa</title>
+  </head>
+  <body>
+    <!-- Textos provisórios: serão trocados pelos textos aprovados. -->
+
+    <!-- Atalho para quem usa teclado ou leitor de tela (RNF-02) -->
+    <a class="botao botao--primario pular-link" href="#produtos">Pular para os produtos</a>
+
+    <!-- 1. Topo -->
+    <header id="topo" class="topo">
+      <a class="marca" href="#capa">
+        <img src="/favicon.svg" alt="" width="32" height="32" />
+        Superadega
+      </a>
+
+      <nav class="topo__acoes" aria-label="Atalhos">
+        <!-- "Ajuda" abre o WhatsApp da loja (src/ajuda.js) -->
+        <a class="botao topo__botao" href="#rodape" data-ajuda>
+          <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#ajuda"></use></svg>
+          Ajuda
+        </a>
+        <a class="botao topo__botao" href="#finalizar">
+          <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#sacola"></use></svg>
+          Lista
+          <span class="contador" data-contador-lista>0</span>
+          <span class="visualmente-oculto">itens</span>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- 2. Capa -->
+      <section id="capa" class="capa" aria-labelledby="titulo-capa">
+        <div class="capa__texto">
+          <h1 id="titulo-capa">Sua compra do mês, entregue em casa</h1>
+          <p class="capa__frase">Escolha os produtos, pague com Pix e receba no dia e na hora que você escolher.</p>
+          <a class="botao botao--primario botao--grande" href="#produtos">
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#sacola"></use></svg>
+            Fazer minha compra
+          </a>
+        </div>
+
+        <!-- Trocar por /img/hero.webp (1600×900) quando as imagens do Higgsfield chegarem. -->
+        <img class="capa__imagem" src="/img/placeholder.svg" alt="" width="1600" height="900" />
+      </section>
+
+      <!-- 3. Quem somos -->
+      <section id="quem-somos" class="quem-somos" aria-labelledby="titulo-quem-somos">
+        <h2 id="titulo-quem-somos">Quem somos</h2>
+        <p>Somos um supermercado de alimentos para a compra do mês.</p>
+        <p>Você monta a lista pelo celular, paga com Pix e recebe tudo em casa. Levando mais unidades, você paga preço de atacado.</p>
+      </section>
+
+      <!-- 4. Como funciona -->
+      <section id="como-funciona" class="como-funciona" aria-labelledby="titulo-como-funciona">
+        <h2 id="titulo-como-funciona">Como funciona</h2>
+        <!-- Quando chegarem, as figuras passo-1…4.webp (600×600) entram em cada passo. -->
+        <!-- O botão "Ouvir" de cada passo lê o texto do passo (src/sections/ouvir.js).
+             Ele só aparece se o aparelho tiver voz em português. -->
+        <!-- role="list": o Safari deixa de anunciar listas sem marcador sem ele. -->
+        <ol class="passos" role="list">
+          <li class="passo" data-falavel>
+            <span class="passo__numero" aria-hidden="true">1</span>
+            <svg class="passo__icone" aria-hidden="true"><use href="/icons/icones.svg#sacola"></use></svg>
+            <h3>Escolha</h3>
+            <p>Toque nos produtos que você quer e nas quantidades.</p>
+            <button type="button" class="botao botao-ouvir" data-ouvir hidden>
+              <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#ouvir"></use></svg>
+              Ouvir
+            </button>
+          </li>
+          <li class="passo" data-falavel>
+            <span class="passo__numero" aria-hidden="true">2</span>
+            <svg class="passo__icone" aria-hidden="true"><use href="/icons/icones.svg#balao"></use></svg>
+            <h3>Envie</h3>
+            <p>Mande a lista para a loja pelo WhatsApp.</p>
+            <button type="button" class="botao botao-ouvir" data-ouvir hidden>
+              <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#ouvir"></use></svg>
+              Ouvir
+            </button>
+          </li>
+          <li class="passo" data-falavel>
+            <span class="passo__numero" aria-hidden="true">3</span>
+            <svg class="passo__icone" aria-hidden="true"><use href="/icons/icones.svg#dinheiro"></use></svg>
+            <h3>Pague o Pix</h3>
+            <p>A loja manda a chave Pix. O pedido só sai depois do pagamento.</p>
+            <button type="button" class="botao botao-ouvir" data-ouvir hidden>
+              <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#ouvir"></use></svg>
+              Ouvir
+            </button>
+          </li>
+          <li class="passo" data-falavel>
+            <span class="passo__numero" aria-hidden="true">4</span>
+            <svg class="passo__icone" aria-hidden="true"><use href="/icons/icones.svg#caneta"></use></svg>
+            <h3>Receba e assine</h3>
+            <p>A compra chega na sua casa. Quem receber assina no celular do entregador.</p>
+            <button type="button" class="botao botao-ouvir" data-ouvir hidden>
+              <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#ouvir"></use></svg>
+              Ouvir
+            </button>
+          </li>
+        </ol>
+      </section>
+
+      <!-- 5. O que você recebe -->
+      <section id="o-que-voce-recebe" class="recebe" aria-labelledby="titulo-recebe">
+        <div>
+          <h2 id="titulo-recebe">O que você recebe</h2>
+          <ul class="beneficios" role="list">
+            <li>
+              <svg class="beneficios__icone" aria-hidden="true"><use href="/icons/icones.svg#casa"></use></svg>
+              <span>A compra entregue na sua porta.</span>
+            </li>
+            <li>
+              <svg class="beneficios__icone" aria-hidden="true"><use href="/icons/icones.svg#calendario"></use></svg>
+              <span>No dia e no horário que você escolheu.</span>
+            </li>
+            <li>
+              <svg class="beneficios__icone" aria-hidden="true"><use href="/icons/icones.svg#etiqueta"></use></svg>
+              <span>Preço de atacado quando você leva mais unidades.</span>
+            </li>
+            <li>
+              <svg class="beneficios__icone" aria-hidden="true"><use href="/icons/icones.svg#confere"></use></svg>
+              <span>A loja confirma o pedido no WhatsApp antes de sair.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Trocar por /img/entrega.webp (1200×800) e escrever o texto alternativo. -->
+        <img class="recebe__imagem" src="/img/placeholder.svg" alt="" width="1200" height="800" loading="lazy" />
+      </section>
+
+      <!-- 6. Produtos -->
+      <section id="produtos" class="produtos" aria-labelledby="titulo-produtos">
+        <h2 id="titulo-produtos">Produtos</h2>
+        <!-- Aviso enquanto os produtos forem de exemplo. Apagar quando a lista real entrar. -->
+        <p class="aviso-exemplo">Produtos e preços de exemplo, só para teste.</p>
+
+        <!-- Os filtros e os cards são criados por src/sections/catalogo.js -->
+        <div class="filtros" role="group" aria-label="Escolha o tipo de produto" data-filtros></div>
+        <ul class="catalogo" role="list" data-catalogo></ul>
+        <p class="catalogo__vazio" data-catalogo-vazio hidden>Nenhum produto aqui por enquanto. Toque em "Todos".</p>
+        <noscript>
+          <p>Para ver os produtos, ative o JavaScript do navegador ou chame a loja no WhatsApp.</p>
+        </noscript>
+      </section>
+
+      <!-- 7. Finalizar -->
+      <section id="finalizar" class="finalizar" aria-labelledby="titulo-finalizar">
+        <h2 id="titulo-finalizar">Finalizar pedido</h2>
+        <h3>Sua lista</h3>
+        <!-- Preenchido por src/sections/finalizar.js -->
+        <div class="resumo" data-resumo></div>
+
+        <!-- Dados da entrega (RF-04, RF-05, RF-09). O envio pelo WhatsApp entra no passo 12.
+             Nada deste formulário fica salvo no aparelho. -->
+        <form class="pedido" data-pedido novalidate>
+          <fieldset class="pedido__grupo">
+            <legend><h3>Dia da entrega</h3></legend>
+            <!-- Os dias são calculados a partir de hoje (src/data/config.js) -->
+            <div class="escolhas escolhas--dias" data-dias></div>
+          </fieldset>
+
+          <fieldset class="pedido__grupo">
+            <legend><h3>Horário</h3></legend>
+            <div class="escolhas escolhas--faixas" data-faixas></div>
+          </fieldset>
+
+          <fieldset class="pedido__grupo">
+            <legend><h3>Seus dados</h3></legend>
+
+            <div class="campo">
+              <label for="nome">Seu nome</label>
+              <input id="nome" name="nome" type="text" autocomplete="name" required />
+            </div>
+
+            <div class="campo">
+              <label for="endereco">Endereço (rua, número e bairro)</label>
+              <textarea id="endereco" name="endereco" rows="3" autocomplete="street-address"></textarea>
+            </div>
+
+            <label class="opcao-audio">
+              <input type="checkbox" name="enderecoPorAudio" data-endereco-audio />
+              <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#microfone"></use></svg>
+              <span>Vou mandar o endereço por áudio no WhatsApp</span>
+            </label>
+          </fieldset>
+
+          <p class="aviso aviso--pix">
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#dinheiro"></use></svg>
+            <span><strong>Você paga com Pix antes da entrega.</strong> A loja manda a chave no WhatsApp. O pedido só sai depois do pagamento.</span>
+          </p>
+
+          <p class="aviso aviso--dados">
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#confere"></use></svg>
+            <span>Seu nome e endereço servem só para entregar este pedido. Eles vão na conversa do WhatsApp com a loja e não ficam guardados neste site.</span>
+          </p>
+
+          <!-- Aparece quando falta algo para enviar (preenchido por finalizar.js) -->
+          <div class="aviso aviso--erro" role="alert" tabindex="-1" data-erros hidden></div>
+
+          <button type="submit" class="botao botao--primario botao--grande botao--largo">
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#balao"></use></svg>
+            Enviar pedido no WhatsApp
+          </button>
+
+          <!-- Aparece depois que o WhatsApp abre -->
+          <p class="aviso aviso--pronto" role="status" data-pronto hidden>
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#confere"></use></svg>
+            <span><strong>Quase pronto!</strong> No WhatsApp, toque em enviar. A loja responde com a chave Pix.</span>
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <!-- 8. Rodapé -->
+    <footer id="rodape" class="rodape">
+      <h2>Fale com a gente</h2>
+      <p>Dúvidas sobre produtos, entrega ou pagamento? Chame a loja no WhatsApp.</p>
+      <!-- Telefone e endereço da loja: [a confirmar] -->
+      <div class="rodape__acoes">
+        <a class="botao botao--primario" href="#rodape" data-ajuda>
+          <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#balao"></use></svg>
+          Falar no WhatsApp
+        </a>
+        <a class="botao" href="privacidade.html">
+          <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#confere"></use></svg>
+          Privacidade
+        </a>
+      </div>
+      <p class="rodape__marca">Superadega (nome provisório)</p>
+    </footer>
+
+    <!-- Barra fixa no pé da tela: aparece quando a lista tem algum item -->
+    <a class="botao botao--primario barra-lista" href="#finalizar" data-barra-lista hidden>
+      <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#sacola"></use></svg>
+      <span data-barra-texto>Ver lista</span>
+    </a>
+
+    <!-- Avisos lidos pelo leitor de tela (ex.: "Arroz branco: 3 na lista") -->
+    <p class="visualmente-oculto" aria-live="polite" data-anuncio></p>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

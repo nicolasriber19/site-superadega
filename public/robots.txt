@@ -1,0 +1,5 @@
+# Buscadores podem ler o site todo.
+# A página entrega.html (uso do entregador) já pede para não aparecer nas buscas
+# com <meta name="robots" content="noindex">.
+User-agent: *
+Allow: /

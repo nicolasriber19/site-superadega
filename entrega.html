@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Página de uso interno do entregador: não deve aparecer em buscadores -->
+    <meta name="robots" content="noindex" />
+    <title>Assinatura da entrega — Superadega</title>
+  </head>
+  <body class="pagina-entrega">
+    <!-- RF-24: quem recebe a compra assina no celular do entregador.
+         A imagem vai para o WhatsApp da loja. Esta página não guarda nada. [LGPD: confirmar] -->
+    <main>
+      <section class="entrega" aria-labelledby="titulo-entrega">
+        <h1 id="titulo-entrega">
+          <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#caneta"></use></svg>
+          Assinatura da entrega
+        </h1>
+
+        <form class="entrega__form" data-entrega novalidate>
+          <div class="campo">
+            <label for="recebedor">Nome de quem recebeu</label>
+            <input id="recebedor" name="recebedor" type="text" autocomplete="off" required />
+          </div>
+
+          <div class="campo">
+            <label for="cliente">Pedido de (nome do cliente)</label>
+            <input id="cliente" name="cliente" type="text" autocomplete="off" />
+          </div>
+
+          <p class="entrega__instrucao" id="instrucao-quadro">
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#caneta"></use></svg>
+            Assine com o dedo dentro do quadro.
+          </p>
+          <canvas class="quadro" data-quadro role="img" aria-label="Quadro de assinatura"
+            aria-describedby="instrucao-quadro"></canvas>
+
+          <button type="button" class="botao entrega__limpar" data-limpar>
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#menos"></use></svg>
+            Apagar e assinar de novo
+          </button>
+
+          <div class="aviso aviso--erro" role="alert" tabindex="-1" data-erros-entrega hidden></div>
+
+          <button type="submit" class="botao botao--primario botao--grande botao--largo" data-enviar>
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#balao"></use></svg>
+            Enviar assinatura
+          </button>
+
+          <!-- Plano B: quando o aparelho não consegue compartilhar a imagem -->
+          <a class="botao botao--grande botao--largo" data-baixar hidden>
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#confere"></use></svg>
+            Baixar a imagem
+          </a>
+
+          <p class="aviso" role="status" data-status-entrega hidden></p>
+
+          <p class="aviso aviso--dados">
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#confere"></use></svg>
+            <span>A assinatura serve só para comprovar a entrega. A imagem vai para o WhatsApp da loja e não fica guardada nesta página.</span>
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <script type="module" src="/src/paginas/entrega.js"></script>
+  </body>
+</html>

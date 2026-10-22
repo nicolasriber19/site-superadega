@@ -1,0 +1,723 @@
+/* Layout das seções, de 375 a 1920 px (RNF-01).
+   As seções ocupam a largura toda; o conteúdo fica limitado a --largura-maxima. */
+
+.topo,
+main > section,
+.rodape {
+  padding-inline: max(var(--espaco), calc((100% - var(--largura-maxima)) / 2));
+}
+
+main > section,
+.rodape {
+  padding-block: 48px;
+}
+
+/* 1. Topo */
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px var(--espaco);
+  padding-block: 12px;
+  border-bottom: 1px solid var(--cor-fundo-suave);
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: var(--toque-minimo);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--cor-texto);
+  text-decoration: none;
+}
+
+.topo__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.topo__botao {
+  padding-inline: 0.75em;
+}
+
+.contador {
+  min-width: 1.6em;
+  padding: 0 0.4em;
+  border-radius: 999px;
+  background: var(--cor-destaque);
+  color: var(--cor-texto);
+  text-align: center;
+}
+
+/* 2. Capa */
+.capa {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+  background: var(--cor-fundo-suave);
+}
+
+main > .capa {
+  padding-block: 32px 48px;
+}
+
+.capa h1 {
+  font-size: clamp(2rem, 1.4rem + 2.5vw, 3rem);
+}
+
+.capa__frase {
+  max-width: 32ch;
+  font-size: 1.25rem;
+  color: var(--cor-texto-suave);
+}
+
+.capa__imagem {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--raio);
+}
+
+@media (min-width: 900px) {
+  .capa {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  main > .capa {
+    padding-block: 64px;
+  }
+}
+
+/* 3. Quem somos */
+.quem-somos p {
+  max-width: 60ch;
+}
+
+/* 4. Como funciona */
+.como-funciona {
+  background: var(--cor-fundo-suave);
+}
+
+.passos {
+  display: grid;
+  gap: var(--espaco);
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.passo {
+  position: relative;
+  padding: 24px;
+  border-radius: var(--raio);
+  background: var(--cor-fundo);
+}
+
+.passo h3 {
+  font-size: 1.375rem;
+}
+
+.passo p {
+  margin: 0;
+}
+
+.passo__numero {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--cor-primaria);
+  color: #ffffff;
+  font-size: 1.375rem;
+  font-weight: 800;
+}
+
+.passo__icone {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 12px;
+  color: var(--cor-primaria);
+}
+
+@media (min-width: 600px) {
+  .passos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .passos {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 5. O que você recebe */
+.recebe {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+
+.beneficios {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.beneficios li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.beneficios__icone {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  color: var(--cor-primaria);
+}
+
+.recebe__imagem {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--raio);
+}
+
+@media (min-width: 900px) {
+  .recebe {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* 6. Produtos */
+.produtos {
+  background: var(--cor-fundo-suave);
+}
+
+.aviso-exemplo {
+  display: inline-block;
+  padding: 0.25em 0.75em;
+  border-radius: var(--raio);
+  background: var(--cor-destaque);
+  font-weight: 700;
+}
+
+.catalogo {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card-produto {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  border: 2px solid transparent;
+  border-radius: var(--raio);
+  background: var(--cor-fundo);
+}
+
+.card-produto__foto {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border-radius: calc(var(--raio) - 4px);
+}
+
+.card-produto__nome {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.card-produto__unidade {
+  margin: 0 0 8px;
+  color: var(--cor-texto-suave);
+  font-size: 1rem;
+}
+
+.card-produto__preco {
+  margin: 0;
+  font-size: 1.375rem; /* cabe "R$ 25,90 cada" na mesma linha em 375 px */
+  font-weight: 800;
+}
+
+.card-produto__cada {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.card-produto__atacado {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: var(--cor-fundo-suave);
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.card-produto__atacado .icone {
+  width: 1.25em;
+  height: 1.25em;
+  margin-top: 0.05em;
+  color: var(--cor-primaria);
+}
+
+.card-produto {
+  position: relative;
+}
+
+/* Selo "Oferta" em cima da foto */
+.card-produto__selo {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--cor-destaque);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.card-produto__selo .icone {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+/* Filtros por categoria: 3 por linha no celular, todos numa linha no computador */
+.filtros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.filtro {
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 4px;
+  font-size: 1rem;
+}
+
+.filtro__icone {
+  width: 32px;
+  height: 32px;
+}
+
+/* Filtro ligado: fundo verde, texto branco */
+.filtro[aria-pressed='true'],
+.filtro[aria-pressed='true']:hover {
+  background: var(--cor-primaria);
+  color: #ffffff;
+}
+
+.catalogo__vazio {
+  margin-top: 16px;
+  font-weight: 700;
+}
+
+@media (min-width: 700px) {
+  .filtros {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.card-produto--na-lista {
+  border-color: var(--cor-primaria);
+}
+
+.card-produto__atacado--ativo {
+  background: var(--cor-destaque);
+  font-weight: 700;
+}
+
+.card-produto__atacado--ativo .icone {
+  color: var(--cor-texto);
+}
+
+/* Botão "Ouvir" (RF-10): mais discreto que os botões de compra */
+.botao-ouvir {
+  margin-top: 12px;
+  padding: 0.4em 0.9em;
+  border-width: 2px;
+  font-size: 1rem;
+}
+
+/* "Ouvir" e os botões de compra ficam juntos no pé do card,
+   alinhados entre os cards da mesma linha */
+.card-produto .botao-ouvir {
+  width: 100%;
+  margin-top: auto;
+}
+
+.card-produto .botao-ouvir + .card-produto__controles {
+  margin-top: 0;
+  padding-top: 8px;
+}
+
+/* Sem voz em português o "Ouvir" some: aí os botões de compra descem sozinhos */
+.card-produto .botao-ouvir[hidden] + .card-produto__controles {
+  margin-top: auto;
+}
+
+.card-produto__atacado {
+  margin-bottom: 8px;
+}
+
+/* Enquanto fala, o botão fica amarelo (tocar de novo para) */
+.botao-ouvir--falando,
+.botao-ouvir--falando:hover {
+  border-color: var(--cor-texto);
+  background: var(--cor-destaque);
+  color: var(--cor-texto);
+}
+
+/* + e − ficam sempre no pé do card */
+.card-produto__controles {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.card-produto__adicionar {
+  width: 100%;
+  padding-inline: 0.5em;
+}
+
+.quantidade {
+  display: grid;
+  grid-template-columns: var(--toque-minimo) 1fr var(--toque-minimo);
+  align-items: center;
+  gap: 6px;
+}
+
+.quantidade__botao {
+  padding: 0;
+}
+
+.quantidade__numero {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+@media (min-width: 600px) {
+  .catalogo {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--espaco);
+  }
+}
+
+/* 7. Finalizar: resumo da lista */
+.resumo {
+  max-width: 640px;
+}
+
+.resumo__lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resumo__item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--cor-fundo-suave);
+}
+
+.resumo__quantidade {
+  font-weight: 800;
+}
+
+.resumo__nome small {
+  display: block;
+  color: var(--cor-texto-suave);
+  font-size: 1rem;
+}
+
+.resumo__subtotal {
+  font-weight: 700;
+}
+
+.resumo__total {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0 0;
+  font-size: 1.5rem;
+}
+
+/* 7. Finalizar: formulário da entrega */
+.pedido {
+  max-width: 640px;
+  margin-top: 32px;
+}
+
+.pedido__grupo {
+  margin: 0 0 28px;
+  padding: 0;
+  border: 0;
+}
+
+.pedido__grupo legend {
+  padding: 0;
+}
+
+.escolhas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+@media (min-width: 600px) {
+  .escolhas--dias {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Cada opção parece um botão grande. O "radio" de verdade fica escondido dentro. */
+.escolha {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 72px;
+  padding: 8px 4px;
+  border: 2px solid var(--cor-primaria);
+  border-radius: var(--raio);
+  background: var(--cor-fundo);
+  color: var(--cor-primaria);
+  text-align: center;
+  cursor: pointer;
+}
+
+.escolha__grande {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.escolha__pequeno {
+  font-size: 1rem;
+}
+
+.escolha__icone {
+  width: 32px;
+  height: 32px;
+}
+
+/* Opção escolhida: fundo verde e texto branco */
+.escolha:has(input:checked) {
+  background: var(--cor-primaria);
+  color: #ffffff;
+}
+
+/* Foco do teclado aparece no "botão", já que o radio está escondido */
+.escolha:has(input:focus-visible) {
+  outline: 3px solid var(--cor-foco);
+  outline-offset: 3px;
+}
+
+.campo {
+  margin-bottom: 16px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.campo input,
+.campo textarea {
+  width: 100%;
+}
+
+.campo textarea:disabled {
+  border-style: dashed;
+  background: var(--cor-fundo-suave);
+  color: var(--cor-texto-suave);
+}
+
+.opcao-audio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--toque-minimo);
+  padding: 8px 12px;
+  border: 2px solid var(--cor-borda);
+  border-radius: var(--raio);
+  cursor: pointer;
+}
+
+.opcao-audio input {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  accent-color: var(--cor-primaria);
+}
+
+.opcao-audio:has(input:checked) {
+  border-color: var(--cor-primaria);
+  background: var(--cor-fundo-suave);
+}
+
+.aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 12px;
+  border-radius: var(--raio);
+  background: var(--cor-fundo-suave);
+}
+
+.aviso .icone {
+  margin-top: 0.1em;
+  color: var(--cor-primaria);
+}
+
+.aviso--pix {
+  border: 2px solid var(--cor-destaque);
+  background: #fff8db; /* amarelo bem claro: texto escuro sobre ele passa de 15:1 */
+}
+
+.aviso--erro {
+  display: block;
+  border: 2px solid var(--cor-erro);
+  background: #fdf0ef; /* vermelho bem claro */
+}
+
+.aviso--erro p {
+  margin: 0 0 4px;
+  font-weight: 800;
+  color: var(--cor-erro);
+}
+
+.aviso--erro ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.aviso--pronto {
+  margin-top: 16px;
+  border: 2px solid var(--cor-primaria);
+}
+
+.botao--largo {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Campo com problema */
+[aria-invalid='true'] {
+  border-color: var(--cor-erro);
+}
+
+/* 8. Rodapé */
+.rodape {
+  background: var(--cor-fundo-suave);
+}
+
+.rodape__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.rodape__marca {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: 1rem;
+}
+
+/* Página de privacidade: texto corrido com largura confortável */
+.texto-legal {
+  max-width: 70ch;
+}
+
+.texto-legal h2 {
+  margin-top: 1.5em;
+  font-size: 1.375rem;
+}
+
+.texto-legal ul {
+  padding-left: 1.2em;
+}
+
+/* Página de entrega (assinatura do entregador) */
+.entrega {
+  max-width: 640px;
+}
+
+.entrega h1 {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 1.75rem;
+}
+
+.entrega__instrucao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  font-weight: 700;
+}
+
+.quadro {
+  display: block;
+  width: 100%;
+  height: 240px;
+  border: 3px dashed var(--cor-primaria);
+  border-radius: var(--raio);
+  background: #ffffff;
+  touch-action: none; /* o dedo desenha em vez de rolar a página */
+  cursor: crosshair;
+}
+
+.entrega__limpar {
+  margin: 12px 0 16px;
+}
+
+/* Barra fixa "Ver lista" no pé da tela */
+.barra-lista {
+  position: fixed;
+  right: var(--espaco);
+  bottom: var(--espaco);
+  left: var(--espaco);
+  z-index: 5;
+  max-width: 480px;
+  margin-inline: auto;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.25);
+}
+
+/* Espaço no fim da página para a barra não cobrir o rodapé */
+.tem-barra-lista {
+  padding-bottom: 96px;
+}
