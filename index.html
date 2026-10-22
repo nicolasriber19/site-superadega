@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- A fonte do título grande da capa começa a baixar junto com a página (melhora o LCP) -->
+    <link rel="preload" href="/fonts/bricolage-grotesque/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Faça a compra do mês pelo celular e receba em casa, no dia e horário que você escolher." />
     <title>Superadega — compra do mês em casa</title>
@@ -15,10 +17,8 @@
 
     <!-- 1. Topo -->
     <header id="topo" class="topo">
-      <a class="marca" href="#capa">
-        <img src="/favicon.svg" alt="" width="32" height="32" />
-        Superadega
-      </a>
+      <!-- Logotipo tipográfico (docs/identidade.md): o leitor de tela lê só "superadega" -->
+      <a class="marca" href="#capa">superadega<span class="marca__ponto" aria-hidden="true">.</span></a>
 
       <nav class="topo__acoes" aria-label="Atalhos">
         <!-- "Ajuda" abre o WhatsApp da loja (src/ajuda.js) -->

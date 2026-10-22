@@ -19,12 +19,12 @@
 }
 
 /* Versão sem movimento (RNF-05): com "reduzir movimento" ligado no aparelho,
-   o card não se mexe. No lugar, a borda brilha em amarelo por um instante. */
+   o card não se mexe. No lugar, a borda brilha em azul por um instante. */
 
 @keyframes destaque {
   0%,
   60% {
-    box-shadow: 0 0 0 4px var(--cor-destaque);
+    box-shadow: 0 0 0 4px var(--cor-etiqueta);
   }
   100% {
     box-shadow: 0 0 0 4px transparent;

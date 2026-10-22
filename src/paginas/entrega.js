@@ -23,6 +23,14 @@ let tracoAtual = null
 
 const dataEHora = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' })
 
+// Cores e fonte do quadro vêm dos tokens (src/styles/tokens.css): nada é escrito aqui.
+const tokens = getComputedStyle(document.documentElement)
+const token = (nome) => tokens.getPropertyValue(nome).trim()
+const COR_PAPEL = token('--cor-superficie')
+const COR_LINHA = token('--cor-borda')
+const COR_TINTA = token('--cor-texto')
+const FONTE = token('--fonte-texto')
+
 // ---- Quadro de assinatura ----
 
 function redesenhar() {
@@ -33,19 +41,19 @@ function redesenhar() {
   quadro.height = Math.round(altura * escala)
   pincel.setTransform(escala, 0, 0, escala, 0, 0)
 
-  // Fundo branco (a imagem final não fica transparente)
-  pincel.fillStyle = '#ffffff'
+  // Fundo da cor do papel (a imagem final não fica transparente)
+  pincel.fillStyle = COR_PAPEL
   pincel.fillRect(0, 0, largura, altura)
 
   // Linha de "assine aqui"
-  pincel.strokeStyle = '#b8c2b5'
+  pincel.strokeStyle = COR_LINHA
   pincel.lineWidth = 2
   pincel.beginPath()
   pincel.moveTo(16, altura - 40)
   pincel.lineTo(largura - 16, altura - 40)
   pincel.stroke()
 
-  pincel.strokeStyle = '#1f1f1f'
+  pincel.strokeStyle = COR_TINTA
   pincel.lineWidth = 3
   pincel.lineCap = 'round'
   pincel.lineJoin = 'round'
@@ -109,12 +117,12 @@ function montarImagem() {
   imagem.width = quadro.width
   imagem.height = quadro.height + alturaTexto
   const ctx = imagem.getContext('2d')
-  ctx.fillStyle = '#ffffff'
+  ctx.fillStyle = COR_PAPEL
   ctx.fillRect(0, 0, imagem.width, imagem.height)
   ctx.drawImage(quadro, 0, 0)
 
-  ctx.fillStyle = '#1f1f1f'
-  ctx.font = `${Math.round(18 * escala)}px system-ui, sans-serif`
+  ctx.fillStyle = COR_TINTA
+  ctx.font = `${Math.round(18 * escala)}px ${FONTE}`
   linhas.forEach((linha, i) => {
     ctx.fillText(linha, 16 * escala, quadro.height + (i + 1) * 28 * escala)
   })

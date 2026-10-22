@@ -68,7 +68,7 @@ SITE/
 | img/placeholder.svg | SVG | 600×600 | Eu (substituto até as imagens chegarem) |
 | icons/*.svg | SVG | 24×24, exibidos com 32 px ou mais | Eu |
 | favicon.svg | SVG | 32×32 | Eu |
-| Fontes | Nenhuma: uso a fonte do próprio aparelho | — | — |
+| Fontes | Bricolage Grotesque 800 + Atkinson Hyperlegible Next 400/700 (`.woff2` em `public/fonts/`, OFL) | 3 arquivos, ~52 KB | Eu (docs/identidade.md) |
 | Vídeo | Nenhum nesta versão | — | — |
 
 ## 5. Passos de implementação (de 10 a 20 minutos cada)
@@ -129,7 +129,7 @@ SITE/
 | Nenhuma dependência além do Vite | 1 e 17 (só o Vite no package.json) |
 
 ## Decisões que tomei sozinho
-1. Uso a fonte do aparelho, sem arquivos de fonte. É o mais leve e não usa CDN.
+1. ~~Uso a fonte do aparelho~~ Trocado em 22/10/2026 pela identidade A: Bricolage + Atkinson, guardadas em `public/fonts/` (sem CDN). Ver `docs/identidade.md`.
 2. A animação usa só CSS e uma classe colocada pelo JS. Sem GSAP.
 3. São 3 páginas HTML, com um `vite.config.js` pequeno para o Vite incluir todas no build.
 4. Eu desenho os ícones em SVG. Não uso o logo do WhatsApp, que é marca registrada: no lugar, um balão de conversa com a palavra "WhatsApp".

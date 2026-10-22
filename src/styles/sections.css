@@ -4,7 +4,7 @@
 .topo,
 main > section,
 .rodape {
-  padding-inline: max(var(--espaco), calc((100% - var(--largura-maxima)) / 2));
+  padding-inline: max(var(--espaco-4), calc((100% - var(--largura-maxima)) / 2));
 }
 
 main > section,
@@ -18,20 +18,25 @@ main > section,
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 8px var(--espaco);
+  gap: 8px var(--espaco-4);
   padding-block: 12px;
-  border-bottom: 1px solid var(--cor-fundo-suave);
+  border-bottom: 1px solid var(--cor-fundo);
 }
 
 .marca {
   display: inline-flex;
   align-items: center;
-  gap: 0.5em;
   min-height: var(--toque-minimo);
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-family: var(--fonte-titulo);
+  font-size: var(--titulo-3);
+  font-weight: var(--peso-titulo);
   color: var(--cor-texto);
   text-decoration: none;
+}
+
+/* Logotipo tipográfico: "superadega." com o ponto em azul-louça */
+.marca__ponto {
+  color: var(--cor-destaque);
 }
 
 .topo__acoes {
@@ -48,8 +53,8 @@ main > section,
   min-width: 1.6em;
   padding: 0 0.4em;
   border-radius: 999px;
-  background: var(--cor-destaque);
-  color: var(--cor-texto);
+  background: var(--cor-etiqueta);
+  color: var(--cor-sobre-etiqueta);
   text-align: center;
 }
 
@@ -58,7 +63,7 @@ main > section,
   display: grid;
   gap: 32px;
   align-items: center;
-  background: var(--cor-fundo-suave);
+  background: var(--cor-fundo);
 }
 
 main > .capa {
@@ -72,14 +77,15 @@ main > .capa {
 .capa__frase {
   max-width: 32ch;
   font-size: 1.25rem;
-  color: var(--cor-texto-suave);
+  color: var(--cor-texto-secundario);
 }
 
 .capa__imagem {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  border-radius: var(--raio);
+  border: var(--borda-card); /* a imagem provisória é creme: a borda mostra onde ela termina */
+  border-radius: var(--raio-card);
 }
 
 @media (min-width: 900px) {
@@ -99,12 +105,12 @@ main > .capa {
 
 /* 4. Como funciona */
 .como-funciona {
-  background: var(--cor-fundo-suave);
+  background: var(--cor-fundo);
 }
 
 .passos {
   display: grid;
-  gap: var(--espaco);
+  gap: var(--espaco-4);
   margin: 24px 0 0;
   padding: 0;
   list-style: none;
@@ -113,8 +119,9 @@ main > .capa {
 .passo {
   position: relative;
   padding: 24px;
-  border-radius: var(--raio);
-  background: var(--cor-fundo);
+  border: var(--borda-card);
+  border-radius: var(--raio-card);
+  background: var(--cor-superficie);
 }
 
 .passo h3 {
@@ -134,17 +141,18 @@ main > .capa {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--cor-primaria);
-  color: #ffffff;
+  background: var(--cor-destaque);
+  color: var(--cor-sobre-destaque);
+  font-family: var(--fonte-titulo);
   font-size: 1.375rem;
-  font-weight: 800;
+  font-weight: var(--peso-titulo);
 }
 
 .passo__icone {
   width: 56px;
   height: 56px;
   margin-bottom: 12px;
-  color: var(--cor-primaria);
+  color: var(--cor-destaque);
 }
 
 @media (min-width: 600px) {
@@ -184,14 +192,15 @@ main > .capa {
   flex: none;
   width: 40px;
   height: 40px;
-  color: var(--cor-primaria);
+  color: var(--cor-destaque);
 }
 
 .recebe__imagem {
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  border-radius: var(--raio);
+  border: var(--borda-card);
+  border-radius: var(--raio-card);
 }
 
 @media (min-width: 900px) {
@@ -202,14 +211,15 @@ main > .capa {
 
 /* 6. Produtos */
 .produtos {
-  background: var(--cor-fundo-suave);
+  background: var(--cor-fundo);
 }
 
 .aviso-exemplo {
   display: inline-block;
   padding: 0.25em 0.75em;
-  border-radius: var(--raio);
-  background: var(--cor-destaque);
+  border-radius: var(--raio-botao);
+  background: var(--cor-etiqueta);
+  color: var(--cor-sobre-etiqueta);
   font-weight: 700;
 }
 
@@ -226,9 +236,9 @@ main > .capa {
   display: flex;
   flex-direction: column;
   padding: 12px;
-  border: 2px solid transparent;
-  border-radius: var(--raio);
-  background: var(--cor-fundo);
+  border: var(--borda-card);
+  border-radius: var(--raio-card);
+  background: var(--cor-superficie);
 }
 
 .card-produto__foto {
@@ -236,7 +246,7 @@ main > .capa {
   aspect-ratio: 1;
   object-fit: cover;
   margin-bottom: 12px;
-  border-radius: calc(var(--raio) - 4px);
+  border-radius: calc(var(--raio-card) - 4px);
 }
 
 .card-produto__nome {
@@ -246,17 +256,19 @@ main > .capa {
 
 .card-produto__unidade {
   margin: 0 0 8px;
-  color: var(--cor-texto-suave);
+  color: var(--cor-texto-secundario);
   font-size: 1rem;
 }
 
 .card-produto__preco {
   margin: 0;
+  font-family: var(--fonte-titulo);
   font-size: 1.375rem; /* cabe "R$ 25,90 cada" na mesma linha em 375 px */
-  font-weight: 800;
+  font-weight: var(--peso-titulo);
 }
 
 .card-produto__cada {
+  font-family: var(--fonte-texto);
   font-size: 1rem;
   font-weight: 400;
 }
@@ -268,7 +280,7 @@ main > .capa {
   margin: 8px 0 0;
   padding: 6px 8px;
   border-radius: 8px;
-  background: var(--cor-fundo-suave);
+  background: var(--cor-fundo);
   font-size: 1rem;
   line-height: 1.35;
 }
@@ -277,7 +289,7 @@ main > .capa {
   width: 1.25em;
   height: 1.25em;
   margin-top: 0.05em;
-  color: var(--cor-primaria);
+  color: var(--cor-destaque);
 }
 
 .card-produto {
@@ -295,9 +307,11 @@ main > .capa {
   margin: 0;
   padding: 2px 10px;
   border-radius: 999px;
-  background: var(--cor-destaque);
+  background: var(--cor-etiqueta);
+  color: var(--cor-sobre-etiqueta);
+  font-family: var(--fonte-titulo);
   font-size: 1rem;
-  font-weight: 800;
+  font-weight: var(--peso-titulo);
 }
 
 .card-produto__selo .icone {
@@ -325,11 +339,11 @@ main > .capa {
   height: 32px;
 }
 
-/* Filtro ligado: fundo verde, texto branco */
+/* Filtro ligado: fundo azul, texto branco */
 .filtro[aria-pressed='true'],
 .filtro[aria-pressed='true']:hover {
-  background: var(--cor-primaria);
-  color: #ffffff;
+  background: var(--cor-destaque);
+  color: var(--cor-sobre-destaque);
 }
 
 .catalogo__vazio {
@@ -343,17 +357,20 @@ main > .capa {
   }
 }
 
+/* Na lista: borda azul de 2 px (a segunda linha vem do anel por dentro, sem mudar o tamanho) */
 .card-produto--na-lista {
-  border-color: var(--cor-primaria);
+  border-color: var(--cor-destaque);
+  box-shadow: inset 0 0 0 1px var(--cor-destaque);
 }
 
 .card-produto__atacado--ativo {
-  background: var(--cor-destaque);
+  background: var(--cor-etiqueta);
+  color: var(--cor-sobre-etiqueta);
   font-weight: 700;
 }
 
 .card-produto__atacado--ativo .icone {
-  color: var(--cor-texto);
+  color: var(--cor-sobre-etiqueta);
 }
 
 /* Botão "Ouvir" (RF-10): mais discreto que os botões de compra */
@@ -385,12 +402,12 @@ main > .capa {
   margin-bottom: 8px;
 }
 
-/* Enquanto fala, o botão fica amarelo (tocar de novo para) */
+/* Enquanto fala, o botão fica azul-escuro (tocar de novo para) */
 .botao-ouvir--falando,
 .botao-ouvir--falando:hover {
-  border-color: var(--cor-texto);
-  background: var(--cor-destaque);
-  color: var(--cor-texto);
+  border-color: var(--cor-destaque-escuro);
+  background: var(--cor-destaque-escuro);
+  color: var(--cor-sobre-destaque);
 }
 
 /* + e − ficam sempre no pé do card */
@@ -417,14 +434,15 @@ main > .capa {
 
 .quantidade__numero {
   text-align: center;
+  font-family: var(--fonte-titulo);
   font-size: 1.5rem;
-  font-weight: 800;
+  font-weight: var(--peso-titulo);
 }
 
 @media (min-width: 600px) {
   .catalogo {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: var(--espaco);
+    gap: var(--espaco-4);
   }
 }
 
@@ -445,16 +463,17 @@ main > .capa {
   gap: 12px;
   align-items: baseline;
   padding: 12px 0;
-  border-bottom: 1px solid var(--cor-fundo-suave);
+  border-bottom: 1px solid var(--cor-fundo);
 }
 
 .resumo__quantidade {
-  font-weight: 800;
+  font-family: var(--fonte-titulo);
+  font-weight: var(--peso-titulo);
 }
 
 .resumo__nome small {
   display: block;
-  color: var(--cor-texto-suave);
+  color: var(--cor-texto-secundario);
   font-size: 1rem;
 }
 
@@ -507,17 +526,18 @@ main > .capa {
   gap: 2px;
   min-height: 72px;
   padding: 8px 4px;
-  border: 2px solid var(--cor-primaria);
-  border-radius: var(--raio);
-  background: var(--cor-fundo);
-  color: var(--cor-primaria);
+  border: 2px solid var(--cor-destaque);
+  border-radius: var(--raio-botao);
+  background: var(--cor-superficie);
+  color: var(--cor-destaque);
   text-align: center;
   cursor: pointer;
 }
 
 .escolha__grande {
+  font-family: var(--fonte-titulo);
   font-size: 1.25rem;
-  font-weight: 800;
+  font-weight: var(--peso-titulo);
 }
 
 .escolha__pequeno {
@@ -529,15 +549,15 @@ main > .capa {
   height: 32px;
 }
 
-/* Opção escolhida: fundo verde e texto branco */
+/* Opção escolhida: fundo azul e texto branco */
 .escolha:has(input:checked) {
-  background: var(--cor-primaria);
-  color: #ffffff;
+  background: var(--cor-destaque);
+  color: var(--cor-sobre-destaque);
 }
 
 /* Foco do teclado aparece no "botão", já que o radio está escondido */
 .escolha:has(input:focus-visible) {
-  outline: 3px solid var(--cor-foco);
+  outline: 3px solid var(--cor-destaque);
   outline-offset: 3px;
 }
 
@@ -558,8 +578,8 @@ main > .capa {
 
 .campo textarea:disabled {
   border-style: dashed;
-  background: var(--cor-fundo-suave);
-  color: var(--cor-texto-suave);
+  background: var(--cor-fundo);
+  color: var(--cor-texto-secundario);
 }
 
 .opcao-audio {
@@ -569,7 +589,7 @@ main > .capa {
   min-height: var(--toque-minimo);
   padding: 8px 12px;
   border: 2px solid var(--cor-borda);
-  border-radius: var(--raio);
+  border-radius: var(--raio-botao);
   cursor: pointer;
 }
 
@@ -578,12 +598,12 @@ main > .capa {
   width: 24px;
   height: 24px;
   margin: 0;
-  accent-color: var(--cor-primaria);
+  accent-color: var(--cor-destaque);
 }
 
 .opcao-audio:has(input:checked) {
-  border-color: var(--cor-primaria);
-  background: var(--cor-fundo-suave);
+  border-color: var(--cor-destaque);
+  background: var(--cor-fundo);
 }
 
 .aviso {
@@ -592,29 +612,30 @@ main > .capa {
   gap: 10px;
   margin: 0 0 12px;
   padding: 12px;
-  border-radius: var(--raio);
-  background: var(--cor-fundo-suave);
+  border-radius: var(--raio-botao);
+  background: var(--cor-fundo);
 }
 
 .aviso .icone {
   margin-top: 0.1em;
-  color: var(--cor-primaria);
+  color: var(--cor-destaque);
 }
 
 .aviso--pix {
   border: 2px solid var(--cor-destaque);
-  background: #fff8db; /* amarelo bem claro: texto escuro sobre ele passa de 15:1 */
+  background: var(--cor-superficie);
 }
 
 .aviso--erro {
   display: block;
   border: 2px solid var(--cor-erro);
-  background: #fdf0ef; /* vermelho bem claro */
+  background: var(--cor-superficie);
 }
 
 .aviso--erro p {
   margin: 0 0 4px;
-  font-weight: 800;
+  font-family: var(--fonte-titulo);
+  font-weight: var(--peso-titulo);
   color: var(--cor-erro);
 }
 
@@ -625,7 +646,7 @@ main > .capa {
 
 .aviso--pronto {
   margin-top: 16px;
-  border: 2px solid var(--cor-primaria);
+  border: 2px solid var(--cor-destaque);
 }
 
 .botao--largo {
@@ -640,7 +661,7 @@ main > .capa {
 
 /* 8. Rodapé */
 .rodape {
-  background: var(--cor-fundo-suave);
+  background: var(--cor-fundo);
 }
 
 .rodape__acoes {
@@ -652,7 +673,7 @@ main > .capa {
 
 .rodape__marca {
   margin: 0;
-  color: var(--cor-texto-suave);
+  color: var(--cor-texto-secundario);
   font-size: 1rem;
 }
 
@@ -694,9 +715,9 @@ main > .capa {
   display: block;
   width: 100%;
   height: 240px;
-  border: 3px dashed var(--cor-primaria);
-  border-radius: var(--raio);
-  background: #ffffff;
+  border: 3px dashed var(--cor-destaque);
+  border-radius: var(--raio-card);
+  background: var(--cor-superficie);
   touch-action: none; /* o dedo desenha em vez de rolar a página */
   cursor: crosshair;
 }
@@ -708,13 +729,14 @@ main > .capa {
 /* Barra fixa "Ver lista" no pé da tela */
 .barra-lista {
   position: fixed;
-  right: var(--espaco);
-  bottom: var(--espaco);
-  left: var(--espaco);
+  right: var(--espaco-4);
+  bottom: var(--espaco-4);
+  left: var(--espaco-4);
   z-index: 5;
   max-width: 480px;
   margin-inline: auto;
-  box-shadow: 0 4px 16px rgb(0 0 0 / 0.25);
+  /* Sem sombra (direção A): um anel branco separa a barra do conteúdo por trás */
+  box-shadow: 0 0 0 3px var(--cor-superficie);
 }
 
 /* Espaço no fim da página para a barra não cobrir o rodapé */

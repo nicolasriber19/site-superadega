@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Identidade visual: conferência — Superadega</title>
+    <!-- Página de conferência da identidade visual (docs/identidade.md).
+         Só para npm run dev: não está no build (vite.config.js lista só 3 páginas).
+         Regra: aqui só se usa var(--...). Cores e fontes moram em src/styles/tokens.css. -->
+    <style>
+      .estilo { max-width: 1200px; margin: 0 auto; padding: var(--espaco-8) var(--espaco-4); }
+      .estilo__colunas { display: grid; gap: var(--espaco-8); max-width: 720px; }
+
+      .direcao {
+        min-width: 0;
+        padding: var(--espaco-6);
+        border-radius: var(--raio-card);
+        background: var(--cor-fundo);
+        color: var(--cor-texto);
+        font-family: var(--fonte-texto);
+        font-size: var(--texto-m);
+        line-height: 1.5;
+      }
+      .direcao h2, .direcao h3, .direcao h4, .t1, .t2, .t3, .logo, .card__preco {
+        font-family: var(--fonte-titulo);
+        font-weight: var(--peso-titulo);
+        line-height: 1.15;
+      }
+      .direcao h2 { font-size: var(--titulo-2); margin: 0 0 var(--espaco-2); }
+      .direcao h3 { font-size: var(--texto-g); margin: var(--espaco-8) 0 var(--espaco-3); }
+      .t1 { font-size: var(--titulo-1); margin: 0 0 var(--espaco-2); }
+      .t2 { font-size: var(--titulo-2); margin: 0 0 var(--espaco-2); }
+      .t3 { font-size: var(--titulo-3); margin: 0 0 var(--espaco-4); }
+      .secundario { color: var(--cor-texto-secundario); }
+      .direcao a { color: var(--cor-destaque); text-underline-offset: 0.15em; }
+      .direcao :focus-visible { outline: 3px solid var(--cor-destaque); outline-offset: 3px; }
+      .direcao code { font-size: var(--texto-p); }
+
+      .logo { font-size: var(--titulo-2); margin: 0; }
+      .logo__ponto { color: var(--cor-destaque); }
+      
+      .paleta { display: grid; gap: var(--espaco-3); margin: 0; padding: 0; list-style: none; }
+      .paleta li { display: grid; grid-template-columns: 48px 1fr; column-gap: var(--espaco-3); align-items: center; }
+      .paleta__amostra { grid-row: span 2; width: 48px; height: 48px; border: var(--borda-card); border-radius: var(--raio-botao); }
+
+      .contraste { width: 100%; border-collapse: collapse; font-size: var(--texto-p); }
+      .contraste th, .contraste td { padding: var(--espaco-2); border-bottom: var(--borda-card); text-align: left; }
+
+      .linha { display: flex; flex-wrap: wrap; gap: var(--espaco-3); }
+      .botao-principal {
+        display: inline-flex; align-items: center; justify-content: center; gap: var(--espaco-2);
+        min-height: var(--altura-botao); padding: 0 var(--espaco-6);
+        border: 2px solid var(--cor-destaque); border-radius: var(--raio-botao);
+        background: var(--cor-destaque); color: var(--cor-sobre-destaque);
+        font-family: var(--fonte-titulo); font-weight: var(--peso-titulo);
+        font-size: var(--texto-m); text-decoration: none;
+      }
+      .direcao a.botao-principal { color: var(--cor-sobre-destaque); }
+      .botao-principal:hover, .botao-principal--hover { background: var(--cor-destaque-escuro); border-color: var(--cor-destaque-escuro); }
+      .botao-principal .icone { width: 1.5em; height: 1.5em; }
+
+      .rotulo { display: block; font-weight: 700; margin-bottom: var(--espaco-1); }
+      .campo {
+        width: 100%; min-height: 48px; padding: var(--espaco-2) var(--espaco-3);
+        border: 2px solid var(--cor-borda); border-radius: var(--raio-botao);
+        background: var(--cor-superficie); color: var(--cor-texto); font: inherit;
+      }
+      .campo[aria-invalid='true'] { border-color: var(--cor-erro); }
+      .erro { color: var(--cor-erro); font-weight: 700; margin-top: var(--espaco-1); }
+
+      .card {
+        position: relative; max-width: 280px; padding: var(--espaco-3);
+        border: var(--borda-card); border-radius: var(--raio-card);
+        background: var(--cor-superficie);
+      }
+      .card__selo {
+        position: absolute; top: var(--espaco-4); left: var(--espaco-4); margin: 0;
+        padding: 0 var(--espaco-2); border-radius: var(--raio-botao);
+        background: var(--cor-etiqueta); color: var(--cor-sobre-etiqueta); font-weight: 700; font-size: var(--texto-p);
+      }
+      .card__foto { width: 100%; aspect-ratio: 1; border-radius: var(--raio-botao); margin-bottom: var(--espaco-3); }
+      .card__nome { font-size: var(--texto-g); margin: 0; }
+      .card__unidade { margin: 0 0 var(--espaco-2); font-size: var(--texto-p); }
+      .card__preco { font-size: var(--titulo-3); margin: 0; }
+      .card__cada { font-family: var(--fonte-texto); font-weight: 400; font-size: var(--texto-p); }
+      .card__etiqueta {
+        margin: var(--espaco-2) 0 var(--espaco-3); padding: var(--espaco-1) var(--espaco-2);
+        border-radius: var(--raio-botao); background: var(--cor-etiqueta); color: var(--cor-sobre-etiqueta); font-size: var(--texto-p);
+      }
+      .card .botao-principal { width: 100%; }
+
+      .imagens { display: grid; grid-template-columns: auto 1fr; gap: var(--espaco-1) var(--espaco-3); margin: 0; }
+      .imagens dt { font-weight: 700; }
+      .imagens dd { margin: 0; }
+    </style>
+  </head>
+  <body>
+    <main class="estilo">
+      <h1>Identidade visual</h1>
+      <p>Página de conferência (só no <code>npm run dev</code>). Identidade aplicada ao site: direção A, Despensa de casa (docs/identidade.md).</p>
+      <p data-status-fontes>Conferindo as fontes…</p>
+
+      <div class="estilo__colunas">
+
+        <section class="direcao" aria-labelledby="titulo-a">
+          <h2 class="direcao__nome" id="titulo-a">Despensa de casa (direção A, escolhida)</h2>
+          <p class="secundario">A compra do mês chegando na cozinha de casa, arrumada e tranquila.</p>
+
+          <h3>Logotipo</h3>
+          <p class="logo">superadega<span class="logo__ponto">.</span></p>
+
+          <h3>Cores</h3>
+          <ul class="paleta" role="list">
+            <li><span class="paleta__amostra" style="background: var(--cor-fundo)"></span><strong>Arroz</strong> <code>#F7F3EA</code><br /><span class="secundario">fundo · <code>--cor-fundo</code></span></li>
+            <li><span class="paleta__amostra" style="background: var(--cor-superficie)"></span><strong>Pote</strong> <code>#FFFFFF</code><br /><span class="secundario">superfície (cards, campos) · <code>--cor-superficie</code></span></li>
+            <li><span class="paleta__amostra" style="background: var(--cor-texto)"></span><strong>Feijão</strong> <code>#2B2118</code><br /><span class="secundario">texto · <code>--cor-texto</code></span></li>
+            <li><span class="paleta__amostra" style="background: var(--cor-texto-secundario)"></span><strong>Café</strong> <code>#5C5044</code><br /><span class="secundario">texto secundário · <code>--cor-texto-secundario</code></span></li>
+            <li><span class="paleta__amostra" style="background: var(--cor-destaque)"></span><strong>Louça azul</strong> <code>#1E4D78</code><br /><span class="secundario">destaque: botão, link, foco · <code>--cor-destaque</code></span></li>
+            <li><span class="paleta__amostra" style="background: var(--cor-borda)"></span><strong>Juta</strong> <code>#8C8071</code><br /><span class="secundario">borda · <code>--cor-borda</code></span></li>
+            <li><span class="paleta__amostra" style="background: var(--cor-erro)"></span><strong>Tomate</strong> <code>#A3312A</code><br /><span class="secundario">erro · <code>--cor-erro</code></span></li>
+          </ul>
+
+          <h3>Contraste (WCAG AA: 4,5 para texto, 3 para borda)</h3>
+          <table class="contraste">
+            <thead><tr><th scope="col">Par</th><th scope="col">Razão</th><th scope="col">Resultado</th></tr></thead>
+            <tbody>
+              <tr><td>Texto sobre fundo</td><td>14,22:1</td><td>passa</td></tr>
+              <tr><td>Texto sobre superfície</td><td>15,75:1</td><td>passa</td></tr>
+              <tr><td>Secundário sobre fundo</td><td>7,06:1</td><td>passa</td></tr>
+              <tr><td>Branco sobre destaque (botão)</td><td>8,79:1</td><td>passa</td></tr>
+              <tr><td>Branco sobre destaque escuro (hover)</td><td>11,71:1</td><td>passa</td></tr>
+              <tr><td>Link sobre fundo</td><td>7,94:1</td><td>passa</td></tr>
+              <tr><td>Erro sobre fundo</td><td>6,26:1</td><td>passa</td></tr>
+              <tr><td>Borda sobre fundo (mín. 3)</td><td>3,49:1</td><td>passa</td></tr>
+              <tr><td>Branco sobre etiqueta de atacado</td><td>8,79:1</td><td>passa</td></tr>
+            </tbody>
+          </table>
+
+          <h3>Tipografia</h3>
+          <p class="secundario">Títulos: Bricolage Grotesque 800 · Texto: Atkinson Hyperlegible Next 400 e 700</p>
+          <p class="t1">Sua compra do mês</p>
+          <p class="t2">Como funciona</p>
+          <p class="t3">O que você recebe</p>
+          <p>Escolha os produtos, pague com Pix e receba no dia e na hora que você escolher. Ação, preço, açúcar e feijão: acentos conferidos.</p>
+          <p class="secundario">Texto secundário: pacote de 5 kg · entrega das 8h às 12h.</p>
+          <p><a href="#titulo-a">Um link de exemplo</a></p>
+
+          <h3>Botão principal</h3>
+          <div class="linha">
+            <a class="botao-principal" href="#titulo-a">
+              <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#sacola"></use></svg>
+              Fazer minha compra
+            </a>
+            <span class="botao-principal botao-principal--hover" aria-hidden="true">
+              <svg class="icone"><use href="/icons/icones.svg#sacola"></use></svg>
+              No hover
+            </span>
+          </div>
+
+          <h3>Campo e erro</h3>
+          <label class="rotulo" for="nome-a">Seu nome</label>
+          <input class="campo" id="nome-a" type="text" aria-invalid="true" aria-describedby="erro-a" />
+          <p class="erro" id="erro-a">Escreva seu nome.</p>
+
+          <h3>Card de produto</h3>
+          <article class="card">
+            <p class="card__selo">Oferta</p>
+            <img class="card__foto" src="/img/placeholder.svg" alt="" width="600" height="600" />
+            <h4 class="card__nome">Arroz branco</h4>
+            <p class="secundario card__unidade">Pacote de 5 kg</p>
+            <p class="card__preco">R$ 25,90 <span class="card__cada">cada</span></p>
+            <p class="card__etiqueta">A partir de 6: <strong>R$ 23,90</strong> cada</p>
+            <a class="botao-principal" href="#titulo-a">
+              <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#mais"></use></svg>
+              Adicionar
+            </a>
+          </article>
+
+          <h3>Direção de arte das imagens</h3>
+          <dl class="imagens">
+            <dt>Luz</dt><dd>natural de janela lateral, de manhã</dd>
+            <dt>Fundo</dt><dd>bancada de madeira clara ou linho cru</dd>
+            <dt>Enquadramento</dt><dd>3/4 bem próximo ou de cima; mãos guardando compras, sem rostos de banco de imagem</dd>
+            <dt>Materiais</dt><dd>madeira, linho, papel kraft, louça esmaltada azul</dd>
+            <dt>Produtos</dt><dd>fundo creme liso, sombra curta e suave</dd>
+          </dl>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="/src/estilo.js"></script>
+  </body>
+</html>
