@@ -1,5 +1,7 @@
 /* Variáveis do site: cores, fontes, espaços e formas.
-   Identidade visual: direção A, "Despensa de casa" (decidida em 22/10/2026).
+   Identidade visual: direção A2, "Premium claro" (23/10/2026), que evolui a direção A
+   ("Despensa de casa"). Inspirada no acabamento do site Sonora: tinta quase preta, cobre,
+   títulos largos em maiúsculas, cantos retos e muito espaço. O fundo creme continua.
    Decisões e contrastes em docs/identidade.md.
    Regra: nenhuma cor nem fonte é escrita fora deste arquivo.
    Toda troca de cor precisa manter o contraste (RNF-03). */
@@ -9,11 +11,11 @@
    No CSS o caminho começa com "/fonts/": o Vite acrescenta o base sozinho. */
 
 @font-face {
-  font-family: 'Bricolage Grotesque';
+  font-family: 'Unbounded';
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url('/fonts/bricolage-grotesque/bricolage-grotesque-latin-800-normal.woff2') format('woff2');
+  src: url('/fonts/unbounded/unbounded-latin-800-normal.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -39,25 +41,31 @@
   /* ---------- Cores ---------- */
   --cor-fundo: #f7f3ea;            /* Arroz: faixas creme */
   --cor-superficie: #ffffff;       /* Pote: página, cards, campos */
-  --cor-texto: #2b2118;            /* Feijão: 14,22:1 no fundo · 15,75:1 na superfície */
+  --cor-texto: #17140f;            /* Tinta: 16,59:1 no fundo · 18,37:1 na superfície */
   --cor-texto-secundario: #5c5044; /* Café: 7,06:1 no fundo · 7,82:1 na superfície */
-  --cor-destaque: #1e4d78;         /* Louça azul: botões, links, foco · branco sobre ela 8,79:1 */
-  --cor-destaque-escuro: #163a5c;  /* hover · branco sobre ela 11,71:1 */
-  --cor-sobre-destaque: #ffffff;   /* texto e ícone sobre o azul */
-  --cor-borda: #8c8071;            /* Juta: 3,49:1 no fundo · 3,86:1 na superfície (mínimo 3:1) */
+  --cor-destaque: #8a5524;         /* Cobre escuro: links, ícones, bordas de destaque · 5,57:1 no fundo · branco sobre ele 6,17:1 */
+  --cor-destaque-escuro: #6e4219;  /* hover · 7,72:1 no fundo · branco sobre ele 8,55:1 */
+  --cor-sobre-destaque: #ffffff;   /* texto e ícone sobre o cobre escuro */
+  --cor-botao: #d6a062;            /* Cobre: botão principal · tinta sobre ele 7,93:1 */
+  --cor-botao-escuro: #c38e52;     /* hover do botão principal · tinta sobre ele 6,39:1 */
+  --cor-sobre-botao: #17140f;      /* texto e ícone sobre o cobre */
+  --cor-foco: #17140f;             /* contorno de foco: 16,59:1 no fundo (o cobre claro só teria 2,09:1) */
+  --cor-borda: #8c8071;            /* Juta: campos · 3,49:1 no fundo · 3,86:1 na superfície (mínimo 3:1) */
+  --cor-linha: #d9d1c4;            /* linha fina decorativa entre blocos (não marca nada clicável) */
   --cor-erro: #a3312a;             /* Tomate: 6,26:1 no fundo · 6,93:1 na superfície */
-  --cor-etiqueta: #1e4d78;         /* selos, contador e atacado ativo */
-  --cor-sobre-etiqueta: #ffffff;   /* 8,79:1 */
+  --cor-etiqueta: #d6a062;         /* selos, contador e atacado ativo · tinta sobre ele 7,93:1 */
+  --cor-sobre-etiqueta: #17140f;
 
   /* ---------- Fontes ---------- */
-  --fonte-titulo: 'Bricolage Grotesque', system-ui, sans-serif;
+  --fonte-titulo: 'Unbounded', 'Arial Black', system-ui, sans-serif;
   --fonte-texto: 'Atkinson Hyperlegible Next', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --peso-titulo: 800;
+  --espaco-titulo: -0.02em;        /* a Unbounded é larga: um pouco menos de espaço entre letras */
 
   /* ---------- Formas ---------- */
-  --raio-botao: 12px;
-  --raio-card: 16px;
-  --borda-card: 1px solid var(--cor-borda);
+  --raio-botao: 0;                 /* cantos retos, como no acabamento premium */
+  --raio-card: 0;
+  --borda-card: 1px solid var(--cor-linha);
   --toque-minimo: 48px;            /* RNF-09 pede 44 px; 48 dá folga */
   --altura-botao: 56px;
   --largura-maxima: 1200px;
@@ -71,14 +79,19 @@
   --espaco-8: 32px;
   --espaco-12: 48px;
   --espaco-16: 64px;
+  --espaco-secao: clamp(4rem, 3rem + 5vw, 8rem); /* respiro entre seções: 64 a 128 px */
 
   /* ---------- Tamanhos (nenhum texto abaixo de 16 px, RNF-10) ---------- */
   --texto-p: 1rem;        /* 16 px: legendas e notas */
   --texto-m: 1.125rem;    /* 18 px: texto corrido */
   --texto-g: 1.375rem;    /* 22 px: destaque e preço pequeno */
   --titulo-3: 1.5rem;     /* 24 px */
-  --titulo-2: 2rem;       /* 32 px */
-  --titulo-1: clamp(2.25rem, 1.6rem + 2.6vw, 3.25rem); /* 36 a 52 px */
+  --titulo-2: clamp(1.75rem, 1.2rem + 2.4vw, 3rem);       /* 28 a 48 px */
+  --titulo-1: clamp(2.25rem, 1.6rem + 2.6vw, 3.25rem);    /* 36 a 52 px */
+  --titulo-gigante: clamp(2.5rem, 1rem + 7vw, 7.5rem);    /* 40 a 120 px: capa e números */
+
+  /* ---------- Movimento ---------- */
+  --curva-saida: cubic-bezier(0.23, 1, 0.32, 1);          /* começa rápido e pousa devagar */
 
   color-scheme: light;
 }

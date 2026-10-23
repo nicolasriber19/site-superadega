@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <!-- A fonte do título grande da capa começa a baixar junto com a página (melhora o LCP) -->
-    <link rel="preload" href="/fonts/bricolage-grotesque/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/unbounded/unbounded-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Protótipo: o nome "superadega" é provisório e coincide com uma rede real.
          Enquanto for assim, o site pede para não aparecer em buscas (tirar quando o nome definitivo entrar). -->
@@ -56,7 +56,7 @@
           <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#ajuda"></use></svg>
           Ajuda
         </a>
-        <a class="botao topo__botao" href="#finalizar">
+        <a class="botao botao--primario topo__botao" href="#finalizar">
           <!-- Sacola que enche: o "conteúdo" cresce conforme a lista (src/sections/finalizar.js) -->
           <svg class="icone sacola" viewBox="0 0 24 24" aria-hidden="true" data-sacola>
             <defs><clipPath id="sacola-corpo-topo"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z" /></clipPath></defs>
@@ -76,14 +76,36 @@
     <main>
       <!-- 2. Capa -->
       <section id="capa" class="capa" aria-labelledby="titulo-capa">
+        <!-- Título partido em volta da foto (estilo premium, docs/identidade.md, A2).
+             O leitor de tela lê uma frase só (o h1); as duas linhas grandes são só visuais. -->
+        <h1 id="titulo-capa" class="visualmente-oculto">Sua compra do mês, entregue em casa</h1>
+        <p class="capa__linha capa__linha--cima" aria-hidden="true">Sua compra</p>
+        <p class="capa__linha capa__linha--baixo" aria-hidden="true">do mês</p>
+
         <div class="capa__texto">
-          <h1 id="titulo-capa">Sua compra do mês, entregue em casa</h1>
-          <p class="capa__frase">Escolha os produtos, pague com Pix e receba no dia e na hora que você escolher.</p>
           <a class="botao botao--primario botao--grande" href="#produtos">
             <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#sacola"></use></svg>
             Fazer minha compra
           </a>
+          <p class="capa__frase">Escolha os produtos, pague com Pix e receba no dia e na hora que você escolher.</p>
         </div>
+
+        <!-- Ficha rápida, como a de um produto premium. O mínimo do atacado vem de
+             src/data/produtos.js (src/sections/capa.js), para nunca ficar desatualizado. -->
+        <dl class="capa__ficha">
+          <div>
+            <dt>Pagamento</dt>
+            <dd>Pix, antes de sair</dd>
+          </div>
+          <div>
+            <dt>Entrega</dt>
+            <dd>No dia que você escolher</dd>
+          </div>
+          <div>
+            <dt>Atacado</dt>
+            <dd>A partir de <span data-atacado-minimo>3</span> unidades</dd>
+          </div>
+        </dl>
 
         <!-- Foto gerada no Higgsfield (docs/ux.md, seção 7; original em _originais/).
              O navegador escolhe a versão pela largura da tela: 600, 800 ou 1600 px.
@@ -174,6 +196,31 @@
         <p class="faixa-foto__frase">Do mercado até a sua porta.</p>
       </div>
 
+      <!-- Em números: números grandes, no estilo premium (docs/identidade.md, A2).
+           Os valores vêm dos dados do site (src/sections/numeros.js): nada inventado.
+           O que está escrito aqui é só o que aparece se o JavaScript não rodar. -->
+      <section id="numeros" class="numeros" aria-labelledby="titulo-numeros">
+        <h2 id="titulo-numeros">Em números</h2>
+        <ul class="numeros__lista" role="list" data-numeros>
+          <li class="numero">
+            <strong class="numero__valor" data-numero="desconto">até 17%</strong>
+            <span class="numero__rotulo">de desconto levando mais unidades (preço de atacado)</span>
+          </li>
+          <li class="numero">
+            <strong class="numero__valor" data-numero="dias">5 dias</strong>
+            <span class="numero__rotulo">para escolher a entrega, a partir de amanhã</span>
+          </li>
+          <li class="numero">
+            <strong class="numero__valor" data-numero="horarios">3 horários</strong>
+            <span class="numero__rotulo" data-numero="nomes-horarios">manhã, tarde ou noite</span>
+          </li>
+          <li class="numero">
+            <strong class="numero__valor">1 Pix</strong>
+            <span class="numero__rotulo">e só depois o pedido sai para a entrega</span>
+          </li>
+        </ul>
+      </section>
+
       <!-- 5. O que você recebe -->
       <section id="o-que-voce-recebe" class="recebe" aria-labelledby="titulo-recebe">
         <div>
@@ -224,9 +271,13 @@
       <!-- 7. Finalizar -->
       <section id="finalizar" class="finalizar" aria-labelledby="titulo-finalizar">
         <h2 id="titulo-finalizar">Finalizar pedido</h2>
-        <h3>Sua lista</h3>
-        <!-- Preenchido por src/sections/finalizar.js -->
-        <div class="resumo" data-resumo></div>
+        <!-- Cupom: a lista e o total num papel com a borda de baixo serrilhada.
+             No computador fica fixo à direita enquanto a pessoa preenche o pedido. -->
+        <div class="cupom">
+          <h3>Sua lista</h3>
+          <!-- Preenchido por src/sections/finalizar.js -->
+          <div class="resumo" data-resumo></div>
+        </div>
 
         <!-- Dados da entrega (RF-04, RF-05, RF-09). O envio pelo WhatsApp entra no passo 12.
              Nada deste formulário fica salvo no aparelho. -->
@@ -328,6 +379,8 @@
           Voltar ao topo
         </a>
       </p>
+      <!-- Marca grande no pé da página (só visual: o nome está logo abaixo) -->
+      <p class="rodape__logo" aria-hidden="true">superadega<span class="marca__ponto">.</span></p>
       <p class="rodape__marca">Superadega (nome provisório)</p>
     </footer>
 

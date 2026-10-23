@@ -105,7 +105,7 @@
       <div class="estilo__colunas">
 
         <section class="direcao" aria-labelledby="titulo-a">
-          <h2 class="direcao__nome" id="titulo-a">Despensa de casa (direção A, escolhida)</h2>
+          <h2 class="direcao__nome" id="titulo-a">Premium claro (direção A2, aplicada)</h2>
           <p class="secundario">A compra do mês chegando na cozinha de casa, arrumada e tranquila.</p>
 
           <h3>Logotipo</h3>
@@ -115,9 +115,10 @@
           <ul class="paleta" role="list">
             <li><span class="paleta__amostra" style="background: var(--cor-fundo)"></span><strong>Arroz</strong> <code>#F7F3EA</code><br /><span class="secundario">fundo · <code>--cor-fundo</code></span></li>
             <li><span class="paleta__amostra" style="background: var(--cor-superficie)"></span><strong>Pote</strong> <code>#FFFFFF</code><br /><span class="secundario">superfície (cards, campos) · <code>--cor-superficie</code></span></li>
-            <li><span class="paleta__amostra" style="background: var(--cor-texto)"></span><strong>Feijão</strong> <code>#2B2118</code><br /><span class="secundario">texto · <code>--cor-texto</code></span></li>
+            <li><span class="paleta__amostra" style="background: var(--cor-texto)"></span><strong>Tinta</strong> <code>#17140F</code><br /><span class="secundario">texto e foco · <code>--cor-texto</code></span></li>
             <li><span class="paleta__amostra" style="background: var(--cor-texto-secundario)"></span><strong>Café</strong> <code>#5C5044</code><br /><span class="secundario">texto secundário · <code>--cor-texto-secundario</code></span></li>
-            <li><span class="paleta__amostra" style="background: var(--cor-destaque)"></span><strong>Louça azul</strong> <code>#1E4D78</code><br /><span class="secundario">destaque: botão, link, foco · <code>--cor-destaque</code></span></li>
+            <li><span class="paleta__amostra" style="background: var(--cor-botao)"></span><strong>Cobre</strong> <code>#D6A062</code><br /><span class="secundario">botão principal e etiquetas · <code>--cor-botao</code></span></li>
+            <li><span class="paleta__amostra" style="background: var(--cor-destaque)"></span><strong>Cobre escuro</strong> <code>#8A5524</code><br /><span class="secundario">links, ícones, números grandes · <code>--cor-destaque</code></span></li>
             <li><span class="paleta__amostra" style="background: var(--cor-borda)"></span><strong>Juta</strong> <code>#8C8071</code><br /><span class="secundario">borda · <code>--cor-borda</code></span></li>
             <li><span class="paleta__amostra" style="background: var(--cor-erro)"></span><strong>Tomate</strong> <code>#A3312A</code><br /><span class="secundario">erro · <code>--cor-erro</code></span></li>
           </ul>
@@ -126,20 +127,21 @@
           <table class="contraste">
             <thead><tr><th scope="col">Par</th><th scope="col">Razão</th><th scope="col">Resultado</th></tr></thead>
             <tbody>
-              <tr><td>Texto sobre fundo</td><td>14,22:1</td><td>passa</td></tr>
-              <tr><td>Texto sobre superfície</td><td>15,75:1</td><td>passa</td></tr>
+              <tr><td>Texto sobre fundo</td><td>16,59:1</td><td>passa</td></tr>
+              <tr><td>Texto sobre superfície</td><td>18,37:1</td><td>passa</td></tr>
               <tr><td>Secundário sobre fundo</td><td>7,06:1</td><td>passa</td></tr>
-              <tr><td>Branco sobre destaque (botão)</td><td>8,79:1</td><td>passa</td></tr>
-              <tr><td>Branco sobre destaque escuro (hover)</td><td>11,71:1</td><td>passa</td></tr>
-              <tr><td>Link sobre fundo</td><td>7,94:1</td><td>passa</td></tr>
+              <tr><td>Tinta sobre cobre (botão)</td><td>7,93:1</td><td>passa</td></tr>
+              <tr><td>Tinta sobre cobre do hover</td><td>6,39:1</td><td>passa</td></tr>
+              <tr><td>Link (cobre escuro) sobre fundo</td><td>5,57:1</td><td>passa</td></tr>
+              <tr><td>Foco (tinta) sobre fundo</td><td>16,59:1</td><td>passa</td></tr>
               <tr><td>Erro sobre fundo</td><td>6,26:1</td><td>passa</td></tr>
               <tr><td>Borda sobre fundo (mín. 3)</td><td>3,49:1</td><td>passa</td></tr>
-              <tr><td>Branco sobre etiqueta de atacado</td><td>8,79:1</td><td>passa</td></tr>
+              <tr><td>Tinta sobre etiqueta de atacado (cobre)</td><td>7,93:1</td><td>passa</td></tr>
             </tbody>
           </table>
 
           <h3>Tipografia</h3>
-          <p class="secundario">Títulos: Bricolage Grotesque 800 · Texto: Atkinson Hyperlegible Next 400 e 700</p>
+          <p class="secundario">Títulos: Unbounded 800, em maiúsculas · Texto: Atkinson Hyperlegible Next 400 e 700</p>
           <p class="t1">Sua compra do mês</p>
           <p class="t2">Como funciona</p>
           <p class="t3">O que você recebe</p>

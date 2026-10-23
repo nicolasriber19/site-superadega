@@ -6,7 +6,7 @@ import './styles/base.css'
 
 // Cada fonte é conferida no peso e na largura em que é usada.
 const fontes = [
-  { nome: 'Bricolage Grotesque 800', teste: '800 1em "Bricolage Grotesque"' },
+  { nome: 'Unbounded 800', teste: '800 1em "Unbounded"' },
   { nome: 'Atkinson Hyperlegible Next 400', teste: '400 1em "Atkinson Hyperlegible Next"' },
   { nome: 'Atkinson Hyperlegible Next 700', teste: '700 1em "Atkinson Hyperlegible Next"' },
 ]

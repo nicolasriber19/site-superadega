@@ -41,6 +41,7 @@ Versão 1, 22/10/2026. Base: `docs/brief.md`, `docs/requisitos.md`, `docs/plano.
 | 3 | Quem somos | Supermercado de compra do mês, com preço de atacado | "Quem vende?" | Confiança antes de pedir dados |
 | 4 | Como funciona | Escolha, envie, pague o Pix, receba e assine | "Como funciona? Quando pago?" | Tira o medo do pagamento antes dos produtos |
 | — | Faixa com foto | Do mercado até a sua porta | — | Pausa visual entre o "como" e o "o quê"; não é uma seção, só uma frase sobre a foto |
+| — | Em números | até 17% · 5 dias · 3 horários · 1 Pix | "Vale a pena?" | Números grandes, tirados dos dados do site (`src/sections/numeros.js`); nada escrito à mão |
 | 5 | O que você recebe | Tudo na sua porta, no dia escolhido | "O que chega e como?" | Fecha as dúvidas e leva aos produtos |
 | 6 | Produtos | Toque no + para pôr na lista | "O que tem e quanto custa?" | Aqui a pessoa age |
 | 7 | Finalizar pedido | Escolha dia e hora e envie pelo WhatsApp | "Como eu termino?" | Fim natural da lista |
@@ -321,6 +322,8 @@ Use esta lista depois que a página estiver pronta. Abra `npm run dev` → http:
 - [ ] **Faixa com foto (Chrome):** ao rolar, a foto da porta anda mais devagar que a página, sem faixa vazia em cima ou embaixo, e a frase continua legível.
 - [ ] **Fotos dos produtos:** os 8 cards mostram a foto do produto, e nenhuma cai no `placeholder.svg`.
 - [ ] **Fotos dos passos:** os 4 cards do "Como funciona" mostram a foto no topo, com o número por cima, no canto direito.
+- [ ] **Estilo premium (docs/identidade.md, seção 8):** a capa mostra "SUA COMPRA" / foto / "DO MÊS", e "Fazer minha compra" aparece sem rolar em 375 × 667. No computador, o cupom fica fixo à direita do formulário. Nada rola para o lado em 320, 375 e 1280 px.
+- [ ] **Em números:** os 4 números batem com os dados (maior desconto de atacado, `DIAS_DE_ENTREGA` e faixas de horário).
 - [ ] **Link compartilhado:** mandar o endereço do site no WhatsApp mostra a foto da capa e o título com "(site de teste)".
 - [ ] **Sacola que enche:** com 0 itens a sacola está vazia, com 10 fica pela metade e com 20 ou mais fica cheia, no topo e na barra. Ela pula ao pôr um item e não pula ao tirar.
 - [ ] **Menos movimento (DevTools → Ctrl+Shift+P → "Rendering" → prefers-reduced-motion: reduce):** o card não se move, só a borda acende. A capa fica parada, e a sacola mostra o nível sem pular.

@@ -20,24 +20,34 @@ body {
   font-size: 1.125rem; /* 18 px: acima do mínimo de 16 px (RNF-10) */
   line-height: 1.5;
   color: var(--cor-texto);
-  background: var(--cor-superficie);
+  background: var(--cor-fundo); /* creme na página toda; o branco fica para cards e cupom */
 }
 
+/* Títulos de seção: letra larga em maiúsculas (estilo premium), só em frases curtas.
+   O h3 e todo o texto ficam na letra fácil de ler, sem maiúsculas. */
 h1,
-h2,
-h3 {
+h2 {
   font-family: var(--fonte-titulo);
   font-weight: var(--peso-titulo);
-  line-height: 1.2;
+  line-height: 1.05;
+  letter-spacing: var(--espaco-titulo);
+  text-transform: uppercase;
   margin: 0 0 0.5em;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: var(--titulo-1);
 }
 
 h2 {
-  font-size: 1.625rem;
+  font-size: var(--titulo-2);
+}
+
+h3 {
+  font-family: var(--fonte-texto);
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 0.5em;
 }
 
 p {
@@ -63,7 +73,7 @@ a {
 
 /* Foco visível em tudo que recebe o teclado (RNF-02) */
 :focus-visible {
-  outline: 3px solid var(--cor-destaque);
+  outline: 3px solid var(--cor-foco);
   outline-offset: 3px;
 }
 
@@ -76,16 +86,19 @@ a {
   min-height: var(--toque-minimo);
   min-width: var(--toque-minimo);
   padding: 0.6em 1.2em;
-  border: 2px solid var(--cor-destaque);
+  border: 2px solid var(--cor-texto);
   border-radius: var(--raio-botao);
   font: inherit;
-  font-family: var(--fonte-titulo);
-  font-weight: var(--peso-titulo);
+  font-weight: 700; /* a letra do texto: mais fácil de ler que a larga dos títulos */
   text-decoration: none;
   cursor: pointer;
   background: var(--cor-superficie);
-  color: var(--cor-destaque);
+  color: var(--cor-texto);
   touch-action: manipulation; /* toques rápidos no + não dão zoom no celular */
+  transition:
+    background-color 0.16s var(--curva-saida),
+    border-color 0.16s var(--curva-saida),
+    color 0.16s var(--curva-saida);
 }
 
 .botao:hover {
@@ -93,14 +106,17 @@ a {
   color: var(--cor-destaque-escuro);
 }
 
+/* Principal: cobre com letra tinta (7,93:1) */
 .botao--primario {
-  background: var(--cor-destaque);
-  color: var(--cor-sobre-destaque);
+  border-color: var(--cor-botao);
+  background: var(--cor-botao);
+  color: var(--cor-sobre-botao);
 }
 
 .botao--primario:hover {
-  background: var(--cor-destaque-escuro);
-  color: var(--cor-sobre-destaque);
+  border-color: var(--cor-botao-escuro);
+  background: var(--cor-botao-escuro);
+  color: var(--cor-sobre-botao);
 }
 
 .botao--grande {

@@ -19,12 +19,12 @@
 }
 
 /* Versão sem movimento (RNF-05): com "reduzir movimento" ligado no aparelho,
-   o card não se mexe. No lugar, a borda brilha em azul por um instante. */
+   o card não se mexe. No lugar, a borda brilha em cobre por um instante. */
 
 @keyframes destaque {
   0%,
   60% {
-    box-shadow: 0 0 0 4px var(--cor-etiqueta);
+    box-shadow: 0 0 0 4px var(--cor-destaque);
   }
   100% {
     box-shadow: 0 0 0 4px transparent;
@@ -39,20 +39,31 @@
 
 /* ---------- Capa com profundidade ----------
    Enquanto a capa sai da tela (ao rolar para baixo):
-   - a moldura inteira desce mais devagar que a página (até 15% da altura dela,
-     o que cabe no espaço vazio abaixo da capa, sem cobrir texto);
+   - as duas linhas grandes se afastam para os lados ("SUA COMPRA" para a esquerda,
+     "DO MÊS" para a direita). Só andam na horizontal: nunca cobrem a foto nem o botão.
+     A capa corta o que passa da borda (overflow-x: clip, em sections.css);
    - a foto, dentro da moldura, sai de um zoom leve (108% → 100%). Com zoom de 100%
      ou mais ela sempre cobre a moldura toda: nunca aparece vão.
-   Só CSS: a animação é ligada à rolagem (animation-timeline).
+   Só CSS: a animação é ligada à rolagem (animation-timeline). A linha do tempo
+   "--capa" é a da seção inteira (sections.css).
    - Navegador sem suporte: a capa fica parada (nada quebra).
    - "Reduzir movimento" ligado: a capa fica parada. */
 
-@keyframes capa-moldura-desce {
+@keyframes capa-linha-esquerda {
   from {
-    transform: translateY(0);
+    transform: translateX(0);
   }
   to {
-    transform: translateY(15%);
+    transform: translateX(-12%);
+  }
+}
+
+@keyframes capa-linha-direita {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(12%);
   }
 }
 
@@ -67,10 +78,16 @@
 
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
-    .capa__moldura {
-      animation: capa-moldura-desce linear both;
+    .capa__linha--cima {
+      animation: capa-linha-esquerda linear both;
       /* depois do "animation" (o atalho apagaria estas duas linhas) */
-      animation-timeline: view();
+      animation-timeline: --capa;
+      animation-range: exit;
+    }
+
+    .capa__linha--baixo {
+      animation: capa-linha-direita linear both;
+      animation-timeline: --capa;
       animation-range: exit;
     }
 
@@ -139,5 +156,41 @@
 
   .sacola__conteudo {
     transition: none;
+  }
+}
+
+/* ---------- Entradas suaves ao rolar (estilo premium) ----------
+   Cada bloco curto aparece com um fade e sobe 24 px quando entra na tela.
+   Só blocos curtos: títulos, cards dos passos, números, itens da lista e fotos.
+   A grade de produtos, o formulário e o cupom ficam de fora: podem ser altos e ficariam
+   meio apagados por muito tempo (e o card já tem a própria animação de aperto).
+   - Navegador sem suporte ou "reduzir movimento": tudo aparece normal, parado. */
+
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    main > section:not(.capa) > h2,
+    .recebe h2,
+    .quem-somos p,
+    .passo,
+    .faixa-foto__frase,
+    .numero,
+    .beneficios li,
+    .recebe__imagem,
+    .rodape__logo {
+      animation: entrar linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
   }
 }

@@ -9,11 +9,11 @@ main > section,
 
 main > section,
 .rodape {
-  padding-block: 48px;
+  padding-block: var(--espaco-secao); /* muito espaço entre seções: acabamento premium */
 }
 
 /* Faixa de protótipo, no alto de todas as páginas (tirar com o nome definitivo).
-   Texto branco sobre Feijão: 15,75:1 */
+   Texto branco sobre a tinta: 18,37:1 */
 .faixa-teste {
   margin: 0;
   padding: var(--espaco-2) var(--espaco-4);
@@ -24,15 +24,16 @@ main > section,
   text-align: center;
 }
 
-/* 1. Topo */
+/* 1. Topo: fino, com linha embaixo. Marca à esquerda, âncoras no meio, atalhos à direita. */
 .topo {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 8px var(--espaco-4);
+  gap: 8px var(--espaco-6);
   padding-block: 12px;
-  border-bottom: 1px solid var(--cor-fundo);
+  border-bottom: 1px solid var(--cor-linha);
+  background: var(--cor-fundo);
 }
 
 .marca {
@@ -40,13 +41,14 @@ main > section,
   align-items: center;
   min-height: var(--toque-minimo);
   font-family: var(--fonte-titulo);
-  font-size: var(--titulo-3);
+  font-size: var(--texto-g);
   font-weight: var(--peso-titulo);
+  letter-spacing: var(--espaco-titulo);
   color: var(--cor-texto);
   text-decoration: none;
 }
 
-/* Logotipo tipográfico: "superadega." com o ponto em azul-louça */
+/* Logotipo tipográfico: "superadega." com o ponto em cobre escuro */
 .marca__ponto {
   color: var(--cor-destaque);
 }
@@ -54,7 +56,7 @@ main > section,
 /* Âncoras das seções: escondidas no celular, visíveis a partir de 900 px */
 .topo__ancoras {
   display: none;
-  gap: var(--espaco-6);
+  gap: var(--espaco-8);
 }
 
 .topo__ancoras a {
@@ -88,7 +90,7 @@ main > section,
 }
 
 /* Sacola que enche: o "conteúdo" cresce de baixo para cima conforme --nivel (0 a 1).
-   Cor = a do texto do botão (azul no topo, branco na barra), meio transparente. */
+   Cor = a do texto do botão (tinta no topo e na barra), meio transparente. */
 .sacola__conteudo {
   fill: currentColor;
   opacity: 0.45;
@@ -107,36 +109,106 @@ main > section,
   text-align: center;
 }
 
-/* 2. Capa */
+/* Dentro do botão cobre, o contador inverte: tinta com número cobre (7,93:1) */
+.botao--primario .contador {
+  background: var(--cor-sobre-botao);
+  color: var(--cor-botao);
+}
+
+/* 2. Capa: título gigante partido em volta da foto.
+   Celular, de cima para baixo: SUA COMPRA / foto / DO MÊS / botão e frase / ficha.
+   A partir de 900 px: a foto no meio, o botão e a frase à esquerda, a ficha à direita. */
 .capa {
   display: grid;
-  gap: 32px;
-  align-items: center;
+  grid-template-areas:
+    'cima'
+    'foto'
+    'baixo'
+    'texto'
+    'ficha';
+  gap: var(--espaco-4);
+  justify-items: center;
+  text-align: center;
+  overflow-x: clip; /* as linhas grandes deslizam para os lados ao rolar (animacao.css) */
   background: var(--cor-fundo);
+  view-timeline-name: --capa;
 }
 
 main > .capa {
-  padding-block: 32px 48px;
+  padding-block: var(--espaco-6) var(--espaco-secao);
 }
 
-.capa h1 {
-  font-size: clamp(2rem, 1.4rem + 2.5vw, 3rem);
+/* As duas linhas grandes: só visuais (o h1 escondido tem a frase inteira) */
+.capa__linha {
+  margin: 0;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2.25rem, 10.5vw, 8rem);
+  font-weight: var(--peso-titulo);
+  line-height: 0.95;
+  letter-spacing: var(--espaco-titulo);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.capa__linha--cima {
+  grid-area: cima;
+}
+
+.capa__linha--baixo {
+  grid-area: baixo;
+}
+
+.capa__texto {
+  grid-area: texto;
+  display: grid;
+  gap: var(--espaco-4);
+  justify-items: center;
+  margin-top: var(--espaco-2);
 }
 
 .capa__frase {
   max-width: 32ch;
-  font-size: 1.25rem;
+  margin: 0;
   color: var(--cor-texto-secundario);
 }
 
-/* Moldura da foto: borda e cantos ficam aqui, e a foto pode se mexer dentro sem vazar */
+/* Ficha rápida: rótulo pequeno em cima, valor forte embaixo, separados por linha fina */
+.capa__ficha {
+  grid-area: ficha;
+  display: grid;
+  width: 100%;
+  max-width: 28rem;
+  margin: var(--espaco-4) 0 0;
+}
+
+.capa__ficha div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--espaco-4);
+  padding-block: var(--espaco-3);
+  border-top: 1px solid var(--cor-linha);
+  text-align: left;
+}
+
+.capa__ficha dt {
+  color: var(--cor-texto-secundario);
+}
+
+.capa__ficha dd {
+  margin: 0;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Moldura da foto: a foto pode se mexer dentro sem vazar */
 .capa__moldura {
+  grid-area: foto;
+  width: 100%;
   overflow: hidden;
   /* "clip" corta igual, mas não vira área de rolagem própria: assim a animação
      da foto acompanha a rolagem da página (com "hidden" ela ficaria parada) */
   overflow: clip;
   aspect-ratio: 16 / 9;
-  border: var(--borda-card); /* separa a foto do fundo creme da capa */
   border-radius: var(--raio-card);
 }
 
@@ -148,28 +220,78 @@ main > .capa {
 
 @media (min-width: 900px) {
   .capa {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr) minmax(0, 1fr);
+    grid-template-areas:
+      'cima  cima cima'
+      'texto foto ficha'
+      'baixo baixo baixo';
+    column-gap: var(--espaco-8);
+    align-items: center;
   }
 
   main > .capa {
-    padding-block: 64px;
+    padding-block: var(--espaco-8) var(--espaco-secao);
+  }
+
+  .capa__texto {
+    justify-items: start;
+    text-align: left;
+    margin-top: 0;
+  }
+
+  .capa__frase {
+    order: -1; /* no computador, a frase vem antes do botão, como um texto de abertura */
+  }
+
+  .capa__ficha {
+    margin: 0;
+  }
+
+  .capa__ficha div {
+    display: grid;
+    justify-content: normal; /* desfaz o space-between do celular: a coluna ocupa a largura toda */
+    gap: 2px;
+    justify-items: end;
+    text-align: right;
   }
 }
 
-/* 3. Quem somos */
+/* 3. Quem somos: uma frase grande, de manchete, com muito espaço em volta.
+   No computador, o título fica à esquerda e a frase à direita. */
+.quem-somos {
+  display: grid;
+  gap: var(--espaco-4);
+}
+
 .quem-somos p {
-  max-width: 60ch;
+  max-width: 30ch;
+  margin: 0;
+  font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+@media (min-width: 900px) {
+  .quem-somos {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    column-gap: var(--espaco-8);
+  }
+}
+
+/* Cabeçalho de seção: linha fina em cima do título, como nas páginas premium */
+main > section:not(.capa) > h2,
+.recebe h2, /* aqui o título fica dentro de um div, ao lado da foto */
+.rodape > h2 {
+  padding-top: var(--espaco-4);
+  border-top: 1px solid var(--cor-texto);
 }
 
 /* 4. Como funciona */
-.como-funciona {
-  background: var(--cor-fundo);
-}
-
 .passos {
   display: grid;
   gap: var(--espaco-4);
-  margin: 24px 0 0;
+  margin: var(--espaco-6) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -190,6 +312,7 @@ main > .capa {
   margin: 0;
 }
 
+/* Número do passo: círculo cobre com letra tinta (7,93:1), por cima da foto */
 .passo__numero {
   position: absolute;
   top: 16px;
@@ -199,18 +322,18 @@ main > .capa {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--cor-destaque);
-  color: var(--cor-sobre-destaque);
+  background: var(--cor-etiqueta);
+  color: var(--cor-sobre-etiqueta);
   font-family: var(--fonte-titulo);
-  font-size: 1.375rem;
+  font-size: 1.25rem;
   font-weight: var(--peso-titulo);
   /* anel branco: separa o número da foto que fica atrás dele */
   box-shadow: 0 0 0 3px var(--cor-superficie);
 }
 
 /* Foto do passo: de ponta a ponta no topo do card (sai do padding de 24 px).
-   Os cantos de cima seguem a curva do card. O número fica por cima, no canto direito,
-   que nas fotos é uma área calma (docs/imagens.md). */
+   O número fica por cima, no canto direito, que nas fotos é uma área calma
+   (docs/imagens.md). */
 .passo__foto {
   display: block;
   width: calc(100% + 48px);
@@ -219,8 +342,7 @@ main > .capa {
   aspect-ratio: 4 / 3;
   object-fit: cover;
   margin: -24px -24px 16px;
-  /* 1 px a menos que o card: a foto fica por dentro da borda de 1 px */
-  border-radius: calc(var(--raio-card) - 1px) calc(var(--raio-card) - 1px) 0 0;
+  border-radius: var(--raio-card) var(--raio-card) 0 0;
 }
 
 @media (min-width: 600px) {
@@ -237,7 +359,7 @@ main > .capa {
 
 /* Faixa com foto (entre "Como funciona" e "O que você recebe"), de ponta a ponta da tela.
    A foto é 30% mais alta que a faixa: sobra espaço para ela andar sem abrir vão.
-   O fundo azul aparece só se a foto não carregar; a frase continua legível no cartão. */
+   O fundo cobre escuro aparece só se a foto não carregar; a frase continua legível no cartão. */
 .faixa-foto {
   position: relative;
   display: grid;
@@ -270,30 +392,73 @@ main > .capa {
   font-family: var(--fonte-titulo);
   font-size: var(--titulo-2);
   font-weight: var(--peso-titulo);
-  line-height: 1.15;
+  line-height: 1.1;
+  letter-spacing: var(--espaco-titulo);
   text-align: center;
+  text-transform: uppercase;
   text-wrap: balance; /* linhas de tamanho parecido, sem palavra sozinha na última */
 }
 
-/* 5. O que você recebe */
+/* Em números: números grandes em cobre escuro (5,57:1 no creme), com linha fina em cima.
+   Celular: um embaixo do outro. A partir de 700 px: dois por linha. */
+.numeros__lista {
+  display: grid;
+  margin: var(--espaco-6) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.numero {
+  display: grid;
+  gap: var(--espaco-2);
+  padding-block: var(--espaco-6);
+  border-top: 1px solid var(--cor-linha);
+}
+
+.numero__valor {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2.75rem, 1.8rem + 4.5vw, 5.5rem);
+  font-weight: var(--peso-titulo);
+  line-height: 1;
+  letter-spacing: var(--espaco-titulo);
+  color: var(--cor-destaque);
+}
+
+.numero__rotulo {
+  max-width: 28ch;
+  color: var(--cor-texto-secundario);
+  font-size: var(--texto-m);
+}
+
+@media (min-width: 700px) {
+  .numeros__lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--espaco-8);
+  }
+}
+
+/* 5. O que você recebe: lista com linhas finas, como a de uma caixa de produto premium */
 .recebe {
   display: grid;
-  gap: 32px;
+  gap: var(--espaco-8);
   align-items: center;
 }
 
 .beneficios {
   display: grid;
-  gap: 12px;
-  margin: 24px 0 0;
+  margin: var(--espaco-6) 0 0;
   padding: 0;
   list-style: none;
+  border-bottom: 1px solid var(--cor-linha);
 }
 
 .beneficios li {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--espaco-4);
+  padding-block: var(--espaco-4);
+  border-top: 1px solid var(--cor-linha);
+  font-weight: 700;
 }
 
 .beneficios__icone {
@@ -307,13 +472,13 @@ main > .capa {
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  border: var(--borda-card);
   border-radius: var(--raio-card);
 }
 
 @media (min-width: 900px) {
   .recebe {
     grid-template-columns: 1fr 1fr;
+    column-gap: var(--espaco-12);
   }
 }
 
@@ -324,6 +489,7 @@ main > .capa {
 
 .aviso-exemplo {
   display: inline-block;
+  margin-top: var(--espaco-2);
   padding: 0.25em 0.75em;
   border-radius: var(--raio-botao);
   background: var(--cor-etiqueta);
@@ -335,7 +501,7 @@ main > .capa {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 12px;
-  margin: 16px 0 0;
+  margin: var(--espaco-6) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -354,7 +520,7 @@ main > .capa {
   aspect-ratio: 1;
   object-fit: cover;
   margin-bottom: 12px;
-  border-radius: calc(var(--raio-card) - 4px);
+  border-radius: var(--raio-card);
 }
 
 .card-produto__nome {
@@ -371,11 +537,14 @@ main > .capa {
 .card-produto__preco {
   margin: 0;
   font-family: var(--fonte-titulo);
-  font-size: 1.375rem; /* cabe "R$ 25,90 cada" na mesma linha em 375 px */
+  font-size: 1.25rem; /* a Unbounded é larga: 20 px faz "R$ 25,90" caber no card de 375 px */
   font-weight: var(--peso-titulo);
+  letter-spacing: var(--espaco-titulo);
 }
 
+/* "cada" sempre na linha de baixo: com a letra larga do preço, assim todos os cards ficam iguais */
 .card-produto__cada {
+  display: block;
   font-family: var(--fonte-texto);
   font-size: 1rem;
   font-weight: 400;
@@ -387,7 +556,7 @@ main > .capa {
   gap: 6px;
   margin: 8px 0 0;
   padding: 6px 8px;
-  border-radius: 8px;
+  border-radius: var(--raio-card);
   background: var(--cor-fundo);
   font-size: 1rem;
   line-height: 1.35;
@@ -414,12 +583,13 @@ main > .capa {
   gap: 4px;
   margin: 0;
   padding: 2px 10px;
-  border-radius: 999px;
+  border-radius: var(--raio-botao);
   background: var(--cor-etiqueta);
   color: var(--cor-sobre-etiqueta);
   font-family: var(--fonte-titulo);
   font-size: 1rem;
   font-weight: var(--peso-titulo);
+  text-transform: uppercase;
 }
 
 .card-produto__selo .icone {
@@ -447,11 +617,12 @@ main > .capa {
   height: 32px;
 }
 
-/* Filtro ligado: fundo azul, texto branco */
+/* Filtro ligado: fundo tinta, texto branco (18,37:1) */
 .filtro[aria-pressed='true'],
 .filtro[aria-pressed='true']:hover {
-  background: var(--cor-destaque);
-  color: var(--cor-sobre-destaque);
+  border-color: var(--cor-texto);
+  background: var(--cor-texto);
+  color: var(--cor-superficie);
 }
 
 .catalogo__vazio {
@@ -465,7 +636,7 @@ main > .capa {
   }
 }
 
-/* Na lista: borda azul de 2 px (a segunda linha vem do anel por dentro, sem mudar o tamanho) */
+/* Na lista: borda cobre escuro de 2 px (a segunda linha vem do anel por dentro, sem mudar o tamanho) */
 .card-produto--na-lista {
   border-color: var(--cor-destaque);
   box-shadow: inset 0 0 0 1px var(--cor-destaque);
@@ -510,7 +681,7 @@ main > .capa {
   margin-bottom: 8px;
 }
 
-/* Enquanto fala, o botão fica azul-escuro (tocar de novo para) */
+/* Enquanto fala, o botão fica cobre-escuro com letra branca (8,55:1) */
 .botao-ouvir--falando,
 .botao-ouvir--falando:hover {
   border-color: var(--cor-destaque-escuro);
@@ -554,9 +725,68 @@ main > .capa {
   }
 }
 
-/* 7. Finalizar: resumo da lista */
-.resumo {
-  max-width: 640px;
+/* 7. Finalizar: a lista vira um cupom (papel branco com a borda de baixo serrilhada).
+   No computador: o formulário à esquerda e o cupom fixo à direita. */
+.finalizar {
+  display: grid;
+  grid-template-areas:
+    'titulo'
+    'cupom'
+    'pedido';
+  column-gap: var(--espaco-12);
+  align-items: start;
+}
+
+.finalizar > h2 {
+  grid-area: titulo;
+}
+
+.cupom {
+  grid-area: cupom;
+  --dente: 12px; /* tamanho de cada dente da borda serrilhada */
+  padding: var(--espaco-6) var(--espaco-6) calc(var(--espaco-6) + var(--dente));
+  background: var(--cor-superficie);
+  /* Borda serrilhada embaixo: uma máscara corta triângulos no pé do papel.
+     "black" e "transparent" aqui não são cores na tela: só dizem o que aparece e o que some. */
+  -webkit-mask:
+    conic-gradient(from -45deg at bottom, transparent, black 1deg 89deg, transparent 90deg)
+    50% / calc(2 * var(--dente)) 100%;
+  mask:
+    conic-gradient(from -45deg at bottom, transparent, black 1deg 89deg, transparent 90deg)
+    50% / calc(2 * var(--dente)) 100%;
+}
+
+.cupom h3 {
+  margin: 0 0 var(--espaco-4);
+  padding-bottom: var(--espaco-3);
+  border-bottom: 2px dashed var(--cor-linha);
+  font-family: var(--fonte-titulo);
+  font-size: var(--texto-g);
+  letter-spacing: var(--espaco-titulo);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.finalizar .pedido {
+  grid-area: pedido;
+}
+
+@media (min-width: 900px) {
+  .finalizar {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-areas:
+      'titulo titulo'
+      'pedido cupom';
+  }
+
+  .cupom {
+    position: sticky;
+    top: var(--espaco-6);
+  }
+
+  .finalizar .pedido {
+    margin-top: 0;
+  }
 }
 
 .resumo__lista {
@@ -571,7 +801,7 @@ main > .capa {
   gap: 12px;
   align-items: baseline;
   padding: 12px 0;
-  border-bottom: 1px solid var(--cor-fundo);
+  border-bottom: 1px dotted var(--cor-borda);
 }
 
 .resumo__quantidade {
@@ -592,8 +822,22 @@ main > .capa {
 .resumo__total {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   margin: 16px 0 0;
-  font-size: 1.5rem;
+  padding-top: var(--espaco-3);
+  border-top: 2px solid var(--cor-texto);
+  font-size: var(--texto-g);
+  font-weight: 700;
+}
+
+.resumo__total strong {
+  font-family: var(--fonte-titulo);
+  font-size: var(--titulo-3);
+  letter-spacing: var(--espaco-titulo);
+}
+
+.resumo__vazio {
+  text-align: center;
 }
 
 /* 7. Finalizar: formulário da entrega */
@@ -634,10 +878,10 @@ main > .capa {
   gap: 2px;
   min-height: 72px;
   padding: 8px 4px;
-  border: 2px solid var(--cor-destaque);
+  border: 2px solid var(--cor-texto);
   border-radius: var(--raio-botao);
   background: var(--cor-superficie);
-  color: var(--cor-destaque);
+  color: var(--cor-texto);
   text-align: center;
   cursor: pointer;
 }
@@ -657,15 +901,15 @@ main > .capa {
   height: 32px;
 }
 
-/* Opção escolhida: fundo azul e texto branco */
+/* Opção escolhida: fundo tinta e texto branco (18,37:1) */
 .escolha:has(input:checked) {
-  background: var(--cor-destaque);
-  color: var(--cor-sobre-destaque);
+  background: var(--cor-texto);
+  color: var(--cor-superficie);
 }
 
 /* Foco do teclado aparece no "botão", já que o radio está escondido */
 .escolha:has(input:focus-visible) {
-  outline: 3px solid var(--cor-destaque);
+  outline: 3px solid var(--cor-foco);
   outline-offset: 3px;
 }
 
@@ -788,9 +1032,9 @@ main > .capa {
   border-color: var(--cor-erro);
 }
 
-/* 8. Rodapé */
+/* 8. Rodapé: linha fina em cima, atalhos e a marca grande no pé */
 .rodape {
-  background: var(--cor-fundo);
+  border-top: 1px solid var(--cor-linha);
 }
 
 .rodape__acoes {
@@ -802,6 +1046,17 @@ main > .capa {
 
 .rodape__voltar {
   margin: 0 0 var(--espaco-6);
+}
+
+/* "superadega." enorme, de ponta a ponta (só visual) */
+.rodape__logo {
+  margin: var(--espaco-8) 0 var(--espaco-2);
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2.25rem, 11vw, 10rem); /* 11vw: "superadega." cabe inteiro de 320 a 1440 px */
+  font-weight: var(--peso-titulo);
+  line-height: 0.9;
+  letter-spacing: var(--espaco-titulo);
+  white-space: nowrap;
 }
 
 .rodape__marca {

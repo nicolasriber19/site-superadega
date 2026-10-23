@@ -2,7 +2,8 @@
 
 Versão 1, 22/10/2026. Base: `docs/brief.md` (tom de voz: direto, acolhedor, econômico) e `docs/requisitos.md`.
 
-**Status: decidido em 22/10/2026. Direção A, "Despensa de casa", aplicada ao site.**
+**Status: em 23/10/2026 o site passou para a direção A2, "Premium claro" (seção 8), que evolui a direção A.**
+- A direção A, "Despensa de casa", foi decidida em 22/10/2026 e fica registrada abaixo como base.
 - A escolha foi do dono do projeto, depois de ver as duas lado a lado.
 - A direção B fica registrada abaixo como descartada. As fontes e os tokens dela saíram do projeto.
 - **Página de conferência:** `npm run dev` → http://localhost:5173/site-superadega/estilo.html
@@ -157,3 +158,47 @@ O botão principal das duas direções tem texto branco sobre azul. Laranja e am
 5. **Logotipo tipográfico:** "superadega." em `.marca`, no `index.html` e no `privacidade.html`. O `favicon.svg` e o `placeholder.svg` ganharam as cores novas.
 
 **Regra daqui em diante:** nenhuma cor nem fonte fica escrita fora do `tokens.css`. A exceção são os arquivos de imagem SVG, que guardam as próprias cores.
+
+## 8. Direção A2: "Premium claro" (23/10/2026, aplicada ao site)
+
+**De onde vem:** o dono do projeto pediu o estilo premium do site Sonora (https://movits.github.io/sonora/) e escolheu a versão clara.
+- **O que se aproveitou:** a estrutura e o acabamento: título gigante em volta da foto, números enormes, cupom com borda serrilhada, cantos retos, linhas finas, muito espaço e entradas suaves ao rolar.
+- **O que não se copiou:** texto, imagem e código da Sonora.
+- **O que continua da direção A:** o fundo creme, a letra fácil de ler no texto corrido, os botões grandes e as fotos.
+- **Por que claro, e não preto como a Sonora:** o público inclui quem lê pouco e quem procura atacado. O fundo preto passaria a ideia de loja cara e pediria fotos novas.
+
+### Cores (tokens em `src/styles/tokens.css`)
+
+| Nome | Hex | Papel | Token | Contraste |
+|---|---|---|---|---|
+| Arroz | `#F7F3EA` | fundo da página | `--cor-fundo` | — |
+| Pote | `#FFFFFF` | cards, cupom, campos | `--cor-superficie` | — |
+| Tinta | `#17140F` | texto, filtro e opção escolhidos, foco | `--cor-texto`, `--cor-foco` | 16,59:1 no creme · 18,37:1 no branco |
+| Café | `#5C5044` | texto secundário | `--cor-texto-secundario` | 7,06:1 no creme |
+| Cobre | `#D6A062` | botão principal, etiquetas, contador, número do passo | `--cor-botao`, `--cor-etiqueta` | tinta sobre ele 7,93:1 |
+| Cobre (hover) | `#C38E52` | botão principal ao passar o mouse | `--cor-botao-escuro` | tinta sobre ele 6,39:1 |
+| Cobre escuro | `#8A5524` | links, ícones, números grandes, borda de destaque | `--cor-destaque` | 5,57:1 no creme · 6,17:1 no branco · branco sobre ele 6,17:1 |
+| Cobre mais escuro | `#6E4219` | hover e "Ouvir" falando | `--cor-destaque-escuro` | 7,72:1 no creme · branco sobre ele 8,55:1 |
+| Juta | `#8C8071` | borda dos campos | `--cor-borda` | 3,49:1 no creme (mínimo 3:1) |
+| Linha | `#D9D1C4` | linhas finas decorativas | `--cor-linha` | decorativa: não marca nada clicável |
+| Tomate | `#A3312A` | erro | `--cor-erro` | 6,26:1 no creme |
+
+- O cobre claro **não** serve para texto nem para foco no creme: só tem 2,09:1. Por isso o foco é tinta, e o texto em destaque é o cobre escuro.
+- O azul de louça saiu dos botões. Ele continua só nas fotos (a caneca).
+
+### Letras
+- **Títulos (`h1`, `h2`, números grandes, preço e a marca):** Unbounded 800, em maiúsculas nos títulos e com um pouco menos de espaço entre letras (`--espaco-titulo`). Só em frases curtas.
+- **Texto corrido, `h3` e botões:** Atkinson Hyperlegible Next 400 e 700, sem maiúsculas, para continuar fácil de ler.
+- A Bricolage Grotesque saiu do projeto.
+
+### Formas e movimento
+- Cantos retos (`--raio-card: 0`, `--raio-botao: 0`). Os botões continuam com 56 px de altura, e os toques com pelo menos 48 px.
+- Linha fina em cima de cada título de seção. Respiro de 64 a 128 px entre seções (`--espaco-secao`).
+- Capa: as linhas "SUA COMPRA" e "DO MÊS" se afastam para os lados ao rolar, e a foto sai do zoom.
+- Blocos curtos entram com fade e subida de 24 px ao rolar. Com "reduzir movimento", nada se move.
+
+### Fonte nova: licença e origem
+
+| Fonte | Licença | Origem | Arquivo no projeto |
+|---|---|---|---|
+| Unbounded | SIL OFL 1.1 | `@fontsource/unbounded` 5.3.0 (npm, via `npm pack`, fora do `package.json`) | `public/fonts/unbounded/` (latin 800, 21 KB) + `OFL.txt` |
