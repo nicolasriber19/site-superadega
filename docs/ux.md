@@ -2,8 +2,8 @@
 
 Versão 1, 22/10/2026. Base: `docs/brief.md`, `docs/requisitos.md`, `docs/plano.md` e `docs/identidade.md`.
 
-- Este documento descreve a página **como ela é hoje** e marca com **[proposta]** o que ainda falta mudar no código.
-- As propostas são reunidas na seção 10. Cada uma vira código só numa etapa aprovada à parte.
+- Este documento descreve a página e o motivo de cada escolha. As 7 propostas da versão 1 foram feitas em 22/10/2026 (seção 10).
+- Novas propostas, quando surgirem, entram na seção 10 e só viram código numa etapa aprovada à parte.
 
 ## 0. Ponto de partida
 
@@ -45,7 +45,7 @@ Versão 1, 22/10/2026. Base: `docs/brief.md`, `docs/requisitos.md`, `docs/plano.
 | 7 | Finalizar pedido | Escolha dia e hora e envie pelo WhatsApp | "Como eu termino?" | Fim natural da lista |
 | 8 | Rodapé | Ficou com dúvida? Fale com a loja | "E se eu travar?" | Saída humana para quem não conseguiu |
 
-- **Quem somos [proposta]:** hoje diz 3 coisas (o que é, como funciona e o atacado). O texto deve ficar só com "o que é + atacado". O "como" já está na seção 4.
+- **Quem somos:** antes dizia 3 coisas (o que é, como funciona e o atacado). Agora diz só "o que é + atacado". O "como" fica na seção 4.
 - **Por que os produtos vêm depois de 3 seções:** quem já confia não precisa rolar, porque "Fazer minha compra" (capa) e "Pular para os produtos" (teclado) vão direto ao catálogo.
 
 ## 3. Rascunhos de cada tela
@@ -108,8 +108,8 @@ TELA 6: Finalizar pedido                    TELA 7: Rodapé
 │ Total               R$ 77,70  │           │ loja no WhatsApp.             │
 │ Dia da entrega                │           │ [[balão] Falar no WhatsApp]   │
 │ [Amanhã][ Qui ][ Sex ]        │           │ [Privacidade]                 │
-│ [ Sáb ][ Dom ]                │           │ [[sacola] Fazer minha compra] │ ← [proposta]
-│ Horário                       │           │ [Voltar ao topo]              │ ← [proposta]
+│ [ Sáb ][ Dom ]                │           │ [[sacola] Fazer minha compra] │ ← ação no fim
+│ Horário                       │           │ [Voltar ao topo]              │
 │ [Manhã][Tarde][Noite]         │           │ Superadega (nome provisório)  │
 │ Seu nome [______________]     │           └───────────────────────────────┘
 │ Endereço [______________]     │
@@ -130,7 +130,7 @@ TELA 6: Finalizar pedido                    TELA 7: Rodapé
 TELA 1: Topo + Capa
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │▓▓▓▓▓▓▓▓▓▓▓▓▓ Site de teste. Loja fictícia, sem relação com a Super Adega ▓▓▓▓▓▓│
-│ superadega.   Como funciona · Produtos · Finalizar ← [proposta]  [? Ajuda][Lista 0]│
+│ superadega.   Como funciona · Produtos · Finalizar [? Ajuda][Lista 0]│
 ├─────────────────────────────────────┬────────────────────────────────────────┤
 │ Sua compra do mês,                  │                                        │
 │ entregue em casa                    │          foto da capa (16:9)           │
@@ -162,7 +162,7 @@ TELA 5: Produtos (6 filtros numa linha; 5 cards por linha em 1280 px)
 TELA 6: Finalizar (uma coluna de até 640 px: lista, dia, horário, dados, avisos, Enviar)
 
 TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
-        Fazer minha compra [proposta] · Voltar ao topo [proposta])
+        Fazer minha compra · Voltar ao topo)
 ```
 
 ## 4. Onde fica o botão principal
@@ -173,16 +173,16 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 | Produtos | "Adicionar", depois [-] quantidade [+], em cada card | Igual |
 | Com itens na lista | Barra fixa "Ver lista: n itens · R$ total" no pé da tela, que leva ao Finalizar | Igual, centralizada |
 | Finalizar | "Enviar pedido no WhatsApp", largo, no fim do formulário | Igual |
-| Fim da página (rodapé) | **[proposta]** "Fazer minha compra" (lista vazia) ou "Ver minha lista" (com itens) | Igual |
+| Fim da página (rodapé) | "Fazer minha compra" (lista vazia) ou "Ver minha lista" (com itens) | Igual |
 
-**Critério "a ação principal aparece no fim da página":** hoje ele é cumprido pela barra "Ver lista" e pelo "Enviar pedido" do Finalizar. Com a lista vazia, o rodapé só oferece o WhatsApp, e por isso entra a proposta acima.
+**Critério "a ação principal aparece no fim da página":** cumprido pelo botão do rodapé, que diz "Fazer minha compra" com a lista vazia e "Ver minha lista" com itens, além do "Enviar pedido" do Finalizar.
 
 ## 5. Navegação
 
 - **Celular:** sem menu escondido (sanduíche), para não esconder caminhos de quem lê pouco. Só dois botões fixos no topo: "Ajuda" (WhatsApp) e "Lista" (vai ao Finalizar).
-- **Desktop [proposta]:** a partir de 900 px, âncoras de texto no topo: "Como funciona · Produtos · Finalizar".
+- **Desktop:** a partir de 900 px, âncoras de texto no topo: "Como funciona · Produtos · Finalizar".
 - **Âncoras:** "Fazer minha compra" vai para `#produtos`, "Lista" e a barra vão para `#finalizar`, e a marca vai para `#capa`.
-- **Voltar ao topo [proposta]:** link no rodapé, porque a página é longa no celular.
+- **Voltar ao topo:** link no rodapé, porque a página é longa no celular.
 - **Pular a animação:**
   - a única animação, a do card, dura 0,25 s, não esconde conteúdo e não bloqueia o toque (a pessoa pode tocar de novo durante a animação);
   - o caminho para pular o conteúdo inicial é o link **"Pular para os produtos"**, que aparece no 1º Tab;
@@ -195,7 +195,7 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 | Carregando a página | Texto na letra do aparelho até a Bricolage e a Atkinson chegarem (`font-display: swap`). A fonte do título é pré-carregada | Feito |
 | Carregando imagens | Fotos com `loading="lazy"` e tamanho reservado, para a página não pular (CLS de 0,019) | Feito |
 | Imagens da animação | Não existem. A animação é só CSS | — |
-| Erro de imagem | Se a foto de um produto falhar, troca pelo `placeholder.svg` e o nome continua visível | **[proposta]** |
+| Erro de imagem | Se a foto de um produto falhar, troca pelo `placeholder.svg` e o nome continua visível | Feito |
 | Lista vazia | "Sua lista está vazia." e o botão "Escolher produtos" | Feito |
 | Filtro sem produtos | "Nenhum produto aqui por enquanto. Toque em 'Todos'." | Feito |
 | Faltou algo ao enviar | Caixa "Falta pouco:" com a lista do que falta e o campo com borda vermelha. O leitor de tela lê na hora | Feito |
@@ -203,8 +203,8 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 | Sem voz em português | Os botões "Ouvir" somem | Feito |
 | Sem JavaScript | "Para ver os produtos, ative o JavaScript do navegador ou chame a loja no WhatsApp." | Feito |
 | Nome de produto longo | Quebra em mais linhas e **nunca** é cortado com "…". O card cresce, e o grid alinha a linha | Feito (conferir com a lista real) |
-| Lista muito grande | A mensagem do WhatsApp pode ficar longa demais. Plano B: botão "Copiar pedido" | **[proposta]**, se a lista real passar de 30 itens |
-| Barra "Ver lista" no Finalizar | Ali a barra repete o que está na tela e pode cobrir o "Enviar pedido". Esconder a barra enquanto o Finalizar estiver visível | **[proposta]** |
+| Lista muito grande | A mensagem do WhatsApp pode ficar longa demais. Plano B: botão "Copiar pedido" | Feito: aparece depois de todo envio, com texto para copiar à mão se o navegador não deixar |
+| Barra "Ver lista" no Finalizar | Ali a barra repete o que está na tela e pode cobrir o "Enviar pedido". Esconder a barra enquanto o Finalizar estiver visível | Feito |
 
 ## 7. Acessibilidade
 
@@ -256,7 +256,7 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 | Capa: título | "Sua compra do mês, entregue em casa" |
 | Capa: frase | "Escolha os produtos, pague com Pix e receba no dia e na hora que você escolher." |
 | Capa: botão | "Fazer minha compra" |
-| Quem somos **[proposta]** | "Somos um supermercado de alimentos para a compra do mês. Levando mais unidades, você paga preço de atacado." |
+| Quem somos | "Somos um supermercado de alimentos para a compra do mês. Levando mais unidades, você paga preço de atacado." |
 | Como funciona | "Escolha" · "Envie" · "Pague o Pix" · "Receba e assine" |
 | Passo 3 | "A loja manda a chave Pix. O pedido só sai depois do pagamento." |
 | Card | "A partir de 6: R$ 23,90 cada" → "Leve mais 3 e pague R$ 23,90 cada" → "Preço de atacado: R$ 23,90 cada" |
@@ -267,7 +267,7 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 | Erro ao enviar | "Falta pouco:" + "Escolha o dia da entrega." / "Escreva seu nome." … |
 | Botão final | "Enviar pedido no WhatsApp" |
 | Depois de enviar | "Quase pronto! No WhatsApp, toque em enviar. A loja responde com a chave Pix." |
-| Rodapé | "Fale com a gente" · "Falar no WhatsApp" · "Privacidade" · **[proposta]** "Fazer minha compra" e "Voltar ao topo" |
+| Rodapé | "Fale com a gente" · "Falar no WhatsApp" · "Privacidade" · "Fazer minha compra" (ou "Ver minha lista") · "Voltar ao topo" · "Copiar pedido" (depois do envio) |
 
 **Nunca usar:**
 - "Clique aqui";
@@ -286,17 +286,21 @@ Detalhes de preparação e a ficha de anotação estão em `docs/roteiro-teste.m
 3. **Entendimento:** depois do envio, pergunte: "Quando a compra sai da loja?"
    - **Passa** se responder "depois que eu pagar o Pix".
 
-## 10. Propostas para a próxima etapa de código
+## 10. Propostas e situação
 
-Nada disto foi feito ainda: cada item precisa de aprovação.
+Feitas em 22/10/2026:
 
-1. **Rodapé:** "Fazer minha compra" (ou "Ver minha lista") e "Voltar ao topo".
-2. **Desktop:** âncoras "Como funciona · Produtos · Finalizar" no topo, a partir de 900 px.
-3. **Foto de produto quebrada:** trocar pelo `placeholder.svg`.
-4. **Barra "Ver lista":** esconder enquanto o Finalizar estiver na tela.
-5. **"Quem somos":** novo texto, com uma mensagem só.
-6. **Capa:** quando o `hero.webp` chegar, usar o texto alternativo da seção 7.
-7. **"Copiar pedido":** só se a lista real ficar grande.
+| # | Proposta | Situação |
+|---|---|---|
+| 1 | Rodapé com "Fazer minha compra" (ou "Ver minha lista") e "Voltar ao topo" | Feito (`index.html`, `src/sections/rodape.js`) |
+| 2 | Âncoras "Como funciona · Produtos · Finalizar" no topo, a partir de 900 px | Feito (`index.html`, `sections.css`) |
+| 3 | Foto de produto quebrada vira `placeholder.svg` | Feito (`src/sections/produtos.js`) |
+| 4 | Barra "Ver lista" some enquanto o Finalizar está na tela | Feito (`src/sections/finalizar.js`) |
+| 5 | "Quem somos" com uma mensagem só | Feito (`index.html`) |
+| 6 | Texto alternativo da capa e da entrega | **Preparado:** o HTML pronto está num comentário no `index.html`. Falta a foto (`hero.webp` e `entrega.webp`) do Higgsfield |
+| 7 | "Copiar pedido" | Feito: aparece depois de todo envio. Se o navegador não deixar copiar, mostra o texto para copiar à mão |
+
+Novas propostas entram aqui, com aprovação antes do código.
 
 ## 11. Lista de verificação no navegador
 

@@ -51,6 +51,32 @@ main > section,
   color: var(--cor-destaque);
 }
 
+/* Âncoras das seções: escondidas no celular, visíveis a partir de 900 px */
+.topo__ancoras {
+  display: none;
+  gap: var(--espaco-6);
+}
+
+.topo__ancoras a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--toque-minimo);
+  color: var(--cor-texto);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.topo__ancoras a:hover {
+  color: var(--cor-destaque);
+  text-decoration: underline;
+}
+
+@media (min-width: 900px) {
+  .topo__ancoras {
+    display: flex;
+  }
+}
+
 .topo__acoes {
   display: flex;
   flex-wrap: wrap;
@@ -661,6 +687,27 @@ main > .capa {
   border: 2px solid var(--cor-destaque);
 }
 
+/* "Copiar pedido" (plano B depois do envio) */
+.copiar {
+  margin-top: var(--espaco-3);
+}
+
+.copiar__dica {
+  margin: 0 0 var(--espaco-2);
+  color: var(--cor-texto-secundario);
+}
+
+.copiar__status {
+  margin: var(--espaco-2) 0 0;
+  font-weight: 700;
+}
+
+.copiar__texto {
+  width: 100%;
+  margin-top: var(--espaco-2);
+  font-size: var(--texto-p);
+}
+
 .botao--largo {
   width: 100%;
   margin-top: 8px;
@@ -681,6 +728,10 @@ main > .capa {
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 24px;
+}
+
+.rodape__voltar {
+  margin: 0 0 var(--espaco-6);
 }
 
 .rodape__marca {

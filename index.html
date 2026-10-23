@@ -26,6 +26,14 @@
       <!-- Logotipo tipográfico (docs/identidade.md): o leitor de tela lê só "superadega" -->
       <a class="marca" href="#capa">superadega<span class="marca__ponto" aria-hidden="true">.</span></a>
 
+      <!-- Âncoras das seções: só aparecem a partir de 900 px (docs/ux.md, seção 5).
+           No celular ficam escondidas para não lotar o topo. -->
+      <nav class="topo__ancoras" aria-label="Seções da página">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#finalizar">Finalizar</a>
+      </nav>
+
       <nav class="topo__acoes" aria-label="Atalhos">
         <!-- "Ajuda" abre o WhatsApp da loja (src/ajuda.js) -->
         <a class="botao topo__botao" href="#rodape" data-ajuda>
@@ -53,15 +61,18 @@
           </a>
         </div>
 
-        <!-- Trocar por /img/hero.webp (1600×900) quando as imagens do Higgsfield chegarem. -->
+        <!-- Quando a foto do Higgsfield chegar (docs/ux.md, seção 7), trocar esta linha por:
+             <img class="capa__imagem" src="/img/hero.webp" width="1600" height="900"
+                  alt="Sacolas da compra do mês sobre a bancada da cozinha, com arroz, feijão e óleo" />
+             Enquanto for a imagem provisória, o alt fica vazio: ela não descreve nada. -->
         <img class="capa__imagem" src="/img/placeholder.svg" alt="" width="1600" height="900" />
       </section>
 
       <!-- 3. Quem somos -->
       <section id="quem-somos" class="quem-somos" aria-labelledby="titulo-quem-somos">
         <h2 id="titulo-quem-somos">Quem somos</h2>
-        <p>Somos um supermercado de alimentos para a compra do mês.</p>
-        <p>Você monta a lista pelo celular, paga com Pix e recebe tudo em casa. Levando mais unidades, você paga preço de atacado.</p>
+        <!-- Uma mensagem só: o que somos + atacado. O "como funciona" fica na seção seguinte (docs/ux.md). -->
+        <p>Somos um supermercado de alimentos para a compra do mês. Levando mais unidades, você paga preço de atacado.</p>
       </section>
 
       <!-- 4. Como funciona -->
@@ -139,7 +150,9 @@
           </ul>
         </div>
 
-        <!-- Trocar por /img/entrega.webp (1200×800) e escrever o texto alternativo. -->
+        <!-- Quando a foto do Higgsfield chegar (docs/ux.md, seção 7), trocar esta linha por:
+             <img class="recebe__imagem" src="/img/entrega.webp" width="1200" height="800" loading="lazy"
+                  alt="Mãos guardando a compra do mês no armário da cozinha" /> -->
         <img class="recebe__imagem" src="/img/placeholder.svg" alt="" width="1200" height="800" loading="lazy" />
       </section>
 
@@ -222,6 +235,18 @@
             <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#confere"></use></svg>
             <span><strong>Quase pronto!</strong> No WhatsApp, toque em enviar. A loja responde com a chave Pix.</span>
           </p>
+
+          <!-- Plano B (docs/ux.md, seção 6): se o WhatsApp não abrir ou cortar a lista,
+               a pessoa copia o pedido e cola na conversa. Aparece junto com o "Quase pronto". -->
+          <div class="copiar" data-copiar hidden>
+            <p class="copiar__dica">O WhatsApp não abriu? Copie o pedido e cole na conversa com a loja.</p>
+            <button type="button" class="botao" data-copiar-botao>
+              <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#copiar"></use></svg>
+              Copiar pedido
+            </button>
+            <p class="copiar__status" role="status" data-copiar-status></p>
+            <textarea class="copiar__texto" rows="8" readonly aria-label="Texto do pedido" data-copiar-texto hidden></textarea>
+          </div>
         </form>
       </section>
     </main>
@@ -232,7 +257,13 @@
       <p>Dúvidas sobre produtos, entrega ou pagamento? Chame a loja no WhatsApp.</p>
       <!-- Telefone e endereço da loja: [a confirmar] -->
       <div class="rodape__acoes">
-        <a class="botao botao--primario" href="#rodape" data-ajuda>
+        <!-- Ação principal no fim da página (docs/ux.md, seção 4).
+             Com itens na lista vira "Ver minha lista" e leva ao Finalizar (src/sections/rodape.js). -->
+        <a class="botao botao--primario" href="#produtos" data-rodape-compra>
+          <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#sacola"></use></svg>
+          <span data-rodape-compra-texto>Fazer minha compra</span>
+        </a>
+        <a class="botao" href="#rodape" data-ajuda>
           <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#balao"></use></svg>
           Falar no WhatsApp
         </a>
@@ -241,6 +272,12 @@
           Privacidade
         </a>
       </div>
+      <p class="rodape__voltar">
+        <a class="botao" href="#topo">
+          <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#topo"></use></svg>
+          Voltar ao topo
+        </a>
+      </p>
       <p class="rodape__marca">Superadega (nome provisório)</p>
     </footer>
 

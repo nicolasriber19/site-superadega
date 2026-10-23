@@ -50,24 +50,35 @@ function desenharResumo(resumo) {
   `
 }
 
+// A seção Finalizar está aparecendo na tela? (atualizado pelo IntersectionObserver)
+let finalizarNaTela = false
+
 // Contador do topo e barra fixa no pé da tela.
+// A barra some com a lista vazia e também quando o Finalizar está na tela:
+// ali ela só repetiria o resumo e poderia cobrir o "Enviar pedido" (docs/ux.md, seção 6).
 function desenharAtalhos(contador, barra) {
   const unidades = totalDeUnidades()
   contador.textContent = unidades
 
-  barra.hidden = unidades === 0
+  barra.hidden = unidades === 0 || finalizarNaTela
   document.body.classList.toggle('tem-barra-lista', unidades > 0)
   barra.querySelector('[data-barra-texto]').textContent =
     `Ver lista: ${textoUnidades(unidades)} · ${emReais(totalDaLista())}`
 }
 
-function montarFinalizar({ resumo, contador, barra }) {
+function montarFinalizar({ secao, resumo, contador, barra }) {
   const desenhar = () => {
     desenharResumo(resumo)
     desenharAtalhos(contador, barra)
   }
   aoMudarLista(desenhar)
   desenhar()
+
+  // Observa quando qualquer parte do Finalizar entra ou sai da tela.
+  new IntersectionObserver(([registro]) => {
+    finalizarNaTela = registro.isIntersecting
+    desenharAtalhos(contador, barra)
+  }).observe(secao)
 }
 
 // ---- Dia e horário da entrega (RF-04) ----
@@ -220,7 +231,8 @@ function enviarPedido(formulario, dias) {
   mostrarErros(formulario, falta)
   if (falta.length > 0) return
 
-  const link = linkDoWhatsApp(mensagemDoPedido(pedido))
+  ultimaMensagem = mensagemDoPedido(pedido)
+  const link = linkDoWhatsApp(ultimaMensagem)
   // Abre o WhatsApp numa aba nova. Se o navegador bloquear, abre nesta mesma aba
   // (a lista continua salva no aparelho).
   // ('noopener' faria window.open devolver sempre null, então a ligação é cortada à mão.)
@@ -232,13 +244,42 @@ function enviarPedido(formulario, dias) {
   }
 
   formulario.querySelector('[data-pronto]').hidden = false
+  formulario.querySelector('[data-copiar]').hidden = false
+}
+
+// ---- "Copiar pedido" (plano B) ----
+
+let ultimaMensagem = ''
+
+function ligarCopiar(formulario) {
+  const status = formulario.querySelector('[data-copiar-status]')
+  const area = formulario.querySelector('[data-copiar-texto]')
+
+  formulario.querySelector('[data-copiar-botao]').addEventListener('click', async () => {
+    try {
+      // Só funciona em HTTPS (ou localhost) e com permissão do navegador.
+      await navigator.clipboard.writeText(ultimaMensagem)
+      area.hidden = true
+      status.textContent = 'Pedido copiado. Cole na conversa com a loja no WhatsApp.'
+    } catch {
+      // Sem permissão: mostra o texto para a pessoa copiar com o dedo.
+      area.value = ultimaMensagem
+      area.hidden = false
+      area.focus()
+      area.select()
+      status.textContent = 'Não deu para copiar sozinho. Segure o dedo no texto abaixo e escolha "Copiar".'
+    }
+  })
 }
 
 export function init() {
   montarFinalizar({
+    secao: document.querySelector('#finalizar'),
     resumo: document.querySelector('[data-resumo]'),
     contador: document.querySelector('[data-contador-lista]'),
     barra: document.querySelector('[data-barra-lista]'),
   })
-  montarEntrega(document.querySelector('[data-pedido]'))
+  const formulario = document.querySelector('[data-pedido]')
+  montarEntrega(formulario)
+  ligarCopiar(formulario)
 }

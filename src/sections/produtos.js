@@ -157,6 +157,20 @@ function montarFiltros(grupo, lista, avisoVazio) {
 function montarCatalogo(lista) {
   lista.innerHTML = produtos.map(cardProduto).join('')
 
+  // Foto que não carregou: troca pela imagem provisória e o nome continua visível
+  // (docs/ux.md, seção 6). O evento "error" não sobe pela página, por isso o "true".
+  lista.addEventListener(
+    'error',
+    (evento) => {
+      const foto = evento.target
+      if (!foto.matches('.card-produto__foto') || foto.dataset.provisoria) return
+      foto.dataset.provisoria = 'sim' // evita repetir se a provisória também falhar
+      foto.src = IMAGEM_PROVISORIA
+      foto.alt = '' // a provisória não descreve o produto
+    },
+    true,
+  )
+
   // Quando a animação termina, tira a classe para o card voltar ao normal.
   lista.addEventListener('animationend', (evento) => {
     evento.target.classList.remove('card-produto--aperto')
