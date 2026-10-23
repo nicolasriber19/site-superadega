@@ -57,19 +57,16 @@ function minuscula(texto) {
   return texto.charAt(0).toLowerCase() + texto.slice(1)
 }
 
-// O que o botão "Ouvir" do card fala (RF-10), no tom de um atendente conversando.
+// O que o botão "Ouvir" do card fala (RF-10): só a descrição do produto, igual para todos
+// (sem chamada de oferta; o selo "Oferta" já aparece no card).
 // Os números ficam como estão: lib/ouvir.js troca "R$ 25,90" e "5 kg" pelo jeito falado.
 function textoFalado(produto) {
-  const nome = minuscula(produto.nome)
   const embalagem = minuscula(produto.unidade)
   const artigo = ARTIGO_DA_EMBALAGEM[embalagem.split(' ')[0]] ?? 'em'
-  const abertura = produto.oferta
-    ? `Olha só, ${nome} em oferta! Vem ${artigo} ${embalagem} e sai por ${emReais(produto.preco)} cada.`
-    : `${produto.nome}, ${artigo} ${embalagem}. Sai por ${emReais(produto.preco)} cada.`
   return (
-    `${abertura} ` +
+    `${produto.nome}, ${artigo} ${embalagem}. Sai por ${emReais(produto.preco)} cada. ` +
     `Se você levar ${produto.minimoAtacado} ou mais, cada um fica por ${emReais(produto.precoAtacado)}. ` +
-    'Para pôr na sua lista, é só tocar no botão azul.'
+    'Para pôr na sua lista, é só tocar em Adicionar.'
   )
 }
 

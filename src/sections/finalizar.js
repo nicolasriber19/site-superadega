@@ -3,6 +3,7 @@
 
 import { aoMudarLista, itensDaLista, totalDaLista, totalDeUnidades } from '../lib/lista.js'
 import { emReais } from '../lib/dinheiro.js'
+import { lerDados, EVENTO_DADOS } from '../lib/meus-dados.js'
 import { caminho } from '../lib/caminho.js'
 import { DIAS_DE_ENTREGA, UNIDADES_SACOLA_CHEIA, faixasDeHorario, linkDoWhatsApp } from '../data/config.js'
 
@@ -168,6 +169,18 @@ function montarEntrega(formulario) {
     endereco.disabled = audio.checked
     endereco.removeAttribute('aria-invalid')
   })
+
+  // "Meus dados" (botão no topo): nome e endereço guardados no aparelho já vêm preenchidos.
+  // Ao abrir a página, só preenche o que estiver vazio; quando a pessoa salva de novo, troca.
+  const campos = formulario.elements
+  const preencher = (trocar) => {
+    const dados = lerDados()
+    if (!dados) return
+    if (trocar || !campos.nome.value) campos.nome.value = dados.nome
+    if (!endereco.disabled && (trocar || !endereco.value)) endereco.value = dados.endereco
+  }
+  preencher(false)
+  window.addEventListener(EVENTO_DADOS, () => preencher(true))
 
   // Tira a marca vermelha do campo assim que a pessoa corrige.
   formulario.addEventListener('input', (evento) => evento.target.removeAttribute('aria-invalid'))

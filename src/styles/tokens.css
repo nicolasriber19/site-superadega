@@ -55,6 +55,7 @@
   --cor-erro: #a3312a;             /* Tomate: 6,26:1 no fundo · 6,93:1 na superfície */
   --cor-etiqueta: #d6a062;         /* selos, contador e atacado ativo · tinta sobre ele 7,93:1 */
   --cor-sobre-etiqueta: #17140f;
+  --cor-veu: rgb(23 20 15 / 0.55); /* fundo escurecido atrás da janela "Meus dados" (tinta a 55%) */
 
   /* ---------- Fontes ---------- */
   --fonte-titulo: 'Unbounded', 'Arial Black', system-ui, sans-serif;

@@ -98,6 +98,7 @@ O limite de 6 itens em "Precisa" vale para os RF. Os RNF marcados "Precisa" são
 | Mapa | Não usado nesta versão | Mapas embutidos carregam arquivos de fora e podem criar cookies (quebra RNF-08 e RNF-13). | Imagem fixa com link "Abrir no mapa". |
 | Formulário externo | Não usado (o pedido vai pelo WhatsApp) | Os dados ficariam com outra empresa [LGPD: confirmar]. | — |
 | Analytics | Não usado nesta versão | Código de outra empresa e cookies. Exige aviso [LGPD: confirmar]. | Contar no WhatsApp as mensagens que começam com "Pedido pelo site". |
+| Armazenamento do navegador ("Meus dados") | Nome e endereço para o pedido já vir preenchido (`src/lib/meus-dados.js`) | Ficam no aparelho da pessoa, sem servidor, e só se ela tocar em "Salvar". Quem usa o mesmo aparelho pode ver [LGPD: confirmar]. | Botão "Apagar meus dados" na mesma janela. Sem salvar, o site não guarda nada além da lista. |
 | Voz do navegador (RF-10) | Botão "Ouvir" | A voz em português muda de aparelho para aparelho, e alguns podem não ter [a confirmar]. | Áudios gravados, guardados no site. |
 
 ## 6. Riscos e perguntas em aberto

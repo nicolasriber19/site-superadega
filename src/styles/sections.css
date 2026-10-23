@@ -53,7 +53,8 @@ main > section,
   color: var(--cor-destaque);
 }
 
-/* Âncoras das seções: escondidas no celular, visíveis a partir de 900 px */
+/* Âncoras das seções: escondidas no celular e no tablet, visíveis a partir de 1100 px
+   (antes disso, com os 3 atalhos, o topo quebraria em duas linhas) */
 .topo__ancoras {
   display: none;
   gap: var(--espaco-8);
@@ -73,7 +74,7 @@ main > section,
   text-decoration: underline;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1100px) {
   .topo__ancoras {
     display: flex;
   }
@@ -87,6 +88,32 @@ main > section,
 
 .topo__botao {
   padding-inline: 0.75em;
+}
+
+/* Celular: os 3 atalhos (Meus dados, Ajuda, Lista) lado a lado, ícone em cima e palavra
+   embaixo. Assim o topo fica numa linha só de botões e "Fazer minha compra" continua
+   aparecendo sem rolar. O número da lista vira um selinho no canto do botão. */
+@media (max-width: 599px) {
+  .topo__acoes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .topo__botao {
+    position: relative;
+    flex-direction: column;
+    gap: 2px;
+    min-height: 56px;
+    padding: 6px 4px;
+    font-size: 1rem;
+  }
+
+  .topo__botao .contador {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+  }
 }
 
 /* Sacola que enche: o "conteúdo" cresce de baixo para cima conforme --nivel (0 a 1).
@@ -1130,4 +1157,46 @@ main > section:not(.capa) > h2,
 /* Espaço no fim da página para a barra não cobrir o rodapé */
 .tem-barra-lista {
   padding-bottom: 96px;
+}
+
+/* Janela "Meus dados" (botão no topo): papel branco reto sobre um véu tinta */
+.meus-dados {
+  width: min(32rem, calc(100% - 2 * var(--espaco-4)));
+  max-height: calc(100% - 2 * var(--espaco-4));
+  padding: var(--espaco-6);
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio-card);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+}
+
+.meus-dados::backdrop {
+  background: var(--cor-veu);
+}
+
+.meus-dados h2 {
+  font-size: var(--titulo-3);
+}
+
+.meus-dados__explica {
+  color: var(--cor-texto-secundario);
+}
+
+.meus-dados .campo input,
+.meus-dados .campo textarea {
+  width: 100%;
+}
+
+.meus-dados__status {
+  margin: 0 0 var(--espaco-3);
+  font-weight: 700;
+}
+
+.meus-dados__status:empty {
+  display: none;
+}
+
+.meus-dados__acoes {
+  display: grid;
+  gap: var(--espaco-2);
 }

@@ -42,7 +42,7 @@
       <!-- Logotipo tipográfico (docs/identidade.md): o leitor de tela lê só "superadega" -->
       <a class="marca" href="#capa">superadega<span class="marca__ponto" aria-hidden="true">.</span></a>
 
-      <!-- Âncoras das seções: só aparecem a partir de 900 px (docs/ux.md, seção 5).
+      <!-- Âncoras das seções: só aparecem a partir de 1100 px (docs/ux.md, seção 5).
            No celular ficam escondidas para não lotar o topo. -->
       <nav class="topo__ancoras" aria-label="Seções da página">
         <a href="#como-funciona">Como funciona</a>
@@ -51,6 +51,11 @@
       </nav>
 
       <nav class="topo__acoes" aria-label="Atalhos">
+        <!-- "Meus dados" abre a janela de nome e endereço (src/sections/topo.js) -->
+        <button type="button" class="botao topo__botao" data-abrir-meus-dados aria-haspopup="dialog">
+          <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#pessoa"></use></svg>
+          Meus dados
+        </button>
         <!-- "Ajuda" abre o WhatsApp da loja (src/ajuda.js) -->
         <a class="botao topo__botao" href="#rodape" data-ajuda>
           <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#ajuda"></use></svg>
@@ -145,7 +150,7 @@
             <h3>Escolha</h3>
             <p>Toque nos produtos que você quer e nas quantidades.</p>
             <button type="button" class="botao botao-ouvir" data-ouvir hidden
-                    data-texto="Primeiro passo: escolha os produtos que você quer. Toque no botão azul para pôr na lista. Quer levar mais de um? É só tocar de novo.">
+                    data-texto="Primeiro passo: escolha os produtos que você quer. É só tocar em Adicionar para pôr na lista. Quer levar mais de um? Toque no sinal de mais.">
               <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#ouvir"></use></svg>
               Ouvir
             </button>
@@ -320,7 +325,7 @@
 
           <p class="aviso aviso--dados">
             <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#confere"></use></svg>
-            <span>Seu nome e endereço servem só para entregar este pedido. Eles vão na conversa do WhatsApp com a loja e não ficam guardados neste site.</span>
+            <span>Seu nome e endereço servem só para entregar este pedido e vão na conversa do WhatsApp com a loja. Eles só ficam guardados se você salvar em "Meus dados", e aí ficam só neste aparelho.</span>
           </p>
 
           <!-- Aparece quando falta algo para enviar (preenchido por finalizar.js) -->
@@ -400,6 +405,35 @@
 
     <!-- Avisos lidos pelo leitor de tela (ex.: "Arroz branco: 3 na lista") -->
     <p class="visualmente-oculto" aria-live="polite" data-anuncio></p>
+
+    <!-- Janela "Meus dados" (botão no topo; src/sections/topo.js e src/lib/meus-dados.js).
+         Nome e endereço ficam guardados só neste aparelho, e só se a pessoa tocar em "Salvar". -->
+    <dialog class="meus-dados" aria-labelledby="titulo-meus-dados" data-meus-dados>
+      <form method="dialog">
+        <h2 id="titulo-meus-dados">Meus dados</h2>
+        <p class="meus-dados__explica">Preencha uma vez e o seu pedido já vem preenchido. Os dados ficam guardados <strong>só neste aparelho</strong>.</p>
+        <div class="campo">
+          <label for="meus-dados-nome">Seu nome</label>
+          <input id="meus-dados-nome" name="nome" type="text" autocomplete="name" />
+        </div>
+        <div class="campo">
+          <label for="meus-dados-endereco">Endereço (rua, número e bairro)</label>
+          <textarea id="meus-dados-endereco" name="endereco" rows="3" autocomplete="street-address"></textarea>
+        </div>
+        <p class="meus-dados__status" role="status" data-meus-dados-status></p>
+        <div class="meus-dados__acoes">
+          <button type="submit" class="botao botao--primario botao--grande" value="salvar">
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#confere"></use></svg>
+            Salvar
+          </button>
+          <button type="button" class="botao" data-apagar-meus-dados>
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#menos"></use></svg>
+            Apagar meus dados
+          </button>
+          <button type="submit" class="botao" value="fechar">Fechar</button>
+        </div>
+      </form>
+    </dialog>
 
     <script type="module" src="/src/main.js"></script>
   </body>

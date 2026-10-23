@@ -27,7 +27,7 @@ Versão 1, 22/10/2026. Base: `docs/brief.md`, `docs/requisitos.md`, `docs/plano.
 | Momento | O que acontece | O que a página faz |
 |---|---|---|
 | 1. De onde chega | Um link mandado no WhatsApp ou nas redes, aberto no celular. Muitas vezes com pressa ou lendo pouco. | Abre leve (LCP de 1,4 s no celular) e com letra grande. |
-| 2. Primeiro segundo | Lê "Sua compra do mês, entregue em casa" e vê o botão azul. | O título e "Fazer minha compra" aparecem sem rolar. |
+| 2. Primeiro segundo | Lê "Sua compra do mês, entregue em casa" e vê o botão cobre "Fazer minha compra". | O título e "Fazer minha compra" aparecem sem rolar. |
 | 3. Dúvida que surge | "Como eu pago? Quando chega? É confiável?" | "Como funciona" responde em 4 passos com número e desenho, e "Ouvir" lê em voz alta. |
 | 4. Prova que convence | "O pedido só sai depois do pagamento", o preço de atacado no card, o total sempre à vista e a assinatura na entrega. | O aviso do Pix aparece duas vezes (passo 3 e Finalizar). O card mostra "Leve mais 3 e pague R$ 23,90". A barra mostra o total. |
 | 5. Onde age | Toca em "+" nos produtos e, em "Finalizar", toca em **"Enviar pedido no WhatsApp"**. | O WhatsApp abre com o pedido escrito, e a tela diz "Quase pronto!". |
@@ -181,8 +181,8 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 
 ## 5. Navegação
 
-- **Celular:** sem menu escondido (sanduíche), para não esconder caminhos de quem lê pouco. Só dois botões fixos no topo: "Ajuda" (WhatsApp) e "Lista" (vai ao Finalizar).
-- **Desktop:** a partir de 900 px, âncoras de texto no topo: "Como funciona · Produtos · Finalizar".
+- **Celular:** sem menu escondido (sanduíche), para não esconder caminhos de quem lê pouco. Três botões fixos no topo, lado a lado, com ícone em cima e palavra embaixo: "Meus dados" (nome e endereço guardados no aparelho), "Ajuda" (WhatsApp) e "Lista" (vai ao Finalizar; o número fica num selinho no canto).
+- **Desktop:** a partir de 1100 px, âncoras de texto no topo: "Como funciona · Produtos · Finalizar". Antes disso ficam escondidas, para o topo (com "Meus dados", "Ajuda" e "Lista") caber numa linha.
 - **Âncoras:** "Fazer minha compra" vai para `#produtos`, "Lista" e a barra vão para `#finalizar`, e a marca vai para `#capa`.
 - **Voltar ao topo:** link no rodapé, porque a página é longa no celular.
 - **Pular a animação:**
@@ -204,7 +204,7 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 | WhatsApp bloqueado | Abre na mesma aba. A lista continua salva no aparelho | Feito |
 | Sem voz em português | Os botões "Ouvir" somem | Feito |
 | Falando / pausado | O botão "Ouvir" vira "Pausar" (azul-escuro) e, pausado, "Continuar". No áudio gravado, continua do ponto exato; na voz do aparelho, recomeça da frase onde parou. No fim da fala volta a "Ouvir". Tocar em outro "Ouvir" para o anterior | Feito |
-| Voz do "Ouvir" | Fala em tom de conversa ("Olha só, arroz branco em oferta!…"). Toca o áudio gravado com voz de IA (Helena, ElevenLabs v4 no Higgsfield; `public/audio/` e `src/data/audios.js`). Se o texto mudou desde a gravação (ex.: preço novo) ou o arquivo falhar, usa a melhor voz em português do aparelho, nunca um preço antigo | Feito |
+| Voz do "Ouvir" | Fala só a descrição do produto, igual para todos ("Arroz branco, no pacote de 5 quilos. Sai por 25 reais e 90 centavos cada… Para pôr na sua lista, é só tocar em Adicionar."). O selo "Oferta" fica no card. Toca o áudio gravado com voz de IA (Helena, ElevenLabs v4 no Higgsfield; `public/audio/` e `src/data/audios.js`). Se o texto mudou desde a gravação (ex.: preço novo) ou o arquivo falhar, usa a melhor voz em português do aparelho, nunca um preço antigo | Feito |
 | Sem JavaScript | "Para ver os produtos, ative o JavaScript do navegador ou chame a loja no WhatsApp." | Feito |
 | Nome de produto longo | Quebra em mais linhas e **nunca** é cortado com "…". O card cresce, e o grid alinha a linha | Feito (conferir com a lista real) |
 | Lista muito grande | A mensagem do WhatsApp pode ficar longa demais. Plano B: botão "Copiar pedido" | Feito: aparece depois de todo envio, com texto para copiar à mão se o navegador não deixar |
@@ -298,7 +298,7 @@ Feitas em 22/10/2026:
 | # | Proposta | Situação |
 |---|---|---|
 | 1 | Rodapé com "Fazer minha compra" (ou "Ver minha lista") e "Voltar ao topo" | Feito (`index.html`, `src/sections/rodape.js`) |
-| 2 | Âncoras "Como funciona · Produtos · Finalizar" no topo, a partir de 900 px | Feito (`index.html`, `sections.css`) |
+| 2 | Âncoras "Como funciona · Produtos · Finalizar" no topo, a partir de 1100 px | Feito (`index.html`, `sections.css`) |
 | 3 | Foto de produto quebrada vira `placeholder.svg` | Feito (`src/sections/produtos.js`) |
 | 4 | Barra "Ver lista" some enquanto o Finalizar está na tela | Feito (`src/sections/finalizar.js`) |
 | 5 | "Quem somos" com uma mensagem só | Feito (`index.html`) |
@@ -324,6 +324,7 @@ Use esta lista depois que a página estiver pronta. Abra `npm run dev` → http:
 - [ ] **Fotos dos passos:** os 4 cards do "Como funciona" mostram a foto no topo, com o número por cima, no canto direito.
 - [ ] **Estilo premium (docs/identidade.md, seção 8):** a capa mostra "SUA COMPRA" / foto / "DO MÊS", e "Fazer minha compra" aparece sem rolar em 375 × 667. No computador, o cupom fica fixo à direita do formulário. Nada rola para o lado em 320, 375 e 1280 px.
 - [ ] **Em números:** os 4 números batem com os dados (maior desconto de atacado, `DIAS_DE_ENTREGA` e faixas de horário).
+- [ ] **Meus dados:** no topo, "Meus dados" abre a janela; salvar nome e endereço preenche o pedido, que continua preenchido depois de recarregar; "Apagar meus dados" limpa tudo. Em 375 × 667, "Fazer minha compra" continua aparecendo sem rolar.
 - [ ] **Link compartilhado:** mandar o endereço do site no WhatsApp mostra a foto da capa e o título com "(site de teste)".
 - [ ] **Sacola que enche:** com 0 itens a sacola está vazia, com 10 fica pela metade e com 20 ou mais fica cheia, no topo e na barra. Ela pula ao pôr um item e não pula ao tirar.
 - [ ] **Menos movimento (DevTools → Ctrl+Shift+P → "Rendering" → prefers-reduced-motion: reduce):** o card não se move, só a borda acende. A capa fica parada, e a sacola mostra o nível sem pular.
