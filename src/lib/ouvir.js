@@ -116,9 +116,10 @@ function mostrarBotoes() {
 
 let atual = null // { botao, texto, frases, indice, pausado, audio }
 
+// Cada frase vai até o ponto final, de exclamação ou de interrogação.
+// (Não use "(?<=" aqui: o Safari antes do iOS 16.4 não entende e o site inteiro para.)
 function frasesDe(texto) {
-  return texto
-    .split(/(?<=[.!?])\s+/)
+  return (texto.match(/[^.!?]+[.!?]*/g) ?? [])
     .map((frase) => frase.trim())
     .filter(Boolean)
 }
