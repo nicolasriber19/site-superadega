@@ -87,6 +87,17 @@ main > section,
   padding-inline: 0.75em;
 }
 
+/* Sacola que enche: o "conteúdo" cresce de baixo para cima conforme --nivel (0 a 1).
+   Cor = a do texto do botão (azul no topo, branco na barra), meio transparente. */
+.sacola__conteudo {
+  fill: currentColor;
+  opacity: 0.45;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: scaleY(var(--nivel, 0));
+  transition: transform 0.4s ease-out;
+}
+
 .contador {
   min-width: 1.6em;
   padding: 0 0.4em;
@@ -118,12 +129,21 @@ main > .capa {
   color: var(--cor-texto-secundario);
 }
 
-.capa__imagem {
-  width: 100%;
+/* Moldura da foto: borda e cantos ficam aqui, e a foto pode se mexer dentro sem vazar */
+.capa__moldura {
+  overflow: hidden;
+  /* "clip" corta igual, mas não vira área de rolagem própria: assim a animação
+     da foto acompanha a rolagem da página (com "hidden" ela ficaria parada) */
+  overflow: clip;
   aspect-ratio: 16 / 9;
-  object-fit: cover;
   border: var(--borda-card); /* separa a foto do fundo creme da capa */
   border-radius: var(--raio-card);
+}
+
+.capa__imagem {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 @media (min-width: 900px) {

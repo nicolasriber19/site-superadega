@@ -36,3 +36,77 @@
     animation: destaque 0.6s linear;
   }
 }
+
+/* ---------- Capa com profundidade ----------
+   Enquanto a capa sai da tela (ao rolar para baixo):
+   - a moldura inteira desce mais devagar que a página (até 15% da altura dela,
+     o que cabe no espaço vazio abaixo da capa, sem cobrir texto);
+   - a foto, dentro da moldura, sai de um zoom leve (108% → 100%). Com zoom de 100%
+     ou mais ela sempre cobre a moldura toda: nunca aparece vão.
+   Só CSS: a animação é ligada à rolagem (animation-timeline).
+   - Navegador sem suporte: a capa fica parada (nada quebra).
+   - "Reduzir movimento" ligado: a capa fica parada. */
+
+@keyframes capa-moldura-desce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(15%);
+  }
+}
+
+@keyframes capa-foto-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .capa__moldura {
+      animation: capa-moldura-desce linear both;
+      /* depois do "animation" (o atalho apagaria estas duas linhas) */
+      animation-timeline: view();
+      animation-range: exit;
+    }
+
+    .capa__imagem {
+      animation: capa-foto-zoom linear both;
+      animation-timeline: view();
+      animation-range: exit;
+    }
+  }
+}
+
+/* ---------- Sacola que enche: pulinho a cada produto novo ---------- */
+
+@keyframes sacola-pulo {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.sacola--pulo {
+  transform-origin: 50% 90%;
+  animation: sacola-pulo 0.3s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sacola--pulo {
+    animation: none;
+  }
+
+  .sacola__conteudo {
+    transition: none;
+  }
+}

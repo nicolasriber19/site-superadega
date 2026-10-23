@@ -40,7 +40,15 @@
           Ajuda
         </a>
         <a class="botao topo__botao" href="#finalizar">
-          <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#sacola"></use></svg>
+          <!-- Sacola que enche: o "conteúdo" cresce conforme a lista (src/sections/finalizar.js) -->
+          <svg class="icone sacola" viewBox="0 0 24 24" aria-hidden="true" data-sacola>
+            <defs><clipPath id="sacola-corpo-topo"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z" /></clipPath></defs>
+            <g clip-path="url(#sacola-corpo-topo)"><rect class="sacola__conteudo" x="4" y="8" width="16" height="14" /></g>
+            <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z" />
+              <path d="M9 10V7a3 3 0 0 1 6 0v3" />
+            </g>
+          </svg>
           Lista
           <span class="contador" data-contador-lista>0</span>
           <span class="visualmente-oculto">itens</span>
@@ -63,12 +71,16 @@
         <!-- Foto gerada no Higgsfield (docs/ux.md, seção 7; original em _originais/).
              O navegador escolhe a versão pela largura da tela: 600, 800 ou 1600 px.
              fetchpriority="high": é a primeira imagem da página. -->
-        <img class="capa__imagem"
-             src="/img/hero.webp"
-             srcset="/img/hero-600.webp 600w, /img/hero-800.webp 800w, /img/hero.webp 1600w"
-             sizes="(min-width: 900px) 600px, 100vw"
-             width="1600" height="900" fetchpriority="high"
-             alt="Sacolas da compra do mês sobre a bancada da cozinha, com arroz, feijão e óleo" />
+        <!-- A moldura guarda a borda e os cantos; ao rolar, só a foto se mexe dentro dela
+             (capa com profundidade, src/styles/animacao.css) -->
+        <div class="capa__moldura">
+          <img class="capa__imagem"
+               src="/img/hero.webp"
+               srcset="/img/hero-600.webp 600w, /img/hero-800.webp 800w, /img/hero.webp 1600w"
+               sizes="(min-width: 900px) 600px, 100vw"
+               width="1600" height="900" fetchpriority="high"
+               alt="Sacolas da compra do mês sobre a bancada da cozinha, com arroz, feijão e óleo" />
+        </div>
       </section>
 
       <!-- 3. Quem somos -->
@@ -288,7 +300,15 @@
 
     <!-- Barra fixa no pé da tela: aparece quando a lista tem algum item -->
     <a class="botao botao--primario barra-lista" href="#finalizar" data-barra-lista hidden>
-      <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#sacola"></use></svg>
+      <!-- Sacola que enche: o "conteúdo" cresce conforme a lista (src/sections/finalizar.js) -->
+      <svg class="icone sacola" viewBox="0 0 24 24" aria-hidden="true" data-sacola>
+        <defs><clipPath id="sacola-corpo-barra"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z" /></clipPath></defs>
+        <g clip-path="url(#sacola-corpo-barra)"><rect class="sacola__conteudo" x="4" y="8" width="16" height="14" /></g>
+        <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z" />
+          <path d="M9 10V7a3 3 0 0 1 6 0v3" />
+        </g>
+      </svg>
       <span data-barra-texto>Ver lista</span>
     </a>
 

@@ -12,14 +12,14 @@ Versão 1, 22/10/2026. Base: `docs/brief.md`, `docs/requisitos.md`, `docs/plano.
 | Público | Quem faz a compra do mês e quer receber em casa, inclusive quem lê pouco ou não lê (brief, RF-06) |
 | Ação principal | Montar a lista e **enviar o pedido pelo WhatsApp da loja**, pagando com Pix antes da entrega. Na página, começa em "Fazer minha compra" e termina em "Enviar pedido no WhatsApp" |
 | Seções | Topo, Capa, Quem somos, Como funciona, O que você recebe, Produtos, Finalizar pedido, Rodapé. Páginas à parte: Privacidade e Entrega (só o entregador usa) |
-| Animação | Ao tocar em Adicionar, + ou −, o card encolhe para 96% e volta em 0,25 s. Com "reduzir movimento", não se move: só a borda acende |
+| Animação | 1) **Card:** ao tocar em Adicionar, + ou −, o card encolhe para 96% e volta em 0,25 s. 2) **Capa com profundidade:** enquanto a capa sai da tela, a foto desce mais devagar que a página (até 15% da altura dela) e sai de um zoom de 108% para 100%. 3) **Sacola que enche:** o ícone da sacola (botão "Lista" e barra "Ver lista") se enche conforme a lista cresce (cheia com 20 unidades, `UNIDADES_SACOLA_CHEIA` em `src/data/config.js`) e dá um pulinho a cada unidade a mais. Com "reduzir movimento", nada se move: o card só acende a borda, a capa fica parada e a sacola mostra o nível sem pulinho |
 | Critérios | Quem lê pouco monta e envia um pedido sozinho (RF-06). O produto só sai depois do Pix. Botões de 44 px ou mais (RNF-09) |
 | Tom | Direto, acolhedor e econômico. Nunca "Corra, só hoje!" nem "O mais barato da cidade" |
 
 **Regras desta página**
 - O celular vem primeiro (375 px). Depois, o desktop (1280 px).
 - Cada tela tem uma mensagem só.
-- Nenhuma seção fica fixada (pin) e não há animação de rolagem. A pasta `public/frames/` continua vazia.
+- Nenhuma seção fica fixada (pin). A única animação de rolagem é a da capa: só CSS (`animation-timeline: view()`), sem biblioteca. Navegador sem suporte mostra a capa parada. A pasta `public/frames/` continua vazia.
 - Botão diz o que acontece. Nunca "Clique aqui".
 
 ## 1. Jornada em 5 momentos
@@ -184,9 +184,9 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 - **Âncoras:** "Fazer minha compra" vai para `#produtos`, "Lista" e a barra vão para `#finalizar`, e a marca vai para `#capa`.
 - **Voltar ao topo:** link no rodapé, porque a página é longa no celular.
 - **Pular a animação:**
-  - a única animação, a do card, dura 0,25 s, não esconde conteúdo e não bloqueia o toque (a pessoa pode tocar de novo durante a animação);
+  - nenhuma animação esconde conteúdo ou bloqueia o toque: a do card dura 0,25 s, o pulinho da sacola 0,3 s, e a capa só acompanha a rolagem (não prende a página);
   - o caminho para pular o conteúdo inicial é o link **"Pular para os produtos"**, que aparece no 1º Tab;
-  - com "reduzir movimento", o card não se move, e a rolagem suave desliga.
+  - com "reduzir movimento", o card não se move, a capa fica parada, a sacola não pula e a rolagem suave desliga.
 
 ## 6. Estados
 
@@ -194,7 +194,7 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 |---|---|---|
 | Carregando a página | Texto na letra do aparelho até a Bricolage e a Atkinson chegarem (`font-display: swap`). A fonte do título é pré-carregada | Feito |
 | Carregando imagens | Fotos com `loading="lazy"` e tamanho reservado, para a página não pular (CLS de 0,019) | Feito |
-| Imagens da animação | Não existem. A animação é só CSS | — |
+| Imagens da animação | Não existem. As animações são só CSS, usando a foto da capa e o ícone da sacola | — |
 | Erro de imagem | Se a foto de um produto falhar, troca pelo `placeholder.svg` e o nome continua visível | Feito |
 | Lista vazia | "Sua lista está vazia." e o botão "Escolher produtos" | Feito |
 | Filtro sem produtos | "Nenhum produto aqui por enquanto. Toque em 'Todos'." | Feito |
@@ -229,11 +229,11 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 **Regras:**
 - **Foco visível:** contorno azul-louça de 3 px com afastamento de 3 px (7,94:1 sobre o creme). Nas opções de dia e horário, o contorno aparece no "botão" inteiro.
 - **Contraste:** 13 pares da identidade, de 3,49:1 (borda) a 15,75:1. A faixa de protótipo tem 15,75:1. Tabela em `docs/identidade.md`.
-- **prefers-reduced-motion:** o card não se move (só a borda acende), e a rolagem suave desliga.
+- **prefers-reduced-motion:** o card não se move (só a borda acende), a capa fica parada, a sacola mostra o nível sem pulinho e a rolagem suave desliga.
 - **Leitor de tela:**
   - avisos falados ("Arroz branco: 3 na lista", "Ofertas: 4 produtos");
   - o ponto do logotipo fica oculto;
-  - ícones com `aria-hidden`.
+  - ícones com `aria-hidden`; o nível da sacola é só visual, e quem informa é o número ("Lista 3 itens").
 - **Toque:** todos os alvos com 44 px ou mais (botões com 48 px, e 56 px no principal).
 
 **Texto alternativo de cada imagem do plano:**
@@ -313,7 +313,9 @@ Use esta lista depois que a página estiver pronta. Abra `npm run dev` → http:
 - [ ] **Imagens (DevTools → Elements):** cada `<img>` tem o `alt` da tabela da seção 7, ou `alt=""` quando é decorativa.
 - [ ] **Teclado:** do topo da página, o 1º Tab mostra "Pular para os produtos", e o Tab segue a ordem da seção 7, sempre com o contorno azul visível.
 - [ ] **Animação:** tocar em "+" faz o card mexer e voltar sem esconder nada.
-- [ ] **Menos movimento (DevTools → Ctrl+Shift+P → "Rendering" → prefers-reduced-motion: reduce):** o card não se move, só a borda acende.
+- [ ] **Capa com profundidade (Chrome):** ao rolar, a foto da capa desce devagar e sai do zoom, sem abrir vão na moldura e sem cobrir "Quem somos".
+- [ ] **Sacola que enche:** com 0 itens a sacola está vazia, com 10 fica pela metade e com 20 ou mais fica cheia, no topo e na barra. Ela pula ao pôr um item e não pula ao tirar.
+- [ ] **Menos movimento (DevTools → Ctrl+Shift+P → "Rendering" → prefers-reduced-motion: reduce):** o card não se move, só a borda acende. A capa fica parada, e a sacola mostra o nível sem pular.
 - [ ] **Estados:** lista vazia, filtro vazio, envio com campos faltando e "Ouvir" sem voz mostram as mensagens da seção 6.
 - [ ] **Barra "Ver lista":** não cobre o botão "Enviar pedido no WhatsApp".
 - [ ] **Desktop (1280 px):** capa em 2 colunas, 4 passos numa linha e 5 cards por linha, sem rolagem para o lado.

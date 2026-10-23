@@ -4,7 +4,7 @@
 import { aoMudarLista, itensDaLista, totalDaLista, totalDeUnidades } from '../lib/lista.js'
 import { emReais } from '../lib/dinheiro.js'
 import { caminho } from '../lib/caminho.js'
-import { DIAS_DE_ENTREGA, faixasDeHorario, linkDoWhatsApp } from '../data/config.js'
+import { DIAS_DE_ENTREGA, UNIDADES_SACOLA_CHEIA, faixasDeHorario, linkDoWhatsApp } from '../data/config.js'
 
 const ICONES = caminho('icons/icones.svg')
 
@@ -53,6 +53,25 @@ function desenharResumo(resumo) {
 // A seção Finalizar está aparecendo na tela? (atualizado pelo IntersectionObserver)
 let finalizarNaTela = false
 
+// Sacola que enche (topo e barra): o nível acompanha as unidades da lista,
+// e o ícone dá um pulinho só quando a quantidade aumenta.
+let unidadesAntes = null
+
+function desenharSacolas(unidades) {
+  const nivel = Math.min(1, unidades / UNIDADES_SACOLA_CHEIA)
+  const aumentou = unidadesAntes !== null && unidades > unidadesAntes
+  document.querySelectorAll('[data-sacola]').forEach((sacola) => {
+    sacola.style.setProperty('--nivel', nivel)
+    if (aumentou) {
+      // Tirar e pôr a classe de novo faz o pulinho recomeçar em toques rápidos
+      sacola.classList.remove('sacola--pulo')
+      void sacola.getBoundingClientRect()
+      sacola.classList.add('sacola--pulo')
+    }
+  })
+  unidadesAntes = unidades
+}
+
 // Contador do topo e barra fixa no pé da tela.
 // A barra some com a lista vazia e também quando o Finalizar está na tela:
 // ali ela só repetiria o resumo e poderia cobrir o "Enviar pedido" (docs/ux.md, seção 6).
@@ -64,6 +83,7 @@ function desenharAtalhos(contador, barra) {
   document.body.classList.toggle('tem-barra-lista', unidades > 0)
   barra.querySelector('[data-barra-texto]').textContent =
     `Ver lista: ${textoUnidades(unidades)} · ${emReais(totalDaLista())}`
+  desenharSacolas(unidades)
 }
 
 function montarFinalizar({ secao, resumo, contador, barra }) {
@@ -73,6 +93,13 @@ function montarFinalizar({ secao, resumo, contador, barra }) {
   }
   aoMudarLista(desenhar)
   desenhar()
+
+  // Quando o pulinho da sacola termina, tira a classe
+  document.addEventListener('animationend', (evento) => {
+    if (evento.target.classList?.contains('sacola--pulo')) {
+      evento.target.classList.remove('sacola--pulo')
+    }
+  })
 
   // Observa quando qualquer parte do Finalizar entra ou sai da tela.
   new IntersectionObserver(([registro]) => {

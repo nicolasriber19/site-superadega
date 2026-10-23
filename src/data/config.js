@@ -14,6 +14,9 @@ export function linkDoWhatsApp(texto) {
 // Frase pronta do botão "Ajuda" (RF-14).
 export const TEXTO_AJUDA = 'Olá, preciso de ajuda com meu pedido.'
 
+// Com quantas unidades na lista o ícone da sacola fica cheio. [proposta: ajuste à vontade]
+export const UNIDADES_SACOLA_CHEIA = 20
+
 // Quantos dias aparecem para escolher, a partir de amanhã.
 export const DIAS_DE_ENTREGA = 5
 
