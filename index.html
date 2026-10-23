@@ -94,8 +94,9 @@
       <section id="como-funciona" class="como-funciona" aria-labelledby="titulo-como-funciona">
         <h2 id="titulo-como-funciona">Como funciona</h2>
         <!-- Quando chegarem, as figuras passo-1…4.webp (600×600) entram em cada passo. -->
-        <!-- O botão "Ouvir" de cada passo lê o texto do passo (src/sections/ouvir.js).
-             Ele só aparece se o aparelho tiver voz em português. -->
+        <!-- O botão "Ouvir" de cada passo fala o texto de data-texto, em tom de conversa
+             (src/lib/ouvir.js). Toca o áudio gravado, se houver (src/data/audios.js);
+             senão, usa a voz do aparelho. -->
         <!-- role="list": o Safari deixa de anunciar listas sem marcador sem ele. -->
         <ol class="passos" role="list">
           <li class="passo" data-falavel>
@@ -103,7 +104,8 @@
             <svg class="passo__icone" aria-hidden="true"><use href="/icons/icones.svg#sacola"></use></svg>
             <h3>Escolha</h3>
             <p>Toque nos produtos que você quer e nas quantidades.</p>
-            <button type="button" class="botao botao-ouvir" data-ouvir hidden>
+            <button type="button" class="botao botao-ouvir" data-ouvir hidden
+                    data-texto="Primeiro passo: escolha os produtos que você quer. Toque no botão azul para pôr na lista. Quer levar mais de um? É só tocar de novo.">
               <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#ouvir"></use></svg>
               Ouvir
             </button>
@@ -113,7 +115,8 @@
             <svg class="passo__icone" aria-hidden="true"><use href="/icons/icones.svg#balao"></use></svg>
             <h3>Envie</h3>
             <p>Mande a lista para a loja pelo WhatsApp.</p>
-            <button type="button" class="botao botao-ouvir" data-ouvir hidden>
+            <button type="button" class="botao botao-ouvir" data-ouvir hidden
+                    data-texto="Segundo passo: mande a sua lista para a loja pelo WhatsApp. O site já deixa a mensagem pronta para você.">
               <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#ouvir"></use></svg>
               Ouvir
             </button>
@@ -123,7 +126,8 @@
             <svg class="passo__icone" aria-hidden="true"><use href="/icons/icones.svg#dinheiro"></use></svg>
             <h3>Pague o Pix</h3>
             <p>A loja manda a chave Pix. O pedido só sai depois do pagamento.</p>
-            <button type="button" class="botao botao-ouvir" data-ouvir hidden>
+            <button type="button" class="botao botao-ouvir" data-ouvir hidden
+                    data-texto="Terceiro passo: a loja manda a chave Pix. Você paga, e só depois disso o pedido sai para a entrega.">
               <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#ouvir"></use></svg>
               Ouvir
             </button>
@@ -133,7 +137,8 @@
             <svg class="passo__icone" aria-hidden="true"><use href="/icons/icones.svg#caneta"></use></svg>
             <h3>Receba e assine</h3>
             <p>A compra chega na sua casa. Quem receber assina no celular do entregador.</p>
-            <button type="button" class="botao botao-ouvir" data-ouvir hidden>
+            <button type="button" class="botao botao-ouvir" data-ouvir hidden
+                    data-texto="Último passo: a compra chega na sua casa. Quem receber assina no celular do entregador, e pronto!">
               <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#ouvir"></use></svg>
               Ouvir
             </button>

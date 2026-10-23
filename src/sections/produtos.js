@@ -50,12 +50,26 @@ function controles(produto, quantidade) {
   `
 }
 
-// O que o botão "Ouvir" do card lê (RF-10).
+// "no pacote", "na garrafa"…: o artigo certo para a primeira palavra da embalagem.
+const ARTIGO_DA_EMBALAGEM = { pacote: 'no', frasco: 'no', saco: 'no', fardo: 'no', garrafa: 'na', caixa: 'na', lata: 'na' }
+
+function minuscula(texto) {
+  return texto.charAt(0).toLowerCase() + texto.slice(1)
+}
+
+// O que o botão "Ouvir" do card fala (RF-10), no tom de um atendente conversando.
+// Os números ficam como estão: lib/ouvir.js troca "R$ 25,90" e "5 kg" pelo jeito falado.
 function textoFalado(produto) {
-  const oferta = produto.oferta ? 'Oferta. ' : ''
+  const nome = minuscula(produto.nome)
+  const embalagem = minuscula(produto.unidade)
+  const artigo = ARTIGO_DA_EMBALAGEM[embalagem.split(' ')[0]] ?? 'em'
+  const abertura = produto.oferta
+    ? `Olha só, ${nome} em oferta! Vem ${artigo} ${embalagem} e sai por ${emReais(produto.preco)} cada.`
+    : `${produto.nome}, ${artigo} ${embalagem}. Sai por ${emReais(produto.preco)} cada.`
   return (
-    `${oferta}${produto.nome}. ${produto.unidade}. ${emReais(produto.preco)} cada. ` +
-    `Levando ${produto.minimoAtacado} ou mais, ${emReais(produto.precoAtacado)} cada.`
+    `${abertura} ` +
+    `Se você levar ${produto.minimoAtacado} ou mais, cada um fica por ${emReais(produto.precoAtacado)}. ` +
+    'Para pôr na sua lista, é só tocar no botão azul.'
   )
 }
 

@@ -14,6 +14,9 @@
 //   oferta         true para aparecer no filtro "Ofertas"
 //   imagem         foto dentro de public/, ex.: 'img/produtos/arroz.webp' (deixe '' enquanto não tiver foto)
 //   alt            descrição da foto para o leitor de tela
+//
+// Mudou nome, embalagem ou preço? O "Ouvir" desse produto passa a usar a voz do aparelho
+// até o áudio ser gravado de novo (veja src/data/audios.js).
 
 export const PRECOS_SAO_EXEMPLO = true
 

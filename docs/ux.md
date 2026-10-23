@@ -202,6 +202,8 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 | Faltou algo ao enviar | Caixa "Falta pouco:" com a lista do que falta e o campo com borda vermelha. O leitor de tela lê na hora | Feito |
 | WhatsApp bloqueado | Abre na mesma aba. A lista continua salva no aparelho | Feito |
 | Sem voz em português | Os botões "Ouvir" somem | Feito |
+| Falando / pausado | O botão "Ouvir" vira "Pausar" (azul-escuro) e, pausado, "Continuar". No áudio gravado, continua do ponto exato; na voz do aparelho, recomeça da frase onde parou. No fim da fala volta a "Ouvir". Tocar em outro "Ouvir" para o anterior | Feito |
+| Voz do "Ouvir" | Fala em tom de conversa ("Olha só, arroz branco em oferta!…"). Toca o áudio gravado com voz de IA (Helena, ElevenLabs v4 no Higgsfield; `public/audio/` e `src/data/audios.js`). Se o texto mudou desde a gravação (ex.: preço novo) ou o arquivo falhar, usa a melhor voz em português do aparelho, nunca um preço antigo | Feito |
 | Sem JavaScript | "Para ver os produtos, ative o JavaScript do navegador ou chame a loja no WhatsApp." | Feito |
 | Nome de produto longo | Quebra em mais linhas e **nunca** é cortado com "…". O card cresce, e o grid alinha a linha | Feito (conferir com a lista real) |
 | Lista muito grande | A mensagem do WhatsApp pode ficar longa demais. Plano B: botão "Copiar pedido" | Feito: aparece depois de todo envio, com texto para copiar à mão se o navegador não deixar |
@@ -262,7 +264,7 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 | Como funciona | "Escolha" · "Envie" · "Pague o Pix" · "Receba e assine" |
 | Passo 3 | "A loja manda a chave Pix. O pedido só sai depois do pagamento." |
 | Card | "A partir de 6: R$ 23,90 cada" → "Leve mais 3 e pague R$ 23,90 cada" → "Preço de atacado: R$ 23,90 cada" |
-| Botões do card | "Adicionar" · "Ouvir" (+/− com nome falado "Pôr mais 1" e "Tirar 1") |
+| Botões do card | "Adicionar" · "Ouvir" (+/− com nome falado "Pôr mais 1" e "Tirar 1"). Enquanto fala, "Ouvir" vira "Pausar"; pausado, vira "Continuar" |
 | Barra | "Ver lista: 3 itens · R$ 77,70" |
 | Lista vazia | "Sua lista está vazia." + "Escolher produtos" |
 | Pix | "Você paga com Pix antes da entrega. A loja manda a chave no WhatsApp. O pedido só sai depois do pagamento." |
@@ -321,6 +323,8 @@ Use esta lista depois que a página estiver pronta. Abra `npm run dev` → http:
 - [ ] **Sacola que enche:** com 0 itens a sacola está vazia, com 10 fica pela metade e com 20 ou mais fica cheia, no topo e na barra. Ela pula ao pôr um item e não pula ao tirar.
 - [ ] **Menos movimento (DevTools → Ctrl+Shift+P → "Rendering" → prefers-reduced-motion: reduce):** o card não se move, só a borda acende. A capa fica parada, e a sacola mostra o nível sem pular.
 - [ ] **Estados:** lista vazia, filtro vazio, envio com campos faltando e "Ouvir" sem voz mostram as mensagens da seção 6.
+- [ ] **Ouvir, Pausar e Continuar:** no card, "Ouvir" toca a voz gravada da Helena com o preço por extenso ("25 reais e 90 centavos") e vira "Pausar"; "Pausar" para e vira "Continuar"; "Continuar" segue de onde parou.
+- [ ] **Preço novo:** depois de mudar um preço em `src/data/produtos.js`, o "Ouvir" desse produto fala com a voz do aparelho e o preço novo (o áudio gravado só volta quando for regravado).
 - [ ] **Barra "Ver lista":** não cobre o botão "Enviar pedido no WhatsApp".
 - [ ] **Desktop (1280 px):** capa em 2 colunas, 4 passos numa linha e 5 cards por linha, sem rolagem para o lado.
 - [ ] **Fontes (DevTools → Network → filtro Font):** 3 arquivos `.woff2` com status 200.
