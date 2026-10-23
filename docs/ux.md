@@ -12,14 +12,14 @@ Versão 1, 22/10/2026. Base: `docs/brief.md`, `docs/requisitos.md`, `docs/plano.
 | Público | Quem faz a compra do mês e quer receber em casa, inclusive quem lê pouco ou não lê (brief, RF-06) |
 | Ação principal | Montar a lista e **enviar o pedido pelo WhatsApp da loja**, pagando com Pix antes da entrega. Na página, começa em "Fazer minha compra" e termina em "Enviar pedido no WhatsApp" |
 | Seções | Topo, Capa, Quem somos, Como funciona, O que você recebe, Produtos, Finalizar pedido, Rodapé. Páginas à parte: Privacidade e Entrega (só o entregador usa) |
-| Animação | 1) **Card:** ao tocar em Adicionar, + ou −, o card encolhe para 96% e volta em 0,25 s. 2) **Capa com profundidade:** enquanto a capa sai da tela, a foto desce mais devagar que a página (até 15% da altura dela) e sai de um zoom de 108% para 100%. 3) **Sacola que enche:** o ícone da sacola (botão "Lista" e barra "Ver lista") se enche conforme a lista cresce (cheia com 20 unidades, `UNIDADES_SACOLA_CHEIA` em `src/data/config.js`) e dá um pulinho a cada unidade a mais. Com "reduzir movimento", nada se move: o card só acende a borda, a capa fica parada e a sacola mostra o nível sem pulinho |
+| Animação | 1) **Card:** ao tocar em Adicionar, + ou −, o card encolhe para 96% e volta em 0,25 s. 2) **Capa com profundidade:** enquanto a capa sai da tela, a foto desce mais devagar que a página (até 15% da altura dela) e sai de um zoom de 108% para 100%. 3) **Sacola que enche:** o ícone da sacola (botão "Lista" e barra "Ver lista") se enche conforme a lista cresce (cheia com 20 unidades, `UNIDADES_SACOLA_CHEIA` em `src/data/config.js`) e dá um pulinho a cada unidade a mais. 4) **Faixa com foto:** entre "Como funciona" e "O que você recebe", uma foto de ponta a ponta anda mais devagar que a página, como a paisagem vista de uma janela. Com "reduzir movimento", nada se move: o card só acende a borda, a capa e a faixa ficam paradas e a sacola mostra o nível sem pulinho |
 | Critérios | Quem lê pouco monta e envia um pedido sozinho (RF-06). O produto só sai depois do Pix. Botões de 44 px ou mais (RNF-09) |
 | Tom | Direto, acolhedor e econômico. Nunca "Corra, só hoje!" nem "O mais barato da cidade" |
 
 **Regras desta página**
 - O celular vem primeiro (375 px). Depois, o desktop (1280 px).
 - Cada tela tem uma mensagem só.
-- Nenhuma seção fica fixada (pin). A única animação de rolagem é a da capa: só CSS (`animation-timeline: view()`), sem biblioteca. Navegador sem suporte mostra a capa parada. A pasta `public/frames/` continua vazia.
+- Nenhuma seção fica fixada (pin). As animações de rolagem são a da capa e a da faixa com foto: só CSS (`animation-timeline`), sem biblioteca. Navegador sem suporte mostra as fotos paradas. A pasta `public/frames/` continua vazia.
 - Botão diz o que acontece. Nunca "Clique aqui".
 
 ## 1. Jornada em 5 momentos
@@ -40,6 +40,7 @@ Versão 1, 22/10/2026. Base: `docs/brief.md`, `docs/requisitos.md`, `docs/plano.
 | 2 | Capa | Sua compra do mês, entregue em casa | "O que é isto?" | Diz o que é e já oferece a ação |
 | 3 | Quem somos | Supermercado de compra do mês, com preço de atacado | "Quem vende?" | Confiança antes de pedir dados |
 | 4 | Como funciona | Escolha, envie, pague o Pix, receba e assine | "Como funciona? Quando pago?" | Tira o medo do pagamento antes dos produtos |
+| — | Faixa com foto | Do mercado até a sua porta | — | Pausa visual entre o "como" e o "o quê"; não é uma seção, só uma frase sobre a foto |
 | 5 | O que você recebe | Tudo na sua porta, no dia escolhido | "O que chega e como?" | Fecha as dúvidas e leva aos produtos |
 | 6 | Produtos | Toque no + para pôr na lista | "O que tem e quanto custa?" | Aqui a pessoa age |
 | 7 | Finalizar pedido | Escolha dia e hora e envie pelo WhatsApp | "Como eu termino?" | Fim natural da lista |
@@ -184,9 +185,9 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 - **Âncoras:** "Fazer minha compra" vai para `#produtos`, "Lista" e a barra vão para `#finalizar`, e a marca vai para `#capa`.
 - **Voltar ao topo:** link no rodapé, porque a página é longa no celular.
 - **Pular a animação:**
-  - nenhuma animação esconde conteúdo ou bloqueia o toque: a do card dura 0,25 s, o pulinho da sacola 0,3 s, e a capa só acompanha a rolagem (não prende a página);
+  - nenhuma animação esconde conteúdo ou bloqueia o toque: a do card dura 0,25 s, o pulinho da sacola 0,3 s, e a capa e a faixa com foto só acompanham a rolagem (não prendem a página);
   - o caminho para pular o conteúdo inicial é o link **"Pular para os produtos"**, que aparece no 1º Tab;
-  - com "reduzir movimento", o card não se move, a capa fica parada, a sacola não pula e a rolagem suave desliga.
+  - com "reduzir movimento", o card não se move, a capa e a faixa ficam paradas, a sacola não pula e a rolagem suave desliga.
 
 ## 6. Estados
 
@@ -229,7 +230,7 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 **Regras:**
 - **Foco visível:** contorno azul-louça de 3 px com afastamento de 3 px (7,94:1 sobre o creme). Nas opções de dia e horário, o contorno aparece no "botão" inteiro.
 - **Contraste:** 13 pares da identidade, de 3,49:1 (borda) a 15,75:1. A faixa de protótipo tem 15,75:1. Tabela em `docs/identidade.md`.
-- **prefers-reduced-motion:** o card não se move (só a borda acende), a capa fica parada, a sacola mostra o nível sem pulinho e a rolagem suave desliga.
+- **prefers-reduced-motion:** o card não se move (só a borda acende), a capa e a faixa ficam paradas, a sacola mostra o nível sem pulinho e a rolagem suave desliga.
 - **Leitor de tela:**
   - avisos falados ("Arroz branco: 3 na lista", "Ofertas: 4 produtos");
   - o ponto do logotipo fica oculto;
@@ -242,8 +243,9 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 |---|---|---|
 | `img/hero.webp` | Capa | "Sacolas da compra do mês sobre a bancada da cozinha, com arroz, feijão e óleo" |
 | `img/passo-1.webp` … `passo-4.webp` | Como funciona | `alt=""` (decorativa: o número, o título e a frase do passo já dizem tudo) |
+| `img/faixa.webp` (e `-800`, `-1200`) | Faixa com foto | `alt=""` (decorativa: a mensagem está na frase "Do mercado até a sua porta.") |
 | `img/entrega.webp` | O que você recebe | "Mãos guardando a compra do mês no armário da cozinha" |
-| `img/produtos/<id>.webp` | Cards | O campo `alt` de `src/data/produtos.js` (ex.: "Pacote de arroz branco de 5 kg") |
+| `img/produtos/<id>.webp` | Cards | O campo `alt` de `src/data/produtos.js` (ex.: "Pacote de arroz branco de 5 kg"). As 8 fotos de exemplo foram geradas no Higgsfield, com embalagem sem marca; originais em `_originais/produtos/` |
 | `img/placeholder.svg` | Onde a foto ainda não existe | `alt=""` (não descreve o produto; o nome está logo abaixo) |
 | `icons/icones.svg` (todos) | Botões, passos, filtros | `aria-hidden="true"` (a palavra ao lado já diz) |
 | `favicon.svg` | Aba do navegador | Não se aplica |
@@ -314,6 +316,8 @@ Use esta lista depois que a página estiver pronta. Abra `npm run dev` → http:
 - [ ] **Teclado:** do topo da página, o 1º Tab mostra "Pular para os produtos", e o Tab segue a ordem da seção 7, sempre com o contorno azul visível.
 - [ ] **Animação:** tocar em "+" faz o card mexer e voltar sem esconder nada.
 - [ ] **Capa com profundidade (Chrome):** ao rolar, a foto da capa desce devagar e sai do zoom, sem abrir vão na moldura e sem cobrir "Quem somos".
+- [ ] **Faixa com foto (Chrome):** ao rolar, a foto da porta anda mais devagar que a página, sem faixa vazia em cima ou embaixo, e a frase continua legível.
+- [ ] **Fotos dos produtos:** os 8 cards mostram a foto do produto, e nenhuma cai no `placeholder.svg`.
 - [ ] **Sacola que enche:** com 0 itens a sacola está vazia, com 10 fica pela metade e com 20 ou mais fica cheia, no topo e na barra. Ela pula ao pôr um item e não pula ao tirar.
 - [ ] **Menos movimento (DevTools → Ctrl+Shift+P → "Rendering" → prefers-reduced-motion: reduce):** o card não se move, só a borda acende. A capa fica parada, e a sacola mostra o nível sem pular.
 - [ ] **Estados:** lista vazia, filtro vazio, envio com campos faltando e "Ouvir" sem voz mostram as mensagens da seção 6.

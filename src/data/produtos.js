@@ -39,7 +39,7 @@ export const produtos = [
     precoAtacado: 23.9,
     minimoAtacado: 6,
     oferta: true,
-    imagem: '',
+    imagem: 'img/produtos/arroz.webp',
     alt: 'Pacote de arroz branco de 5 kg',
   },
   {
@@ -51,7 +51,7 @@ export const produtos = [
     precoAtacado: 7.6,
     minimoAtacado: 6,
     oferta: false,
-    imagem: '',
+    imagem: 'img/produtos/feijao.webp',
     alt: 'Pacote de feijão carioca de 1 kg',
   },
   {
@@ -63,7 +63,7 @@ export const produtos = [
     precoAtacado: 6.9,
     minimoAtacado: 12,
     oferta: true,
-    imagem: '',
+    imagem: 'img/produtos/oleo.webp',
     alt: 'Garrafa de óleo de soja de 900 ml',
   },
   {
@@ -75,7 +75,7 @@ export const produtos = [
     precoAtacado: 16.9,
     minimoAtacado: 4,
     oferta: false,
-    imagem: '',
+    imagem: 'img/produtos/cafe.webp',
     alt: 'Pacote de café torrado e moído de 500 g',
   },
   {
@@ -87,7 +87,7 @@ export const produtos = [
     precoAtacado: 4.8,
     minimoAtacado: 12,
     oferta: true,
-    imagem: '',
+    imagem: 'img/produtos/leite.webp',
     alt: 'Caixa de leite integral de 1 litro',
   },
   {
@@ -99,7 +99,7 @@ export const produtos = [
     precoAtacado: 2.4,
     minimoAtacado: 6,
     oferta: false,
-    imagem: '',
+    imagem: 'img/produtos/detergente.webp',
     alt: 'Frasco de detergente de 500 ml',
   },
   {
@@ -111,7 +111,7 @@ export const produtos = [
     precoAtacado: 17.9,
     minimoAtacado: 3,
     oferta: false,
-    imagem: '',
+    imagem: 'img/produtos/sabao-po.webp',
     alt: 'Caixa de sabão em pó de 1,6 kg',
   },
   {
@@ -123,7 +123,7 @@ export const produtos = [
     precoAtacado: 19.5,
     minimoAtacado: 3,
     oferta: true,
-    imagem: '',
+    imagem: 'img/produtos/papel-higienico.webp',
     alt: 'Pacote com 12 rolos de papel higiênico',
   },
 ]

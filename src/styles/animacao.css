@@ -82,6 +82,37 @@
   }
 }
 
+/* ---------- Faixa com foto: a foto anda mais devagar que a página ----------
+   Enquanto a faixa atravessa a tela (do pé ao topo), a foto desce dentro dela.
+   Para quem olha, ela parece estar mais longe, como a paisagem vista de uma janela.
+   A foto tem 30% a mais de altura (sections.css); 11% da altura dela cabe nessa
+   sobra para cima e para baixo, então nunca aparece vão.
+   - Navegador sem suporte ou "reduzir movimento": a foto fica parada, centralizada. */
+
+@keyframes faixa-foto-janela {
+  from {
+    transform: translateY(-11%);
+  }
+  to {
+    transform: translateY(11%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .faixa-foto__imagem {
+      animation: faixa-foto-janela linear both;
+      /* a faixa é quem se move na tela; a foto só acompanha o caminho dela */
+      animation-timeline: --faixa-foto;
+      animation-range: cover;
+    }
+
+    .faixa-foto {
+      view-timeline-name: --faixa-foto;
+    }
+  }
+}
+
 /* ---------- Sacola que enche: pulinho a cada produto novo ---------- */
 
 @keyframes sacola-pulo {
