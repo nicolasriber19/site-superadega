@@ -204,13 +204,23 @@ main > .capa {
   font-family: var(--fonte-titulo);
   font-size: 1.375rem;
   font-weight: var(--peso-titulo);
+  /* anel branco: separa o número da foto que fica atrás dele */
+  box-shadow: 0 0 0 3px var(--cor-superficie);
 }
 
-.passo__icone {
-  width: 56px;
-  height: 56px;
-  margin-bottom: 12px;
-  color: var(--cor-destaque);
+/* Foto do passo: de ponta a ponta no topo do card (sai do padding de 24 px).
+   Os cantos de cima seguem a curva do card. O número fica por cima, no canto direito,
+   que nas fotos é uma área calma (docs/imagens.md). */
+.passo__foto {
+  display: block;
+  width: calc(100% + 48px);
+  max-width: none;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin: -24px -24px 16px;
+  /* 1 px a menos que o card: a foto fica por dentro da borda de 1 px */
+  border-radius: calc(var(--raio-card) - 1px) calc(var(--raio-card) - 1px) 0 0;
 }
 
 @media (min-width: 600px) {

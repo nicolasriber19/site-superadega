@@ -4,12 +4,29 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <!-- A fonte do título grande da capa começa a baixar junto com a página (melhora o LCP) -->
-    <link rel="preload" href="/fonts/bricolage-grotesque/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preload" href="/fonts/bricolage-grotesque/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Protótipo: o nome "superadega" é provisório e coincide com uma rede real.
          Enquanto for assim, o site pede para não aparecer em buscas (tirar quando o nome definitivo entrar). -->
     <meta name="robots" content="noindex" />
     <meta name="description" content="Faça a compra do mês pelo celular e receba em casa, no dia e horário que você escolher." />
     <title>Superadega — compra do mês em casa</title>
+
+    <!-- Pré-visualização do link (WhatsApp e redes): título, frase e foto que aparecem
+         quando alguém compartilha o site. A foto é um recorte da capa (docs/imagens.md).
+         Aqui o endereço precisa ser completo, com o domínio: trocar se o site mudar de endereço.
+         Enquanto for protótipo, o título e a frase avisam que é site de teste. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content="https://nicolasriber19.github.io/site-superadega/" />
+    <meta property="og:title" content="Superadega (site de teste) — compra do mês em casa" />
+    <meta property="og:description" content="Site de teste, loja fictícia. Faça a compra do mês pelo celular e receba em casa, no dia e horário que você escolher." />
+    <meta property="og:image" content="https://nicolasriber19.github.io/site-superadega/img/compartilhar.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sacolas da compra do mês sobre a bancada da cozinha, com arroz, feijão e óleo" />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
 
@@ -93,7 +110,8 @@
       <!-- 4. Como funciona -->
       <section id="como-funciona" class="como-funciona" aria-labelledby="titulo-como-funciona">
         <h2 id="titulo-como-funciona">Como funciona</h2>
-        <!-- Quando chegarem, as figuras passo-1…4.webp (600×600) entram em cada passo. -->
+        <!-- A foto de cada passo é decorativa (alt vazio): o número, o título e a frase já dizem tudo.
+             Fotos geradas no Higgsfield com a capa como referência (docs/imagens.md). -->
         <!-- O botão "Ouvir" de cada passo fala o texto de data-texto, em tom de conversa
              (src/lib/ouvir.js). Toca o áudio gravado, se houver (src/data/audios.js);
              senão, usa a voz do aparelho. -->
@@ -101,7 +119,7 @@
         <ol class="passos" role="list">
           <li class="passo" data-falavel>
             <span class="passo__numero" aria-hidden="true">1</span>
-            <svg class="passo__icone" aria-hidden="true"><use href="/icons/icones.svg#sacola"></use></svg>
+            <img class="passo__foto" src="/img/passo-1.webp" width="800" height="600" loading="lazy" alt="" />
             <h3>Escolha</h3>
             <p>Toque nos produtos que você quer e nas quantidades.</p>
             <button type="button" class="botao botao-ouvir" data-ouvir hidden
@@ -112,7 +130,7 @@
           </li>
           <li class="passo" data-falavel>
             <span class="passo__numero" aria-hidden="true">2</span>
-            <svg class="passo__icone" aria-hidden="true"><use href="/icons/icones.svg#balao"></use></svg>
+            <img class="passo__foto" src="/img/passo-2.webp" width="800" height="600" loading="lazy" alt="" />
             <h3>Envie</h3>
             <p>Mande a lista para a loja pelo WhatsApp.</p>
             <button type="button" class="botao botao-ouvir" data-ouvir hidden
@@ -123,7 +141,7 @@
           </li>
           <li class="passo" data-falavel>
             <span class="passo__numero" aria-hidden="true">3</span>
-            <svg class="passo__icone" aria-hidden="true"><use href="/icons/icones.svg#dinheiro"></use></svg>
+            <img class="passo__foto" src="/img/passo-3.webp" width="800" height="600" loading="lazy" alt="" />
             <h3>Pague o Pix</h3>
             <p>A loja manda a chave Pix. O pedido só sai depois do pagamento.</p>
             <button type="button" class="botao botao-ouvir" data-ouvir hidden
@@ -134,7 +152,7 @@
           </li>
           <li class="passo" data-falavel>
             <span class="passo__numero" aria-hidden="true">4</span>
-            <svg class="passo__icone" aria-hidden="true"><use href="/icons/icones.svg#caneta"></use></svg>
+            <img class="passo__foto" src="/img/passo-4.webp" width="800" height="600" loading="lazy" alt="" />
             <h3>Receba e assine</h3>
             <p>A compra chega na sua casa. Quem receber assina no celular do entregador.</p>
             <button type="button" class="botao botao-ouvir" data-ouvir hidden

@@ -320,6 +320,8 @@ Use esta lista depois que a página estiver pronta. Abra `npm run dev` → http:
 - [ ] **Capa com profundidade (Chrome):** ao rolar, a foto da capa desce devagar e sai do zoom, sem abrir vão na moldura e sem cobrir "Quem somos".
 - [ ] **Faixa com foto (Chrome):** ao rolar, a foto da porta anda mais devagar que a página, sem faixa vazia em cima ou embaixo, e a frase continua legível.
 - [ ] **Fotos dos produtos:** os 8 cards mostram a foto do produto, e nenhuma cai no `placeholder.svg`.
+- [ ] **Fotos dos passos:** os 4 cards do "Como funciona" mostram a foto no topo, com o número por cima, no canto direito.
+- [ ] **Link compartilhado:** mandar o endereço do site no WhatsApp mostra a foto da capa e o título com "(site de teste)".
 - [ ] **Sacola que enche:** com 0 itens a sacola está vazia, com 10 fica pela metade e com 20 ou mais fica cheia, no topo e na barra. Ela pula ao pôr um item e não pula ao tirar.
 - [ ] **Menos movimento (DevTools → Ctrl+Shift+P → "Rendering" → prefers-reduced-motion: reduce):** o card não se move, só a borda acende. A capa fica parada, e a sacola mostra o nível sem pular.
 - [ ] **Estados:** lista vazia, filtro vazio, envio com campos faltando e "Ouvir" sem voz mostram as mensagens da seção 6.

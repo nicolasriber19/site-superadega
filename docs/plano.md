@@ -62,7 +62,8 @@ SITE/
 | Arquivo | Formato | Tamanho (px) | Quem gera |
 |---|---|---|---|
 | img/hero.webp | WebP | 1600×900 | Você (Higgsfield) |
-| img/passo-1…4.webp | WebP | 600×600 | Você (Higgsfield) |
+| img/passo-1…4.webp | WebP, 4:3 | 800×600 | Higgsfield, com a capa como referência (docs/imagens.md) |
+| img/compartilhar.jpg | JPG | 1200×630 | Recorte da capa, para a pré-visualização do link (docs/imagens.md) |
 | img/entrega.webp | WebP | 1200×800 | Você (Higgsfield) |
 | img/produtos/<id>.webp | WebP, fundo branco | 600×600 | Você (foto real ou Higgsfield com aviso "imagem ilustrativa") |
 | img/placeholder.svg | SVG | 600×600 | Eu (substituto até as imagens chegarem) |
