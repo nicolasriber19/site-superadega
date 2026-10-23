@@ -80,7 +80,7 @@ O limite de 6 itens em "Precisa" vale para os RF. Os RNF marcados "Precisa" são
 | Texto "O que você recebe" (como chega, pagamento na entrega) | RF-01 | Você | Antes do código [a confirmar] |
 | Lista de produtos: nome, unidade, preço, preço de atacado, quantidade mínima, categoria | RF-02, RF-03, RF-12 | Você | Antes do código [a confirmar] |
 | Fotos dos produtos | RF-02, RF-06 | Você, com o Higgsfield (ver riscos) | Etapa de imagens [a confirmar] |
-| Imagens da página inicial (capa e passos) | RF-01 | Você, com o Higgsfield | Etapa de imagens [a confirmar] |
+| Imagens da página inicial (capa e passos) | RF-01 | Higgsfield (capa e entrega feitas em 22/10/2026; passos usam ícones) | Feito |
 | Ícones de botões e categorias | RF-06, RF-12 | Etapa de identidade visual, com arquivos no próprio site | Identidade visual |
 | Logo e nome definitivo | Todo o site | Você | Antes de publicar |
 | Textos alternativos das imagens | RNF-04 | Eu rascunho, você aprova | Junto com as imagens |
@@ -94,7 +94,7 @@ O limite de 6 itens em "Precisa" vale para os RF. Os RNF marcados "Precisa" são
 | Dependência | Para quê | Risco | Plano B |
 |---|---|---|---|
 | WhatsApp | Pedido, ajuda e áudio (RF-05, RF-09, RF-14) | Quem não tem WhatsApp não consegue pedir. Se o link mudar, o envio para. Listas muito longas podem ser cortadas [a confirmar]. Os dados passam pela empresa dona do WhatsApp [LGPD: confirmar]. | Mostrar o telefone para ligar. Botão "Copiar pedido". Testar uma lista grande antes de publicar. |
-| Higgsfield | Criar imagens (só na produção do conteúdo) | A imagem pode não parecer o produto real. Desenhar embalagens de marcas conhecidas pode dar problema de direitos. Uso comercial: [a confirmar]. | IA na capa e nos passos. Nos produtos, foto real ou o aviso "imagem ilustrativa". Os arquivos ficam no próprio site. |
+| Higgsfield | Criar imagens (só na produção do conteúdo) | A imagem pode não parecer o produto real. Desenhar embalagens de marcas conhecidas pode dar problema de direitos. Uso comercial: permitido pelo plano, segundo o dono do projeto (22/10/2026). | IA na capa e nos passos. Nos produtos, foto real ou o aviso "imagem ilustrativa". Os arquivos ficam no próprio site. |
 | Mapa | Não usado nesta versão | Mapas embutidos carregam arquivos de fora e podem criar cookies (quebra RNF-08 e RNF-13). | Imagem fixa com link "Abrir no mapa". |
 | Formulário externo | Não usado (o pedido vai pelo WhatsApp) | Os dados ficariam com outra empresa [LGPD: confirmar]. | — |
 | Analytics | Não usado nesta versão | Código de outra empresa e cookies. Exige aviso [LGPD: confirmar]. | Contar no WhatsApp as mensagens que começam com "Pedido pelo site". |

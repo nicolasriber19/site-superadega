@@ -122,7 +122,7 @@ main > .capa {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  border: var(--borda-card); /* a imagem provisória é creme: a borda mostra onde ela termina */
+  border: var(--borda-card); /* separa a foto do fundo creme da capa */
   border-radius: var(--raio-card);
 }
 

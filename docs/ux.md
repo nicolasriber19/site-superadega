@@ -297,7 +297,7 @@ Feitas em 22/10/2026:
 | 3 | Foto de produto quebrada vira `placeholder.svg` | Feito (`src/sections/produtos.js`) |
 | 4 | Barra "Ver lista" some enquanto o Finalizar está na tela | Feito (`src/sections/finalizar.js`) |
 | 5 | "Quem somos" com uma mensagem só | Feito (`index.html`) |
-| 6 | Texto alternativo da capa e da entrega | **Preparado:** o HTML pronto está num comentário no `index.html`. Falta a foto (`hero.webp` e `entrega.webp`) do Higgsfield |
+| 6 | Fotos e texto alternativo da capa e da entrega | Feito: fotos do Higgsfield em `public/img/` (capa em 600, 800 e 1600 px; entrega em 600, 800 e 1200 px, escolhidas pelo navegador com `srcset`). Originais em `_originais/` |
 | 7 | "Copiar pedido" | Feito: aparece depois de todo envio. Se o navegador não deixar copiar, mostra o texto para copiar à mão |
 
 Novas propostas entram aqui, com aprovação antes do código.
