@@ -9,6 +9,7 @@
 import { caminho } from '../lib/caminho.js'
 
 const TOTAL = 120
+const LARGURA_DO_QUADRO = 1280 // medida real dos arquivos: canvas maior que isso não ganha nitidez
 
 function nomeDoQuadro(n) {
   return caminho(`frames/frame_${String(n).padStart(4, '0')}.webp`)
@@ -36,21 +37,28 @@ function progressoDaRolagem(tela) {
 
 export function init() {
   const canvas = document.querySelector('[data-compra-canvas]')
-  if (!canvas || !canvas.getContext) return
+  // Navegador antigo, sem canvas ou sem IntersectionObserver: fica a imagem parada
+  if (!canvas?.getContext || !('IntersectionObserver' in window)) return
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
   const tela = canvas.parentElement
   const contexto = canvas.getContext('2d')
+  if (!contexto) return
   const numeros = quadrosParaCarregar()
   const imagens = new Map() // número do quadro → imagem já carregada
   let ultimoDesenhado = 0
   let pedido = 0
 
   // Canvas do tamanho da tela, com nitidez de no máximo 2× (devicePixelRatio)
+  // e nunca maior que o quadro. Só mexe se o tamanho mudou: no celular, a barra de
+  // endereço que some e volta dispara "resize", e refazer o canvas o apagaria à toa.
   function ajustarTamanho() {
     const escala = Math.min(window.devicePixelRatio || 1, 2)
-    canvas.width = Math.round(tela.clientWidth * escala)
-    canvas.height = Math.round(tela.clientHeight * escala)
+    const largura = Math.min(Math.round(tela.clientWidth * escala), LARGURA_DO_QUADRO)
+    const altura = Math.round((largura * tela.clientHeight) / tela.clientWidth)
+    if (largura === canvas.width && altura === canvas.height) return
+    canvas.width = largura
+    canvas.height = altura
     ultimoDesenhado = 0
   }
 
@@ -71,6 +79,7 @@ export function init() {
     if (!n || n === ultimoDesenhado) return
     contexto.drawImage(imagens.get(n), 0, 0, canvas.width, canvas.height)
     ultimoDesenhado = n
+    canvas.dataset.quadro = n // o número do quadro na tela (os testes conferem que ele anda)
     if (canvas.hidden) {
       canvas.hidden = false // só aparece depois que há um quadro para mostrar
       // Só agora a frase pode prometer movimento (sem JS ou com "reduzir movimento", fica a do HTML)
@@ -87,7 +96,6 @@ export function init() {
   function carregarQuadros() {
     numeros.forEach((n) => {
       const imagem = new Image()
-      imagem.decoding = 'async'
       imagem.onload = () => {
         imagens.set(n, imagem)
         pedirDesenho()
