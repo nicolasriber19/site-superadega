@@ -69,9 +69,11 @@ main > section,
   text-decoration: none;
 }
 
-.topo__ancoras a:hover {
-  color: var(--cor-destaque);
-  text-decoration: underline;
+@media (hover: hover) {
+  .topo__ancoras a:hover {
+    color: var(--cor-destaque);
+    text-decoration: underline;
+  }
 }
 
 @media (min-width: 1100px) {
@@ -646,7 +648,8 @@ main > section:not(.capa) > h2,
 
 /* Filtro ligado: fundo tinta, texto branco (18,37:1) */
 .filtro[aria-pressed='true'],
-.filtro[aria-pressed='true']:hover {
+.filtro[aria-pressed='true']:hover,
+.filtro[aria-pressed='true']:active {
   border-color: var(--cor-texto);
   background: var(--cor-texto);
   color: var(--cor-superficie);
@@ -710,7 +713,8 @@ main > section:not(.capa) > h2,
 
 /* Enquanto fala, o botão fica cobre-escuro com letra branca (8,55:1) */
 .botao-ouvir--falando,
-.botao-ouvir--falando:hover {
+.botao-ouvir--falando:hover,
+.botao-ouvir--falando:active {
   border-color: var(--cor-destaque-escuro);
   background: var(--cor-destaque-escuro);
   color: var(--cor-sobre-destaque);

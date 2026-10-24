@@ -101,9 +101,28 @@ a {
     color 0.16s var(--curva-saida);
 }
 
-.botao:hover {
+/* Hover só em telas com mouse: no celular, a cor não fica "presa" depois do toque */
+@media (hover: hover) {
+  .botao:hover {
+    border-color: var(--cor-destaque-escuro);
+    color: var(--cor-destaque-escuro);
+  }
+}
+
+/* Ao apertar (mouse, toque ou teclado), o botão afunda um pouco: resposta imediata */
+.botao:active {
   border-color: var(--cor-destaque-escuro);
   color: var(--cor-destaque-escuro);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .botao {
+    transition-property: background-color, border-color, color, transform;
+  }
+
+  .botao:active {
+    transform: translateY(1px);
+  }
 }
 
 /* Principal: cobre com letra tinta (7,93:1) */
@@ -113,7 +132,15 @@ a {
   color: var(--cor-sobre-botao);
 }
 
-.botao--primario:hover {
+@media (hover: hover) {
+  .botao--primario:hover {
+    border-color: var(--cor-botao-escuro);
+    background: var(--cor-botao-escuro);
+    color: var(--cor-sobre-botao);
+  }
+}
+
+.botao--primario:active {
   border-color: var(--cor-botao-escuro);
   background: var(--cor-botao-escuro);
   color: var(--cor-sobre-botao);
