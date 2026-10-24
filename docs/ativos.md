@@ -13,6 +13,7 @@ Os originais pesados ficam em `_originais/`, fora do git (`.gitignore`). Nada ve
 | `passo-1.webp` … `passo-4.webp` | 800×600 | 27 a 31 KB | Higgsfield, Nano Banana Pro, imagem → imagem com a capa. Originais: `_originais/img/passo-N.png` | idem | 23/10/2026 | `docs/imagens.md`, seção 4 |
 | `compartilhar.jpg` | 1200×630 | 104 KB | Recorte da capa, sem IA | idem (vem da capa) | 23/10/2026 | — |
 | `produtos/<id>.webp` (8) | 600×600 | 5 a 15 KB | Higgsfield, embalagens sem marca. Originais: `_originais/produtos/` | idem. **Aviso:** produto gerado por IA pode enganar quem compra (`docs/imagens.md`, seção 7) | 23/10/2026 | não registrado [idem] |
+| `helena.webp` | 384×384 | 10 KB | Higgsfield, Nano Banana Pro, 1:1, 2K (texto → imagem, sem referência). Original: `_originais/img/helena.png` (2048×2048). Recorte central com ffmpeg | idem | 24/10/2026 | "Friendly flat editorial illustration, a warm shoulders-up portrait of a fictional Brazilian woman in her fifties named Helena…" (texto completo no histórico do Higgsfield; ilustração de pessoa fictícia, não é foto) |
 | `placeholder.svg` | vetor | — | Desenhado no projeto | do projeto | 22/10/2026 | — |
 
 ## 2. Sequência de quadros (`public/frames/`)

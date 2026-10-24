@@ -104,6 +104,9 @@ function mostrarBotoes() {
   document.querySelectorAll('[data-ouvir]').forEach((botao) => {
     botao.hidden = !vozEscolhida && !audioDe(textoDoBotao(botao))
   })
+  // A Helena só se apresenta se há algum "Ouvir" na tela para ela cumprir o que promete
+  const algumOuvir = document.querySelector('[data-ouvir]:not([hidden])') !== null
+  document.querySelectorAll('[data-helena]').forEach((cartao) => (cartao.hidden = !algumOuvir))
 }
 
 // ---- A fala ----
