@@ -1,6 +1,8 @@
 /* Assinatura visual da Superadega: o mundo da compra do mês, com acabamento premium.
    1. Cartaz de preço: a plaquinha de oferta do mercado.
-   2. Cupom: a lista do "Finalizar" como um cupom de caixa, com dentes em cima e embaixo.
+   2. Boca da sacola: a borda dentada de papel kraft acima dos títulos das seções.
+   3. Voo: ao adicionar, um pontinho cobre vai do botão até a sacola na tela.
+   4. Cupom: a lista do "Finalizar" como um cupom de caixa, com dentes em cima e embaixo.
    Só cores e fontes de tokens.css. */
 
 /* ---------- 1. Cartaz de preço ---------- */
@@ -85,7 +87,39 @@
   transform: rotate(-3deg);
 }
 
-/* ---------- 2. Cupom ---------- */
+/* ---------- 2. Boca da sacola acima dos títulos ---------- */
+
+/* Faixa fina de papel kraft com a borda de baixo dentada, como a boca de uma sacola
+   de papel. Fica no lugar da linha reta que separava as seções. */
+main > section:not(.capa) > h2::before,
+.recebe h2::before,
+.rodape > h2::before {
+  --dente-sacola: 6px;
+  content: '';
+  display: block;
+  height: calc(4px + var(--dente-sacola));
+  margin-bottom: var(--espaco-4);
+  background: var(--cor-kraft);
+  -webkit-mask: conic-gradient(from -45deg at bottom, transparent, black 1deg 89deg, transparent 90deg)
+    50% / calc(2 * var(--dente-sacola)) 100%;
+  mask: conic-gradient(from -45deg at bottom, transparent, black 1deg 89deg, transparent 90deg)
+    50% / calc(2 * var(--dente-sacola)) 100%;
+}
+
+/* ---------- 3. O produto voa até a sacola (src/lib/voo.js) ---------- */
+
+.voo {
+  position: fixed;
+  z-index: 20; /* acima da barra "Ver lista" */
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--cor-texto);
+  border-radius: 50%;
+  background: var(--cor-botao);
+  pointer-events: none;
+}
+
+/* ---------- 4. Cupom ---------- */
 
 /* Dentes em cima e embaixo: duas máscaras cortam triângulos nas pontas do papel.
    "black" e "transparent" não são cores na tela: só dizem o que aparece e o que some. */

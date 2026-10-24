@@ -309,13 +309,8 @@ main > .capa {
   }
 }
 
-/* Cabeçalho de seção: linha fina em cima do título, como nas páginas premium */
-main > section:not(.capa) > h2,
-.recebe h2, /* aqui o título fica dentro de um div, ao lado da foto */
-.rodape > h2 {
-  padding-top: var(--espaco-4);
-  border-top: 1px solid var(--cor-texto);
-}
+/* Cabeçalho de seção: em cima do título fica a boca dentada de uma sacola de papel
+   kraft, no lugar da linha reta (src/styles/marca.css, seção 2) */
 
 /* 4. Como funciona */
 .passos {
