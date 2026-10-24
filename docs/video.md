@@ -116,7 +116,9 @@ One continuous shot with a completely locked, static camera: no camera movement,
 ## 8. No site (etapa 12)
 
 - **Seção** "O que vem na sua compra" (`#compra`), entre "Em números" e "O que você recebe".
-- **Como anda:** `src/sections/compra.js` desenha os quadros num `<canvas>` conforme a seção atravessa a tela. **Sem pin:** a página nunca fica presa.
+- **Como anda:** `src/sections/compra.js` desenha os quadros num `<canvas>` pelo centro da imagem: quadro 1 quando ele está a 75% da altura da tela, quadro 60 no meio e quadro 120 a 25%. **Sem pin:** a página nunca fica presa.
+  - **Ajuste de 24/10/2026:** antes, o filme começava quando a imagem só encostava na tela; no computador ele terminava antes de a imagem chegar ao meio, e quem olhava já via tudo fora das sacolas.
+- **Imagem de espera:** com a animação ligada, enquanto os quadros carregam aparece o `frame_0001` (compras nas sacolas). O `frame_0120` fica só para "reduzir movimento" e sem JavaScript.
 - **Peso:** os quadros só carregam quando a seção está a uma tela e meia de distância. No celular (menos de 700 px) e com "economia de dados", carrega 1 a cada 2 (60 quadros, cerca de 2,7 MB).
 - **Nitidez:** o canvas usa no máximo 2× a densidade da tela (`devicePixelRatio`).
 - **Sem JavaScript ou com "reduzir movimento":** fica a imagem `frame_0120.webp`, com texto alternativo. O canvas é só visual (`aria-hidden`).

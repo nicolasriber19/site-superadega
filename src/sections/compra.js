@@ -25,13 +25,18 @@ function quadrosParaCarregar() {
   return lista
 }
 
-// 0 quando o pé da seção entra na tela; 1 quando a imagem chega perto do alto da tela
+// Pelo centro da imagem: 0 quando ele está a 75% da altura da tela (a imagem já
+// apareceu quase inteira embaixo) e 1 quando chega a 25% (perto do alto).
+// Assim o filme corre enquanto a pessoa vê a imagem, e está na metade quando ela
+// passa pelo meio da tela. (Antes começava quando a imagem só encostava na tela,
+// e no computador já tinha acabado ao chegar ao meio.)
+const CENTRO_NO_INICIO = 0.75
+const CENTRO_NO_FIM = 0.25
+
 function progressoDaRolagem(tela) {
   const caixa = tela.getBoundingClientRect()
-  const altura = window.innerHeight
-  const inicio = altura // a imagem começa a aparecer embaixo
-  const fim = altura * 0.15 // e termina quando o topo dela passa de 15% da altura da tela
-  const p = (inicio - caixa.top) / (inicio - fim)
+  const centro = (caixa.top + caixa.height / 2) / window.innerHeight
+  const p = (CENTRO_NO_INICIO - centro) / (CENTRO_NO_INICIO - CENTRO_NO_FIM)
   return Math.min(1, Math.max(0, p))
 }
 
@@ -44,6 +49,15 @@ export function init() {
   const tela = canvas.parentElement
   const contexto = canvas.getContext('2d')
   if (!contexto) return
+
+  // Enquanto os quadros carregam, a imagem de espera é o começo do filme (compras
+  // nas sacolas), e não o fim: senão a pessoa já vê tudo fora das sacolas antes de rolar.
+  // Sem JavaScript ou com "reduzir movimento", fica o último quadro do HTML.
+  const espera = tela.querySelector('.compra__quadro')
+  if (espera) {
+    espera.src = nomeDoQuadro(1)
+    espera.alt = 'Compra do mês na bancada da cozinha, saindo das sacolas de papel conforme a página rola'
+  }
   const numeros = quadrosParaCarregar()
   const imagens = new Map() // número do quadro → imagem já carregada
   let ultimoDesenhado = 0
