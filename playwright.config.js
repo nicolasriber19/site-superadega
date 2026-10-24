@@ -6,7 +6,8 @@
 
 import { defineConfig } from '@playwright/test'
 
-const PORTA = 4173
+// Porta só dos testes: a 4173 é a do npm run preview, que pode estar aberto com um build velho
+const PORTA = 4174
 const BASE = `http://localhost:${PORTA}/site-superadega/` // o base do vite.config.js
 
 export default defineConfig({
@@ -29,9 +30,10 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: `npm run build && npm run preview -- --port ${PORTA} --strictPort`,
+    // No CI o workflow já gerou o dist/; no seu computador, gera antes de testar
+    command: `${process.env.CI ? '' : 'npm run build && '}npm run preview -- --port ${PORTA} --strictPort`,
     url: BASE,
-    reuseExistingServer: !process.env.CI, // no seu computador, aproveita a prévia já aberta
+    reuseExistingServer: false, // sempre sobe um servidor novo, com o build que acabou de gerar
     timeout: 120_000,
   },
 })
