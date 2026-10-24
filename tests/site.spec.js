@@ -121,6 +121,34 @@ test.describe('Página principal', () => {
   })
 })
 
+test.describe('O que vem na sua compra', () => {
+  test('rolando, o canvas aparece e mostra os quadros', async ({ page }) => {
+    await page.goto('./')
+    const canvas = page.locator('[data-compra-canvas]')
+    await page.locator('#compra').scrollIntoViewIfNeeded()
+    await page.mouse.wheel(0, 300) // um pouco de rolagem dispara o desenho
+    await expect(canvas).toBeVisible()
+    const largura = await canvas.evaluate((c) => c.width)
+    expect(largura).toBeGreaterThan(0)
+  })
+
+  test('com "reduzir movimento", fica a imagem parada', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto('./')
+    await page.locator('#compra').scrollIntoViewIfNeeded()
+    await expect(page.locator('.compra__quadro')).toBeVisible()
+    await expect(page.locator('[data-compra-canvas]')).toBeHidden()
+  })
+
+  test('os 120 quadros existem, sem buracos', async ({ request }) => {
+    for (let n = 1; n <= 120; n++) {
+      const nome = `frames/frame_${String(n).padStart(4, '0')}.webp`
+      const resposta = await request.head(nome)
+      expect(resposta.status(), nome).toBe(200)
+    }
+  })
+})
+
 test.describe('Outras páginas', () => {
   for (const [pagina, titulo] of [
     ['privacidade.html', /Privacidade/],
