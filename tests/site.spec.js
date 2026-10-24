@@ -121,6 +121,46 @@ test.describe('Página principal', () => {
   })
 })
 
+test.describe('O que vem na sua compra', () => {
+  test('rolando, o canvas aparece e os quadros andam', async ({ page }) => {
+    await page.goto('./')
+    const canvas = page.locator('[data-compra-canvas]')
+    const quadro = () => canvas.evaluate((c) => Number(c.dataset.quadro ?? 0))
+    // Começo: a seção acabou de entrar por baixo da tela
+    await page.locator('#compra').evaluate((s) => window.scrollTo(0, s.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.9))
+    await expect(canvas).toBeVisible()
+    await expect(page.locator('[data-compra-frase]')).toContainText('Role a página')
+    const antes = await quadro()
+    // Mais para baixo: a imagem chega perto do alto da tela
+    await page.locator('.compra__tela').evaluate((t) => window.scrollTo(0, t.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.2))
+    await expect.poll(quadro).toBeGreaterThan(antes + 30)
+  })
+
+  test('com "reduzir movimento", fica a imagem parada e nenhum quadro baixa', async ({ page }) => {
+    const quadrosPedidos = []
+    page.on('request', (r) => {
+      if (r.url().includes('/frames/') && !r.url().endsWith('frame_0120.webp')) quadrosPedidos.push(r.url())
+    })
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto('./')
+    await page.locator('#compra').scrollIntoViewIfNeeded()
+    await page.mouse.wheel(0, 300)
+    await page.waitForLoadState('networkidle') // dá tempo de o canvas aparecer, se fosse aparecer
+    await expect(page.locator('.compra__quadro')).toBeVisible()
+    await expect(page.locator('[data-compra-canvas]')).toBeHidden()
+    await expect(page.locator('[data-compra-frase]')).not.toContainText('Role')
+    expect(quadrosPedidos).toEqual([])
+  })
+
+  test('os 120 quadros existem, sem buracos', async ({ request }) => {
+    for (let n = 1; n <= 120; n++) {
+      const nome = `frames/frame_${String(n).padStart(4, '0')}.webp`
+      const resposta = await request.head(nome)
+      expect(resposta.status(), nome).toBe(200)
+    }
+  })
+})
+
 test.describe('Outras páginas', () => {
   for (const [pagina, titulo] of [
     ['privacidade.html', /Privacidade/],

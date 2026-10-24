@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Componentes: catálogo — Superadega</title>
+    <!-- Catálogo dos componentes do site, em todos os estados (etapa 11 do workshop).
+         Só para npm run dev: não está no build (vite.config.js lista só 3 páginas).
+         Os cards vêm da mesma função do site (cardProduto, em src/sections/produtos.js):
+         mudou o componente, muda aqui também. -->
+    <style>
+      .catalogo-dev { max-width: var(--largura-maxima); margin: 0 auto; padding: var(--espaco-8) var(--espaco-4); }
+      .catalogo-dev > section { margin-top: var(--espaco-12); }
+      .catalogo-dev__linha { display: flex; flex-wrap: wrap; gap: var(--espaco-4); align-items: center; }
+      .catalogo-dev__nota { color: var(--cor-texto-secundario); }
+    </style>
+  </head>
+  <body>
+    <main class="catalogo-dev">
+      <h1>Componentes</h1>
+      <p class="catalogo-dev__nota">Cada peça do site em todos os estados. Use Tab para ver o foco, e passe o mouse para ver o hover.</p>
+
+      <section aria-labelledby="titulo-botoes">
+        <h2 id="titulo-botoes">Botões</h2>
+        <div class="catalogo-dev__linha">
+          <button type="button" class="botao">Normal</button>
+          <button type="button" class="botao botao--primario">Principal</button>
+          <button type="button" class="botao botao--primario botao--grande">Principal grande</button>
+          <a class="botao" href="#titulo-botoes">Link com cara de botão</a>
+        </div>
+      </section>
+
+      <section aria-labelledby="titulo-filtros">
+        <h2 id="titulo-filtros">Filtros</h2>
+        <div class="filtros" role="group" aria-label="Exemplo de filtros">
+          <button type="button" class="botao filtro" aria-pressed="true">Ligado</button>
+          <button type="button" class="botao filtro" aria-pressed="false">Desligado</button>
+        </div>
+      </section>
+
+      <section aria-labelledby="titulo-cards">
+        <h2 id="titulo-cards">Card de produto</h2>
+        <p class="catalogo-dev__nota">Normal, em oferta, sem foto e com nome bem longo. Os botões daqui não mexem na lista: o estado "na lista" (− 1 +) se confere na página principal.</p>
+        <ul class="catalogo" role="list" data-catalogo-dev></ul>
+      </section>
+    </main>
+    <div class="visualmente-oculto" aria-live="polite" data-anuncio></div>
+    <script type="module" src="/src/componentes.js"></script>
+  </body>
+</html>

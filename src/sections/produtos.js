@@ -70,7 +70,7 @@ function textoFalado(produto) {
   )
 }
 
-function cardProduto(produto) {
+export function cardProduto(produto) {
   // Sem foto real, a imagem provisória não descreve o produto:
   // o leitor de tela pula ela (alt vazio) e lê o nome logo abaixo.
   const temFoto = produto.imagem !== ''
@@ -83,7 +83,7 @@ function cardProduto(produto) {
   return `
     <li class="card-produto${naLista}" data-id="${produto.id}">
       ${produto.oferta ? `<p class="card-produto__selo">${icone('etiqueta')} Oferta</p>` : ''}
-      <img class="card-produto__foto" src="${src}" alt="${alt}" width="600" height="600" loading="lazy" />
+      <img class="card-produto__foto" src="${src}" alt="${alt}" width="600" height="600" loading="lazy" decoding="async" />
       <h3 class="card-produto__nome">${produto.nome}</h3>
       <p class="card-produto__unidade">${produto.unidade}</p>
       <p class="card-produto__preco">

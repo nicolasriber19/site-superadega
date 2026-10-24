@@ -19,7 +19,7 @@ Versão 1, 22/10/2026. Base: `docs/brief.md`, `docs/requisitos.md`, `docs/plano.
 **Regras desta página**
 - O celular vem primeiro (375 px). Depois, o desktop (1280 px).
 - Cada tela tem uma mensagem só.
-- Nenhuma seção fica fixada (pin). As animações de rolagem são a da capa e a da faixa com foto: só CSS (`animation-timeline`), sem biblioteca. Navegador sem suporte mostra as fotos paradas. A pasta `public/frames/` continua vazia.
+- Nenhuma seção fica fixada (pin). As animações de rolagem são três: a capa e a faixa com foto, só CSS (`animation-timeline`), e "O que vem na sua compra", 120 quadros de `public/frames/` desenhados num canvas por `src/sections/compra.js` (`docs/video.md`). Nenhuma usa biblioteca, e navegador sem suporte mostra as fotos paradas.
 - Botão diz o que acontece. Nunca "Clique aqui".
 
 ## 1. Jornada em 5 momentos
@@ -186,9 +186,9 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 - **Âncoras:** "Fazer minha compra" vai para `#produtos`, "Lista" e a barra vão para `#finalizar`, e a marca vai para `#capa`.
 - **Voltar ao topo:** link no rodapé, porque a página é longa no celular.
 - **Pular a animação:**
-  - nenhuma animação esconde conteúdo ou bloqueia o toque: a do card dura 0,25 s, o pulinho da sacola 0,3 s, e a capa e a faixa com foto só acompanham a rolagem (não prendem a página);
+  - nenhuma animação esconde conteúdo ou bloqueia o toque: a do card dura 0,25 s, o pulinho da sacola 0,3 s, e a capa, a faixa com foto e "O que vem na sua compra" só acompanham a rolagem (não prendem a página);
   - o caminho para pular o conteúdo inicial é o link **"Pular para os produtos"**, que aparece no 1º Tab;
-  - com "reduzir movimento", o card não se move, a capa e a faixa ficam paradas, a sacola não pula e a rolagem suave desliga.
+  - com "reduzir movimento", o card não se move, a capa e a faixa ficam paradas, "O que vem na sua compra" mostra só a foto final (nenhum quadro baixa), a sacola não pula e a rolagem suave desliga.
 
 ## 6. Estados
 
@@ -231,9 +231,9 @@ TELA 7: Rodapé (botões lado a lado: Falar no WhatsApp · Privacidade ·
 16. Privacidade
 
 **Regras:**
-- **Foco visível:** contorno azul-louça de 3 px com afastamento de 3 px (7,94:1 sobre o creme). Nas opções de dia e horário, o contorno aparece no "botão" inteiro.
+- **Foco visível:** contorno tinta (`--cor-foco`) de 3 px com afastamento de 3 px (16,59:1 sobre o creme). Nas opções de dia e horário, o contorno aparece no "botão" inteiro.
 - **Contraste:** 13 pares da identidade, de 3,49:1 (borda) a 15,75:1. A faixa de protótipo tem 15,75:1. Tabela em `docs/identidade.md`.
-- **prefers-reduced-motion:** o card não se move (só a borda acende), a capa e a faixa ficam paradas, a sacola mostra o nível sem pulinho e a rolagem suave desliga.
+- **prefers-reduced-motion:** o card não se move (só a borda acende), a capa e a faixa ficam paradas, "O que vem na sua compra" mostra só a foto final, a sacola mostra o nível sem pulinho e a rolagem suave desliga.
 - **Leitor de tela:**
   - avisos falados ("Arroz branco: 3 na lista", "Ofertas: 4 produtos");
   - o ponto do logotipo fica oculto;

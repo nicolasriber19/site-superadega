@@ -69,9 +69,11 @@ main > section,
   text-decoration: none;
 }
 
-.topo__ancoras a:hover {
-  color: var(--cor-destaque);
-  text-decoration: underline;
+@media (hover: hover) {
+  .topo__ancoras a:hover {
+    color: var(--cor-destaque);
+    text-decoration: underline;
+  }
 }
 
 @media (min-width: 1100px) {
@@ -183,6 +185,7 @@ main > .capa {
 
 .capa__linha--baixo {
   grid-area: baixo;
+  padding-top: 0.15em; /* o acento do "Ê" não encosta na foto: folga igual à de cima */
 }
 
 .capa__texto {
@@ -646,7 +649,8 @@ main > section:not(.capa) > h2,
 
 /* Filtro ligado: fundo tinta, texto branco (18,37:1) */
 .filtro[aria-pressed='true'],
-.filtro[aria-pressed='true']:hover {
+.filtro[aria-pressed='true']:hover,
+.filtro[aria-pressed='true']:active {
   border-color: var(--cor-texto);
   background: var(--cor-texto);
   color: var(--cor-superficie);
@@ -710,7 +714,8 @@ main > section:not(.capa) > h2,
 
 /* Enquanto fala, o botão fica cobre-escuro com letra branca (8,55:1) */
 .botao-ouvir--falando,
-.botao-ouvir--falando:hover {
+.botao-ouvir--falando:hover,
+.botao-ouvir--falando:active {
   border-color: var(--cor-destaque-escuro);
   background: var(--cor-destaque-escuro);
   color: var(--cor-sobre-destaque);
@@ -1052,6 +1057,7 @@ main > section:not(.capa) > h2,
 .botao--largo {
   width: 100%;
   margin-top: 8px;
+  padding-inline: 0.75em; /* "Enviar pedido no WhatsApp" cabe numa linha a partir de 390 px */
 }
 
 /* Campo com problema */
@@ -1079,7 +1085,7 @@ main > section:not(.capa) > h2,
 .rodape__logo {
   margin: var(--espaco-8) 0 var(--espaco-2);
   font-family: var(--fonte-titulo);
-  font-size: clamp(2.25rem, 11vw, 10rem); /* 11vw: "superadega." cabe inteiro de 320 a 1440 px */
+  font-size: clamp(2.25rem, 11vw, 9.5rem); /* 11vw até 152 px: "superadega." cabe na largura do conteúdo (1200 px) em qualquer tela */
   font-weight: var(--peso-titulo);
   line-height: 0.9;
   letter-spacing: var(--espaco-titulo);
@@ -1199,4 +1205,32 @@ main > section:not(.capa) > h2,
 .meus-dados__acoes {
   display: grid;
   gap: var(--espaco-2);
+}
+
+/* O que vem na sua compra: a imagem (último quadro) fica embaixo e o canvas por cima.
+   Sem JavaScript ou com "reduzir movimento", só a imagem aparece (src/sections/compra.js). */
+.compra__frase {
+  max-width: 40ch;
+  color: var(--cor-texto-secundario);
+}
+
+.compra__tela {
+  position: relative;
+  margin-top: var(--espaco-6);
+  aspect-ratio: 1280 / 714;
+  overflow: hidden;
+  border-radius: var(--raio-card);
+  background: var(--cor-superficie);
+}
+
+.compra__quadro,
+.compra__canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.compra__canvas {
+  position: absolute;
+  inset: 0;
 }
