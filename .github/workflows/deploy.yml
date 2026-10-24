@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: lts/*
           cache: 'npm'
-      - name: Instalar dependências (só o vite)
+      - name: Instalar dependências (vite e, para os testes, @playwright/test)
         run: npm ci
       - name: Gerar o site (dist/)
         run: npm run build
