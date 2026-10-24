@@ -130,6 +130,7 @@ test.describe('O que vem na sua compra', () => {
     await expect(canvas).toBeVisible()
     const largura = await canvas.evaluate((c) => c.width)
     expect(largura).toBeGreaterThan(0)
+    await expect(page.locator('[data-compra-frase]')).toContainText('Role a página')
   })
 
   test('com "reduzir movimento", fica a imagem parada', async ({ page }) => {
@@ -138,6 +139,7 @@ test.describe('O que vem na sua compra', () => {
     await page.locator('#compra').scrollIntoViewIfNeeded()
     await expect(page.locator('.compra__quadro')).toBeVisible()
     await expect(page.locator('[data-compra-canvas]')).toBeHidden()
+    await expect(page.locator('[data-compra-frase]')).not.toContainText('Role')
   })
 
   test('os 120 quadros existem, sem buracos', async ({ request }) => {

@@ -71,7 +71,12 @@ export function init() {
     if (!n || n === ultimoDesenhado) return
     contexto.drawImage(imagens.get(n), 0, 0, canvas.width, canvas.height)
     ultimoDesenhado = n
-    canvas.hidden = false // só aparece depois que há um quadro para mostrar
+    if (canvas.hidden) {
+      canvas.hidden = false // só aparece depois que há um quadro para mostrar
+      // Só agora a frase pode prometer movimento (sem JS ou com "reduzir movimento", fica a do HTML)
+      const frase = document.querySelector('[data-compra-frase]')
+      if (frase) frase.textContent = 'Role a página e veja a compra do mês saindo das sacolas.'
+    }
   }
 
   function pedirDesenho() {
