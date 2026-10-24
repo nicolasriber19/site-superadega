@@ -70,7 +70,7 @@ function textoFalado(produto) {
   )
 }
 
-function cardProduto(produto) {
+export function cardProduto(produto) {
   // Sem foto real, a imagem provisória não descreve o produto:
   // o leitor de tela pula ela (alt vazio) e lê o nome logo abaixo.
   const temFoto = produto.imagem !== ''
