@@ -971,6 +971,12 @@ main > .capa {
   background: var(--cor-superficie);
 }
 
+/* "Pagar aqui no site": borda tracejada, para parecer o que é (uma demonstração) */
+.aviso--demo {
+  border: 2px dashed var(--cor-texto);
+  background: var(--cor-superficie);
+}
+
 .aviso--erro {
   display: block;
   border: 2px solid var(--cor-erro);
@@ -1127,7 +1133,8 @@ main > .capa {
 }
 
 /* Janela "Meus dados" (botão no topo): papel branco reto sobre um véu tinta */
-.meus-dados {
+.meus-dados,
+.pix-demo {
   width: min(32rem, calc(100% - 2 * var(--espaco-4)));
   max-height: calc(100% - 2 * var(--espaco-4));
   padding: var(--espaco-6);
@@ -1137,7 +1144,8 @@ main > .capa {
   color: var(--cor-texto);
 }
 
-.meus-dados::backdrop {
+.meus-dados::backdrop,
+.pix-demo::backdrop {
   background: var(--cor-veu);
 }
 
@@ -1166,6 +1174,111 @@ main > .capa {
 .meus-dados__acoes {
   display: grid;
   gap: var(--espaco-2);
+}
+
+/* Pagamento: duas opções lado a lado a partir de 600 px (no celular, uma embaixo da outra) */
+.escolhas--pagamento {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 600px) {
+  .escolhas--pagamento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Janela do pagamento de DEMONSTRAÇÃO: o selo e o alerta deixam claro que nada é cobrado */
+.pix-demo h2 {
+  margin-top: var(--espaco-2);
+  font-size: var(--titulo-3);
+}
+
+.pix-demo__selo {
+  display: inline-block;
+  margin: 0;
+  padding: 2px 10px;
+  background: var(--cor-etiqueta);
+  color: var(--cor-sobre-etiqueta);
+  font-family: var(--fonte-titulo);
+  font-weight: var(--peso-titulo);
+  text-transform: uppercase;
+}
+
+.pix-demo__alerta {
+  padding: var(--espaco-3);
+  border: 2px solid var(--cor-texto);
+  background: var(--cor-fundo);
+}
+
+.pix-demo__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--texto-g);
+  font-weight: 700;
+}
+
+.pix-demo__total strong {
+  font-family: var(--fonte-titulo);
+}
+
+.pix-demo__qr {
+  margin: 0 0 var(--espaco-4);
+  text-align: center;
+}
+
+.pix-demo__qr-desenho {
+  position: relative;
+  display: block;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto var(--espaco-2);
+  color: var(--cor-texto);
+}
+
+.pix-demo__qr-desenho svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  opacity: 0.45; /* apagado de propósito: é só um exemplo */
+}
+
+.pix-demo__qr-desenho .vazio {
+  fill: var(--cor-superficie);
+}
+
+/* Carimbo "EXEMPLO" atravessado no QR */
+.pix-demo__qr-desenho::after {
+  content: 'Exemplo';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 2px 12px;
+  border: 3px solid var(--cor-erro);
+  background: var(--cor-superficie);
+  color: var(--cor-erro);
+  font-family: var(--fonte-titulo);
+  font-weight: var(--peso-titulo);
+  font-size: var(--texto-g);
+  text-transform: uppercase;
+  transform: translate(-50%, -50%) rotate(-12deg);
+}
+
+.pix-demo__codigo code {
+  font-size: 1rem;
+  word-break: break-all;
+}
+
+.pix-demo__ok {
+  display: flex;
+  gap: var(--espaco-2);
+  align-items: flex-start;
+}
+
+.pix-demo__acoes {
+  display: grid;
+  gap: var(--espaco-2);
+  margin-top: var(--espaco-4);
 }
 
 /* O que vem na sua compra: a imagem fica embaixo e o canvas por cima. Com a animação
