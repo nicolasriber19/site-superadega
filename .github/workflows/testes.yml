@@ -1,0 +1,40 @@
+# Confere cada pull request antes do merge (etapas 17 e 21 do workshop):
+# instala as dependências, gera o site e roda os testes do Playwright no Chrome.
+# O deploy continua no deploy.yml, só depois do merge na main.
+# Ações fixadas pelo SHA (as mesmas do deploy, conferidas em 22/10/2026).
+name: Testes
+
+on:
+  pull_request:
+    branches: ['main']
+  workflow_dispatch:
+
+# Só lê o código: este workflow não publica nada
+permissions:
+  contents: read
+
+# Um push novo na mesma PR cancela a conferência antiga
+concurrency:
+  group: testes-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Preparar o Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: lts/*
+          cache: 'npm'
+      - name: Instalar dependências
+        run: npm ci
+      - name: Gerar o site (dist/)
+        run: npm run build
+      # O Google Chrome já vem instalado na máquina do GitHub (ubuntu-latest):
+      # os testes usam ele (channel: 'chrome'), sem baixar outro navegador.
+      - name: Rodar os testes (celular e notebook)
+        run: npm test
