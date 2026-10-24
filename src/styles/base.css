@@ -173,6 +173,11 @@ textarea {
 }
 
 /* Garante que o atributo hidden esconda mesmo os botões (que usam display: inline-flex) */
+/* Navegador antigo sem <dialog>: janela fechada não aparece solta na página */
+dialog:not([open]) {
+  display: none;
+}
+
 [hidden] {
   display: none !important;
 }

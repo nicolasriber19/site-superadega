@@ -219,6 +219,7 @@ function lerPedido(formulario, dias) {
     nome: campos.nome.value.trim(),
     endereco: campos.endereco.value.trim(),
     enderecoPorAudio: campos.enderecoPorAudio.checked,
+    pagamentoDemo: campos.pagamento?.value === 'site',
   }
 }
 
@@ -277,6 +278,7 @@ export function mensagemDoPedido(pedido) {
     endereco,
     '',
     'Pagamento: Pix antes da entrega. Aguardo a chave Pix.',
+    ...(pedido.pagamentoDemo ? ['(No site vi só a demonstração de pagamento; ainda não paguei nada.)'] : []),
   ].join('\n')
 }
 
@@ -286,6 +288,17 @@ function enviarPedido(formulario, dias) {
   mostrarErros(formulario, falta)
   if (falta.length > 0) return
 
+  // "Pagar aqui no site" (demonstração): primeiro a janela do Pix de exemplo.
+  // Navegador antigo sem janela (<dialog>): segue direto para o WhatsApp.
+  const janelaDemo = document.querySelector('[data-pix-demo]')
+  if (pedido.pagamentoDemo && typeof janelaDemo?.showModal === 'function') {
+    abrirPixDemo(janelaDemo, formulario, pedido)
+    return
+  }
+  abrirWhatsApp(formulario, { ...pedido, pagamentoDemo: false })
+}
+
+function abrirWhatsApp(formulario, pedido) {
   ultimaMensagem = mensagemDoPedido(pedido)
   const link = linkDoWhatsApp(ultimaMensagem)
   // Abre o WhatsApp numa aba nova. Se o navegador bloquear, abre nesta mesma aba
@@ -300,6 +313,75 @@ function enviarPedido(formulario, dias) {
 
   formulario.querySelector('[data-pronto]').hidden = false
   formulario.querySelector('[data-copiar]').hidden = false
+}
+
+// ---- Pagamento de DEMONSTRAÇÃO ----
+// Não existe pagamento de verdade aqui: o site não tem servidor (docs/stack.md, seção 5).
+// A janela mostra um desenho com cara de QR Code (não é um Pix, nenhum banco lê) e um
+// código escrito "EXEMPLO". "Simular pagamento aprovado" só troca a tela.
+
+// Pontinhos redondos sorteados (sempre os mesmos), SEM os três quadrados dos cantos que
+// as câmeras procuram: lembra um QR Code, mas nenhum leitor tenta ler. Não codifica nada.
+function desenhoDeQr() {
+  const lado = 25
+  let semente = 7
+  const sorteio = () => (semente = (semente * 9301 + 49297) % 233280) / 233280
+  const pontos = []
+  for (let y = 0; y < lado; y++) {
+    for (let x = 0; x < lado; x++) {
+      if (sorteio() > 0.55) pontos.push(`<circle cx="${x + 0.5}" cy="${y + 0.5}" r="0.42"/>`)
+    }
+  }
+  return `<svg viewBox="-1 -1 ${lado + 2} ${lado + 2}">${pontos.join('')}</svg>`
+}
+
+function abrirPixDemo(janela, formulario, pedido) {
+  const passo = (nome) =>
+    janela.querySelectorAll('[data-pix-passo]').forEach((p) => (p.hidden = p.dataset.pixPasso !== nome))
+  passo('pagar')
+  janela.querySelector('[data-pix-total]').textContent = emReais(totalDaLista())
+  const qr = janela.querySelector('[data-pix-qr]')
+  if (!qr.firstChild) qr.innerHTML = desenhoDeQr() // desenho fixo, feito pelo próprio site
+
+  const naoEnviado = formulario.querySelector('[data-pix-nao-enviado]')
+  naoEnviado.hidden = true
+  let enviou = false
+
+  janela.querySelector('[data-pix-simular]').onclick = () => {
+    passo('aprovado')
+    janela.querySelector('[data-pix-whatsapp]').focus()
+  }
+  janela.querySelector('[data-pix-whatsapp]').onclick = () => {
+    enviou = true
+    janela.close()
+    abrirWhatsApp(formulario, pedido)
+  }
+  // Fechou sem enviar (Voltar, Esc): o formulário avisa que o pedido não foi
+  janela.onclose = () => {
+    if (!enviou) naoEnviado.hidden = false
+  }
+  janela.showModal()
+  // Abre do topo, com o foco no título: no celular o selo "Demonstração" fica à vista
+  janela.scrollTop = 0
+  janela.querySelector('#titulo-pix-demo').focus()
+}
+
+// O botão de envio e o aviso acompanham a forma de pagamento escolhida
+function ligarPagamento(formulario) {
+  const texto = formulario.querySelector('[data-enviar-texto]')
+  const icone = formulario.querySelector('[data-enviar-icone]')
+  const atualizar = () => {
+    formulario.querySelector('[data-pix-nao-enviado]').hidden = true
+    const forma = formulario.elements.pagamento?.value ?? 'whatsapp'
+    formulario.querySelectorAll('[data-aviso-pagamento]').forEach((aviso) => {
+      aviso.hidden = aviso.dataset.avisoPagamento !== forma
+    })
+    const demo = forma === 'site'
+    texto.textContent = demo ? 'Pagar aqui (demonstração)' : 'Enviar pedido no WhatsApp'
+    icone.setAttribute('href', `${ICONES}#${demo ? 'dinheiro' : 'balao'}`)
+  }
+  formulario.querySelectorAll('[data-pagamento]').forEach((opcao) => opcao.addEventListener('change', atualizar))
+  atualizar()
 }
 
 // ---- "Copiar pedido" (plano B) ----
@@ -336,5 +418,6 @@ export function init() {
   })
   const formulario = document.querySelector('[data-pedido]')
   montarEntrega(formulario)
+  ligarPagamento(formulario)
   ligarCopiar(formulario)
 }

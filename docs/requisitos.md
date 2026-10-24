@@ -43,7 +43,7 @@ Mudanças na 1.1: o pagamento passa a ser por Pix **antes** de o pedido sair (RF
 | RF-16 | Busca por nome do produto. | Poderia | **Dado** o catálogo, **quando** digito "arroz", **então** vejo só produtos com "arroz" no nome. |
 | RF-17 | Repetir a última compra. | Poderia | **Dado** que já enviei um pedido neste aparelho, **quando** toco "Repetir última compra", **então** a lista volta com os mesmos itens. |
 | RF-18 | Kits prontos da compra do mês. | Poderia | **Dado** a seção "Kits", **quando** escolho um kit, **então** os itens entram na lista e posso mudar as quantidades. Kits: [a confirmar]. |
-| RF-19 | Pagamento dentro do site. | Fora | [precisa de backend] → alternativa adotada: Pix pedido pela loja no WhatsApp, antes de o pedido sair. |
+| RF-19 | Pagamento dentro do site. | Fora | [precisa de backend] → alternativa adotada: Pix pedido pela loja no WhatsApp, antes de o pedido sair. **Só demonstração (24/10/2026):** a opção "Pagar aqui no site" mostra um Pix de exemplo e não cobra nada. Antes de abrir o site a clientes de verdade, tirar a opção ou deixá-la só para quem pedir a demonstração. |
 | RF-20 | Cadastro, login e área do cliente. | Fora | [precisa de backend] → alternativa: lista salva no aparelho (RF-08) e histórico na conversa do WhatsApp. |
 | RF-21 | Estoque em tempo real. | Fora | [precisa de backend] → alternativa: a loja avisa no WhatsApp o que faltou e sugere troca. |
 | RF-22 | Rastreio da entrega. | Fora | Alternativa: a loja avisa no WhatsApp quando o pedido sair. |

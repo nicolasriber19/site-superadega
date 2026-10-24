@@ -252,6 +252,82 @@ test.describe('A Helena', () => {
   })
 })
 
+test.describe('Pagamento de demonstração', () => {
+  test('"Pagar aqui no site" mostra um Pix de exemplo, simula a aprovação e segue para o WhatsApp', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 }) // celular pequeno: a janela não cabe inteira
+    await page.addInitScript(() => {
+      window.open = (url) => {
+        window.__linkAberto = url
+        return { opener: null }
+      }
+    })
+    await page.goto('./')
+    await page.locator('.card-produto').first().getByRole('button', { name: /Adicionar/ }).click()
+    const formulario = page.locator('[data-pedido]')
+    await formulario.locator('input[name="dia"]').first().check({ force: true })
+    await formulario.locator('input[name="faixa"]').first().check({ force: true })
+    await page.locator('#nome').fill('Teste automático')
+    await page.locator('#endereco').fill('Rua de Teste, 1')
+    await formulario.locator('label.escolha').filter({ hasText: 'Pagar aqui no site' }).click()
+    await expect(formulario.locator('[data-aviso-pagamento="site"]')).toBeVisible()
+    await expect(formulario.locator('[data-aviso-pagamento="whatsapp"]')).toBeHidden()
+
+    await formulario.getByRole('button', { name: 'Pagar aqui (demonstração)' }).click()
+    const janela = page.getByRole('dialog', { name: 'Demonstração Pagar com Pix' })
+    await expect(janela).toBeVisible()
+    // O selo e o alerta aparecem na tela ao abrir, também no celular
+    await expect(janela.locator('.pix-demo__selo')).toBeInViewport()
+    await expect(janela.locator('.pix-demo__alerta')).toBeInViewport()
+    await expect(janela).toContainText('Não faça nenhum Pix.')
+    await expect(janela).toContainText('EXEMPLO-SUPERADEGA-NAO-PAGUE')
+    // Nenhum campo para digitar (cartão, banco, senha): é só uma tela de exemplo
+    await expect(janela.locator('input, textarea, select')).toHaveCount(0)
+    expect(await page.evaluate(() => window.__linkAberto)).toBeUndefined() // ainda não foi para o WhatsApp
+
+    await janela.getByRole('button', { name: 'Simular pagamento aprovado' }).click()
+    await expect(janela).toContainText('Fim da demonstração: você ainda não pagou nada.')
+    await expect(janela.locator('[data-pix-passo="aprovado"]')).not.toContainText('aprovado')
+    await janela.getByRole('button', { name: /Enviar pedido no WhatsApp/ }).click()
+    await expect(janela).toBeHidden()
+    const link = decodeURIComponent(await page.evaluate(() => window.__linkAberto))
+    expect(link).toContain('wa.me/')
+    expect(link).toContain('Pagamento: Pix antes da entrega. Aguardo a chave Pix.')
+    expect(link).toContain('ainda não paguei nada')
+  })
+
+  test('voltar sem enviar avisa que o pedido não foi, e voltar ao WhatsApp manda a mensagem normal', async ({ page }) => {
+    await page.addInitScript(() => {
+      window.open = (url) => {
+        window.__linkAberto = url
+        return { opener: null }
+      }
+    })
+    await page.goto('./')
+    await page.locator('.card-produto').first().getByRole('button', { name: /Adicionar/ }).click()
+    const formulario = page.locator('[data-pedido]')
+    await formulario.locator('input[name="dia"]').first().check({ force: true })
+    await formulario.locator('input[name="faixa"]').first().check({ force: true })
+    await page.locator('#nome').fill('Teste automático')
+    await page.locator('#endereco').fill('Rua de Teste, 1')
+    await formulario.locator('label.escolha').filter({ hasText: 'Pagar aqui no site' }).click()
+    await formulario.getByRole('button', { name: 'Pagar aqui (demonstração)' }).click()
+    const janela = page.getByRole('dialog', { name: 'Demonstração Pagar com Pix' })
+    await janela.getByRole('button', { name: 'Simular pagamento aprovado' }).click()
+    await janela.getByRole('button', { name: 'Voltar sem enviar o pedido' }).click()
+    await expect(janela).toBeHidden()
+    await expect(formulario.locator('[data-pix-nao-enviado]')).toBeVisible()
+    expect(await page.evaluate(() => window.__linkAberto)).toBeUndefined()
+
+    // Volta para "Pix no WhatsApp": o botão, o aviso e a mensagem voltam ao normal
+    await formulario.locator('label.escolha').filter({ hasText: 'Pix no WhatsApp' }).click()
+    await expect(formulario.locator('[data-pix-nao-enviado]')).toBeHidden()
+    await formulario.getByRole('button', { name: 'Enviar pedido no WhatsApp' }).click()
+    const link = decodeURIComponent(await page.evaluate(() => window.__linkAberto))
+    expect(link).toContain('Pagamento: Pix antes da entrega. Aguardo a chave Pix.')
+    expect(link).not.toContain('demonstração')
+  })
+})
+
 test.describe('O que vem na sua compra', () => {
   test('o filme acompanha a imagem: começo embaixo, metade no meio, fim no alto', async ({ page }) => {
     await page.goto('./')
