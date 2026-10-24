@@ -13,8 +13,14 @@ function textoUnidades(n) {
   return n === 1 ? '1 item' : `${n} itens`
 }
 
+// Quantidade de cada produto no último desenho do cupom: serve para achar a linha nova
+// (null no primeiro desenho, para a lista salva não "imprimir" tudo ao abrir a página)
+let quantidadesAntes = null
+
 function desenharResumo(resumo) {
   const itens = itensDaLista()
+  const antes = quantidadesAntes
+  quantidadesAntes = new Map(itens.map((item) => [item.produto.id, item.quantidade]))
 
   if (itens.length === 0) {
     resumo.innerHTML = `
@@ -30,7 +36,7 @@ function desenharResumo(resumo) {
   const linhas = itens
     .map(
       (item) => `
-        <li class="resumo__item">
+        <li class="resumo__item${antes && (antes.get(item.produto.id) ?? 0) < item.quantidade ? ' resumo__item--nova' : ''}">
           <span class="resumo__quantidade">${item.quantidade}×</span>
           <span class="resumo__nome">
             ${item.produto.nome}
@@ -48,6 +54,11 @@ function desenharResumo(resumo) {
       <span>Total</span>
       <strong data-total>${emReais(totalDaLista())}</strong>
     </p>
+    <div class="cupom__rodape">
+      <span class="cupom__barras" aria-hidden="true"></span>
+      <p class="cupom__obrigado">Obrigado e volte sempre</p>
+      <p class="cupom__aviso">Lista de compras, não é nota fiscal.</p>
+    </div>
   `
 }
 
@@ -94,6 +105,10 @@ function montarFinalizar({ secao, resumo, contador, barra }) {
   }
   aoMudarLista(desenhar)
   desenhar()
+
+  // A data do dia no cabeçalho do cupom, como na impressora do caixa
+  const data = document.querySelector('[data-cupom-data]')
+  if (data) data.textContent = ` · ${new Date().toLocaleDateString('pt-BR')}`
 
   // Quando o pulinho da sacola termina, tira a classe
   document.addEventListener('animationend', (evento) => {

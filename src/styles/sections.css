@@ -564,22 +564,6 @@ main > section:not(.capa) > h2,
   font-size: 1rem;
 }
 
-.card-produto__preco {
-  margin: 0;
-  font-family: var(--fonte-titulo);
-  font-size: 1.25rem; /* a Unbounded é larga: 20 px faz "R$ 25,90" caber no card de 375 px */
-  font-weight: var(--peso-titulo);
-  letter-spacing: var(--espaco-titulo);
-}
-
-/* "cada" sempre na linha de baixo: com a letra larga do preço, assim todos os cards ficam iguais */
-.card-produto__cada {
-  display: block;
-  font-family: var(--fonte-texto);
-  font-size: 1rem;
-  font-weight: 400;
-}
-
 .card-produto__atacado {
   display: flex;
   align-items: flex-start;

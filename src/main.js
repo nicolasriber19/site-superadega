@@ -5,6 +5,7 @@ import './styles/tokens.css'
 import './styles/base.css'
 import './styles/sections.css'
 import './styles/animacao.css'
+import './styles/marca.css'
 
 import { init as initTopo } from './sections/topo.js'
 import { init as initCapa } from './sections/capa.js'

@@ -291,10 +291,14 @@
       <!-- 7. Finalizar -->
       <section id="finalizar" class="finalizar" aria-labelledby="titulo-finalizar">
         <h2 id="titulo-finalizar">Finalizar pedido</h2>
-        <!-- Cupom: a lista e o total num papel com a borda de baixo serrilhada.
-             No computador fica fixo à direita enquanto a pessoa preenche o pedido. -->
+        <!-- Cupom: a lista e o total como um cupom de caixa, com dentes em cima e embaixo
+             (src/styles/marca.css). No computador fica fixo à direita enquanto a pessoa
+             preenche o pedido. O leitor de tela ouve o título como "Sua lista na Superadega". -->
         <div class="cupom">
-          <h3>Sua lista</h3>
+          <div class="cupom__cabecalho">
+            <h3 class="cupom__marca"><span class="visualmente-oculto">Sua lista na </span>Superadega</h3>
+            <p class="cupom__data">Compra do mês<span data-cupom-data></span></p>
+          </div>
           <!-- Preenchido por src/sections/finalizar.js -->
           <div class="resumo" data-resumo></div>
         </div>
