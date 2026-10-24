@@ -146,7 +146,7 @@
         <ol class="passos" role="list">
           <li class="passo" data-falavel>
             <span class="passo__numero" aria-hidden="true">1</span>
-            <img class="passo__foto" src="/img/passo-1.webp" width="800" height="600" loading="lazy" alt="" />
+            <img class="passo__foto" src="/img/passo-1.webp" width="800" height="600" loading="lazy" decoding="async" alt="" />
             <h3>Escolha</h3>
             <p>Toque nos produtos que você quer e nas quantidades.</p>
             <button type="button" class="botao botao-ouvir" data-ouvir hidden
@@ -157,7 +157,7 @@
           </li>
           <li class="passo" data-falavel>
             <span class="passo__numero" aria-hidden="true">2</span>
-            <img class="passo__foto" src="/img/passo-2.webp" width="800" height="600" loading="lazy" alt="" />
+            <img class="passo__foto" src="/img/passo-2.webp" width="800" height="600" loading="lazy" decoding="async" alt="" />
             <h3>Envie</h3>
             <p>Mande a lista para a loja pelo WhatsApp.</p>
             <button type="button" class="botao botao-ouvir" data-ouvir hidden
@@ -168,7 +168,7 @@
           </li>
           <li class="passo" data-falavel>
             <span class="passo__numero" aria-hidden="true">3</span>
-            <img class="passo__foto" src="/img/passo-3.webp" width="800" height="600" loading="lazy" alt="" />
+            <img class="passo__foto" src="/img/passo-3.webp" width="800" height="600" loading="lazy" decoding="async" alt="" />
             <h3>Pague o Pix</h3>
             <p>A loja manda a chave Pix. O pedido só sai depois do pagamento.</p>
             <button type="button" class="botao botao-ouvir" data-ouvir hidden
@@ -179,7 +179,7 @@
           </li>
           <li class="passo" data-falavel>
             <span class="passo__numero" aria-hidden="true">4</span>
-            <img class="passo__foto" src="/img/passo-4.webp" width="800" height="600" loading="lazy" alt="" />
+            <img class="passo__foto" src="/img/passo-4.webp" width="800" height="600" loading="lazy" decoding="async" alt="" />
             <h3>Receba e assine</h3>
             <p>A compra chega na sua casa. Quem receber assina no celular do entregador.</p>
             <button type="button" class="botao botao-ouvir" data-ouvir hidden
@@ -197,7 +197,7 @@
         <img class="faixa-foto__imagem" src="/img/faixa.webp"
              srcset="/img/faixa-800.webp 800w, /img/faixa-1200.webp 1200w, /img/faixa.webp 1920w"
              sizes="100vw"
-             width="1920" height="1080" loading="lazy" alt="" />
+             width="1920" height="1080" loading="lazy" decoding="async" alt="" />
         <p class="faixa-foto__frase">Do mercado até a sua porta.</p>
       </div>
 
@@ -269,7 +269,7 @@
         <img class="recebe__imagem" src="/img/entrega.webp"
              srcset="/img/entrega-600.webp 600w, /img/entrega-800.webp 800w, /img/entrega.webp 1200w"
              sizes="(min-width: 900px) 600px, 100vw"
-             width="1200" height="800" loading="lazy"
+             width="1200" height="800" loading="lazy" decoding="async"
              alt="Mãos guardando a compra do mês no armário da cozinha" />
       </section>
 
@@ -279,7 +279,7 @@
         <!-- Aviso enquanto os produtos forem de exemplo. Apagar quando a lista real entrar. -->
         <p class="aviso-exemplo">Produtos e preços de exemplo, só para teste.</p>
 
-        <!-- Os filtros e os cards são criados por src/sections/catalogo.js -->
+        <!-- Os filtros e os cards são criados por src/sections/produtos.js -->
         <div class="filtros" role="group" aria-label="Escolha o tipo de produto" data-filtros></div>
         <ul class="catalogo" role="list" data-catalogo></ul>
         <p class="catalogo__vazio" data-catalogo-vazio hidden>Nenhum produto aqui por enquanto. Toque em "Todos".</p>
