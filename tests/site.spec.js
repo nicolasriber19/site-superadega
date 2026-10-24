@@ -236,6 +236,19 @@ test.describe('Identidade: mês na capa, voo até a sacola', () => {
   })
 })
 
+test.describe('A Helena', () => {
+  test('o retrato da Helena aparece junto dos botões Ouvir e diz que a voz é de computador', async ({ page }) => {
+    await page.goto('./')
+    const helena = page.locator('[data-helena]')
+    await expect(helena).toBeVisible()
+    await expect(helena).toContainText('Oi, eu sou a Helena.')
+    await expect(helena).toContainText('A Helena é uma voz feita por computador.')
+    const retrato = helena.locator('img')
+    await retrato.scrollIntoViewIfNeeded()
+    await expect.poll(() => retrato.evaluate((i) => i.complete && i.naturalWidth)).toBe(320)
+  })
+})
+
 test.describe('O que vem na sua compra', () => {
   test('o filme acompanha a imagem: começo embaixo, metade no meio, fim no alto', async ({ page }) => {
     await page.goto('./')
