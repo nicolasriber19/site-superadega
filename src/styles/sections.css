@@ -185,6 +185,7 @@ main > .capa {
 
 .capa__linha--baixo {
   grid-area: baixo;
+  padding-top: 0.15em; /* o acento do "Ê" não encosta na foto: folga igual à de cima */
 }
 
 .capa__texto {
@@ -1056,6 +1057,7 @@ main > section:not(.capa) > h2,
 .botao--largo {
   width: 100%;
   margin-top: 8px;
+  padding-inline: 0.75em; /* "Enviar pedido no WhatsApp" cabe numa linha a partir de 390 px */
 }
 
 /* Campo com problema */
@@ -1083,7 +1085,7 @@ main > section:not(.capa) > h2,
 .rodape__logo {
   margin: var(--espaco-8) 0 var(--espaco-2);
   font-family: var(--fonte-titulo);
-  font-size: clamp(2.25rem, 11vw, 10rem); /* 11vw: "superadega." cabe inteiro de 320 a 1440 px */
+  font-size: clamp(2.25rem, 11vw, 9.5rem); /* 11vw até 152 px: "superadega." cabe na largura do conteúdo (1200 px) em qualquer tela */
   font-weight: var(--peso-titulo);
   line-height: 0.9;
   letter-spacing: var(--espaco-titulo);
