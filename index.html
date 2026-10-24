@@ -226,6 +226,21 @@
         </ul>
       </section>
 
+      <!-- O que vem na sua compra: a compra "se desembala" conforme a pessoa rola a página.
+           Sequência de 120 quadros tirados do vídeo (docs/video.md), desenhados num canvas
+           por src/sections/compra.js. A página não fica presa (sem pin, docs/ux.md).
+           A imagem é o último quadro: aparece sem JavaScript e com "reduzir movimento",
+           e é ela que o leitor de tela descreve (o canvas é só visual). -->
+      <section id="compra" class="compra" aria-labelledby="titulo-compra">
+        <h2 id="titulo-compra">O que vem na sua compra</h2>
+        <p class="compra__frase">Role a página e veja a compra do mês saindo das sacolas.</p>
+        <div class="compra__tela">
+          <img class="compra__quadro" src="/frames/frame_0120.webp" width="1280" height="714" loading="lazy" decoding="async"
+               alt="Compra do mês na bancada da cozinha: arroz, feijão, óleo, leite, tomates, pepinos e maçãs fora das sacolas de papel" />
+          <canvas class="compra__canvas" aria-hidden="true" data-compra-canvas hidden></canvas>
+        </div>
+      </section>
+
       <!-- 5. O que você recebe -->
       <section id="o-que-voce-recebe" class="recebe" aria-labelledby="titulo-recebe">
         <div>

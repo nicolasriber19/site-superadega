@@ -1200,3 +1200,31 @@ main > section:not(.capa) > h2,
   display: grid;
   gap: var(--espaco-2);
 }
+
+/* O que vem na sua compra: a imagem (último quadro) fica embaixo e o canvas por cima.
+   Sem JavaScript ou com "reduzir movimento", só a imagem aparece (src/sections/compra.js). */
+.compra__frase {
+  max-width: 40ch;
+  color: var(--cor-texto-secundario);
+}
+
+.compra__tela {
+  position: relative;
+  margin-top: var(--espaco-6);
+  aspect-ratio: 1280 / 714;
+  overflow: hidden;
+  border-radius: var(--raio-card);
+  background: var(--cor-superficie);
+}
+
+.compra__quadro,
+.compra__canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.compra__canvas {
+  position: absolute;
+  inset: 0;
+}
