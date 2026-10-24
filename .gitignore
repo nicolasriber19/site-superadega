@@ -32,3 +32,11 @@ _originais/
 *.njsproj
 *.sln
 *.sw?
+
+# Testes (Playwright)
+test-results/
+playwright-report/
+blob-report/
+
+# Windows
+Thumbs.db
