@@ -121,6 +121,38 @@ test.describe('Página principal', () => {
   })
 })
 
+test.describe('Cartaz de preço e cupom', () => {
+  test('o card mostra o preço em cartaz e o leitor de tela ouve o preço inteiro', async ({ page }) => {
+    await page.goto('./')
+    const cartaz = page.locator('.card-produto').first().locator('.cartaz')
+    await expect(cartaz.locator('.cartaz__placa')).toBeVisible()
+    await expect(cartaz.locator('.visualmente-oculto')).toHaveText(/^Preço: R\$\s[\d.]+,\d{2} cada$/)
+    // O cartaz cabe no card, sem estourar a borda
+    const cabe = await page.locator('.card-produto').first().evaluate((card) => {
+      const placa = card.querySelector('.cartaz__placa').getBoundingClientRect()
+      return placa.right <= card.getBoundingClientRect().right
+    })
+    expect(cabe).toBe(true)
+  })
+
+  test('o cupom "imprime" só a linha nova e mostra data e rodapé', async ({ page }) => {
+    await page.goto('./')
+    const cupom = page.locator('.cupom')
+    await expect(cupom.locator('[data-cupom-data]')).toHaveText(/^ · \d{2}\/\d{2}\/\d{4}$/)
+    await expect(cupom.locator('.cupom__rodape')).toHaveCount(0) // lista vazia: sem rodapé
+    const cards = page.locator('.card-produto')
+    await cards.nth(0).getByRole('button', { name: /Adicionar/ }).click()
+    await cards.nth(1).getByRole('button', { name: /Adicionar/ }).click()
+    await expect(cupom.locator('.resumo__item')).toHaveCount(2)
+    await expect(cupom.locator('.resumo__item--nova')).toHaveCount(1) // só a última entrou agora
+    await expect(cupom.locator('.cupom__aviso')).toHaveText('Lista de compras, não é nota fiscal.')
+    // Ao abrir de novo, a lista salva aparece sem "imprimir"
+    await page.reload()
+    await expect(cupom.locator('.resumo__item')).toHaveCount(2)
+    await expect(cupom.locator('.resumo__item--nova')).toHaveCount(0)
+  })
+})
+
 test.describe('O que vem na sua compra', () => {
   test('rolando, o canvas aparece e os quadros andam', async ({ page }) => {
     await page.goto('./')
