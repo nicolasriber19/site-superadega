@@ -240,12 +240,15 @@ test.describe('A Helena', () => {
   test('o retrato da Helena aparece junto dos botões Ouvir e diz que a voz é de computador', async ({ page }) => {
     await page.goto('./')
     const helena = page.locator('[data-helena]')
+    await expect(page.locator('[data-ouvir]:visible').first()).toBeVisible() // há Ouvir na tela
     await expect(helena).toBeVisible()
     await expect(helena).toContainText('Oi, eu sou a Helena.')
     await expect(helena).toContainText('A Helena é uma voz feita por computador.')
+    await expect(helena).toContainText('quem lê é a voz do seu aparelho')
     const retrato = helena.locator('img')
+    await expect(retrato).toHaveAttribute('alt', '') // decorativo: o texto ao lado diz quem ela é
     await retrato.scrollIntoViewIfNeeded()
-    await expect.poll(() => retrato.evaluate((i) => i.complete && i.naturalWidth)).toBe(320)
+    await expect.poll(() => retrato.evaluate((i) => i.complete && i.naturalWidth)).toBe(384)
   })
 })
 

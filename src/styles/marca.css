@@ -135,7 +135,7 @@ main > section:not(.capa) > h2::before,
   width: 96px;
   height: 96px;
   border: 3px solid var(--cor-kraft);
-  border-radius: 50%; /* o único círculo do site: é um rosto, não um cartão */
+  border-radius: 50%; /* retrato redondo: é um rosto, não um cartão de canto reto */
   background: var(--cor-superficie);
 }
 
