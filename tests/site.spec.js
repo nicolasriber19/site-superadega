@@ -122,17 +122,30 @@ test.describe('Página principal', () => {
 })
 
 test.describe('Cartaz de preço e cupom', () => {
-  test('o card mostra o preço em cartaz e o leitor de tela ouve o preço inteiro', async ({ page }) => {
+  test('o card mostra o preço em cartaz e o leitor de tela ouve o preço uma vez só', async ({ page }) => {
     await page.goto('./')
     const cartaz = page.locator('.card-produto').first().locator('.cartaz')
     await expect(cartaz.locator('.cartaz__placa')).toBeVisible()
-    await expect(cartaz.locator('.visualmente-oculto')).toHaveText(/^Preço: R\$\s[\d.]+,\d{2} cada$/)
-    // O cartaz cabe no card, sem estourar a borda
-    const cabe = await page.locator('.card-produto').first().evaluate((card) => {
-      const placa = card.querySelector('.cartaz__placa').getBoundingClientRect()
-      return placa.right <= card.getBoundingClientRect().right
-    })
-    expect(cabe).toBe(true)
+    // A placa e o "cada" são só visuais; quem fala é o texto escondido, com o preço inteiro
+    // O que o leitor de tela recebe: uma linha só (sem a placa nem o "cada" repetidos)
+    expect(await cartaz.ariaSnapshot()).toMatch(/^- paragraph: "Preço: R\$\s[\d.]+,\d{2} cada"$/)
+    await expect(cartaz.locator('.cartaz__placa')).toHaveAttribute('aria-hidden', 'true')
+    await expect(cartaz.locator('.cartaz__cada')).toHaveAttribute('aria-hidden', 'true')
+  })
+
+  test('o cartaz cabe dentro de todos os cards, até num celular de 360 px', async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 800 })
+    await page.goto('./')
+    const foraDoCard = await page.locator('.card-produto').evaluateAll((cards) =>
+      cards
+        .filter((card) => {
+          const estilo = getComputedStyle(card)
+          const limite = card.getBoundingClientRect().right - parseFloat(estilo.paddingRight)
+          return card.querySelector('.cartaz__placa').getBoundingClientRect().right > limite + 0.5
+        })
+        .map((card) => card.dataset.id),
+    )
+    expect(foraDoCard).toEqual([])
   })
 
   test('o cupom "imprime" só a linha nova e mostra data e rodapé', async ({ page }) => {
