@@ -30,8 +30,9 @@ export function voarParaSacola(origem) {
   ponto.style.top = `${origem.top + origem.height / 2}px`
   document.body.append(ponto)
 
-  // A sacola espera o pontinho chegar para pular
-  sacola.style.animationDelay = `${DURACAO - 100}ms`
+  // A sacola só pula quando o pontinho chega: cancela o pulo que a lista acabou de
+  // disparar (ainda não foi desenhado na tela) e refaz no fim do voo
+  sacola.classList.remove('sacola--pulo')
 
   const voo = ponto.animate(
     [
@@ -44,7 +45,10 @@ export function voarParaSacola(origem) {
   )
   const terminar = () => {
     ponto.remove()
-    sacola.style.animationDelay = ''
+    // Tirar e pôr a classe de novo faz o pulo recomeçar, mesmo em toques rápidos seguidos
+    sacola.classList.remove('sacola--pulo')
+    void sacola.getBoundingClientRect()
+    sacola.classList.add('sacola--pulo')
   }
-  voo.finished.then(terminar, terminar)
+  voo.finished.then(terminar, () => ponto.remove())
 }
