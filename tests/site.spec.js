@@ -185,8 +185,8 @@ test.describe('O que vem na sua compra', () => {
     await expect(page.locator('[data-compra-frase]')).toContainText('Role a página')
     await expect.poll(quadro).toBeLessThanOrEqual(3)
     await centroEm(0.5)
-    await expect.poll(quadro).toBeGreaterThanOrEqual(45)
-    expect(await quadro()).toBeLessThanOrEqual(75)
+    // Os dois limites juntos: a rolagem suave ainda está andando, então espera o quadro assentar
+    await expect.poll(async () => { const q = await quadro(); return q >= 45 && q <= 75 }).toBe(true)
     await centroEm(0.2)
     await expect.poll(quadro).toBe(120)
   })

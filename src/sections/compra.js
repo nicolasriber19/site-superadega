@@ -56,8 +56,12 @@ export function init() {
   const espera = tela.querySelector('.compra__quadro')
   if (espera) {
     espera.src = nomeDoQuadro(1)
-    espera.alt = 'Compra do mês na bancada da cozinha, saindo das sacolas de papel conforme a página rola'
+    espera.alt =
+      'Compra do mês na bancada da cozinha saindo das sacolas de papel: arroz, feijão, óleo, leite, tomates, pepinos e maçãs'
   }
+  // A frase acompanha a imagem de espera (a do HTML fala da foto final)
+  const frase = document.querySelector('[data-compra-frase]')
+  if (frase) frase.textContent = 'A compra do mês, saindo das sacolas.'
   const numeros = quadrosParaCarregar()
   const imagens = new Map() // número do quadro → imagem já carregada
   let ultimoDesenhado = 0
