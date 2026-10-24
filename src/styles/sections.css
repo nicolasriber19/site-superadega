@@ -564,22 +564,6 @@ main > section:not(.capa) > h2,
   font-size: 1rem;
 }
 
-.card-produto__preco {
-  margin: 0;
-  font-family: var(--fonte-titulo);
-  font-size: 1.25rem; /* a Unbounded é larga: 20 px faz "R$ 25,90" caber no card de 375 px */
-  font-weight: var(--peso-titulo);
-  letter-spacing: var(--espaco-titulo);
-}
-
-/* "cada" sempre na linha de baixo: com a letra larga do preço, assim todos os cards ficam iguais */
-.card-produto__cada {
-  display: block;
-  font-family: var(--fonte-texto);
-  font-size: 1rem;
-  font-weight: 400;
-}
-
 .card-produto__atacado {
   display: flex;
   align-items: flex-start;
@@ -757,8 +741,9 @@ main > section:not(.capa) > h2,
   }
 }
 
-/* 7. Finalizar: a lista vira um cupom (papel branco com a borda de baixo serrilhada).
-   No computador: o formulário à esquerda e o cupom fixo à direita. */
+/* 7. Finalizar: a lista vira um cupom de caixa (o papel, os dentes e o cabeçalho
+   ficam em src/styles/marca.css). No computador: o formulário à esquerda e o cupom
+   fixo à direita. */
 .finalizar {
   display: grid;
   grid-template-areas:
@@ -775,28 +760,9 @@ main > section:not(.capa) > h2,
 
 .cupom {
   grid-area: cupom;
-  --dente: 12px; /* tamanho de cada dente da borda serrilhada */
+  --dente: 12px; /* tamanho de cada dente do papel (marca.css) */
   padding: var(--espaco-6) var(--espaco-6) calc(var(--espaco-6) + var(--dente));
   background: var(--cor-superficie);
-  /* Borda serrilhada embaixo: uma máscara corta triângulos no pé do papel.
-     "black" e "transparent" aqui não são cores na tela: só dizem o que aparece e o que some. */
-  -webkit-mask:
-    conic-gradient(from -45deg at bottom, transparent, black 1deg 89deg, transparent 90deg)
-    50% / calc(2 * var(--dente)) 100%;
-  mask:
-    conic-gradient(from -45deg at bottom, transparent, black 1deg 89deg, transparent 90deg)
-    50% / calc(2 * var(--dente)) 100%;
-}
-
-.cupom h3 {
-  margin: 0 0 var(--espaco-4);
-  padding-bottom: var(--espaco-3);
-  border-bottom: 2px dashed var(--cor-linha);
-  font-family: var(--fonte-titulo);
-  font-size: var(--texto-g);
-  letter-spacing: var(--espaco-titulo);
-  text-align: center;
-  text-transform: uppercase;
 }
 
 .finalizar .pedido {

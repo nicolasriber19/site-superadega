@@ -6,6 +6,7 @@ import { quantidadeDe, mudarQuantidade, temAtacado } from '../lib/lista.js'
 import { botaoOuvir } from '../lib/ouvir.js'
 import { caminho } from '../lib/caminho.js'
 import { emReais } from '../lib/dinheiro.js'
+import { cartazDePreco } from '../lib/cartaz.js'
 
 const IMAGEM_PROVISORIA = caminho('img/placeholder.svg')
 const ICONES = caminho('icons/icones.svg')
@@ -86,10 +87,7 @@ export function cardProduto(produto) {
       <img class="card-produto__foto" src="${src}" alt="${alt}" width="600" height="600" loading="lazy" decoding="async" />
       <h3 class="card-produto__nome">${produto.nome}</h3>
       <p class="card-produto__unidade">${produto.unidade}</p>
-      <p class="card-produto__preco">
-        <span class="visualmente-oculto">Preço:</span>
-        ${emReais(produto.preco)} <span class="card-produto__cada">cada</span>
-      </p>
+      ${cartazDePreco(produto.preco)}
       <p class="card-produto__atacado${atacadoAtivo}" data-atacado>${linhaAtacado(produto, quantidade)}</p>
       ${botaoOuvir(textoFalado(produto))}
       <div class="card-produto__controles" data-controles>${controles(produto, quantidade)}</div>

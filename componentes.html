@@ -15,6 +15,8 @@
       .catalogo-dev > section { margin-top: var(--espaco-12); }
       .catalogo-dev__linha { display: flex; flex-wrap: wrap; gap: var(--espaco-4); align-items: center; }
       .catalogo-dev__nota { color: var(--cor-texto-secundario); }
+      .catalogo-dev__cupom { display: flex; flex-direction: column; align-items: flex-start; gap: var(--espaco-4); max-width: 420px; }
+      .catalogo-dev__cupom .cupom { align-self: stretch; }
     </style>
   </head>
   <body>
@@ -44,6 +46,40 @@
         <h2 id="titulo-cards">Card de produto</h2>
         <p class="catalogo-dev__nota">Normal, em oferta, sem foto e com nome bem longo. Os botões daqui não mexem na lista: o estado "na lista" (− 1 +) se confere na página principal.</p>
         <ul class="catalogo" role="list" data-catalogo-dev></ul>
+      </section>
+
+      <section aria-labelledby="titulo-cupom">
+        <h2 id="titulo-cupom">Cupom</h2>
+        <p class="catalogo-dev__nota">A lista do "Finalizar" como cupom de caixa. "Imprimir linha" mostra o efeito de um produto novo entrando.</p>
+        <div class="catalogo-dev__cupom">
+          <div class="cupom">
+            <div class="cupom__cabecalho">
+              <h3 class="cupom__marca">Superadega</h3>
+              <p class="cupom__data">Compra do mês · <span data-hoje></span></p>
+            </div>
+            <div class="resumo">
+              <ul class="resumo__lista" role="list" data-cupom-linhas>
+                <li class="resumo__item">
+                  <span class="resumo__quantidade">6×</span>
+                  <span class="resumo__nome">Arroz branco <small>R$ 23,90 cada · <strong>atacado</strong></small></span>
+                  <span class="resumo__subtotal">R$ 143,40</span>
+                </li>
+                <li class="resumo__item">
+                  <span class="resumo__quantidade">2×</span>
+                  <span class="resumo__nome">Feijão carioca <small>R$ 8,50 cada</small></span>
+                  <span class="resumo__subtotal">R$ 17,00</span>
+                </li>
+              </ul>
+              <p class="resumo__total"><span>Total</span> <strong>R$ 160,40</strong></p>
+            </div>
+            <div class="cupom__rodape">
+              <span class="cupom__barras" aria-hidden="true"></span>
+              <p class="cupom__obrigado">Obrigado e volte sempre</p>
+              <p class="cupom__aviso">Lista de compras, não é nota fiscal.</p>
+            </div>
+          </div>
+          <button type="button" class="botao" data-imprimir>Imprimir linha</button>
+        </div>
       </section>
     </main>
     <div class="visualmente-oculto" aria-live="polite" data-anuncio></div>
