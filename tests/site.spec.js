@@ -167,18 +167,28 @@ test.describe('Cartaz de preço e cupom', () => {
 })
 
 test.describe('O que vem na sua compra', () => {
-  test('rolando, o canvas aparece e os quadros andam', async ({ page }) => {
+  test('o filme acompanha a imagem: começo embaixo, metade no meio, fim no alto', async ({ page }) => {
     await page.goto('./')
+    // Antes de os quadros chegarem, a imagem de espera é o começo (compras nas sacolas), não o fim
+    await expect(page.locator('.compra__quadro')).toHaveAttribute('src', /frame_0001\.webp$/)
     const canvas = page.locator('[data-compra-canvas]')
     const quadro = () => canvas.evaluate((c) => Number(c.dataset.quadro ?? 0))
-    // Começo: a seção acabou de entrar por baixo da tela
-    await page.locator('#compra').evaluate((s) => window.scrollTo(0, s.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.9))
+    // Põe o centro da imagem numa altura da tela (0 = topo, 1 = pé)
+    const centroEm = (fracao) =>
+      page.locator('.compra__tela').evaluate((t, f) => {
+        const r = t.getBoundingClientRect()
+        window.scrollTo(0, r.top + window.scrollY + r.height / 2 - innerHeight * f)
+      }, fracao)
+
+    await centroEm(0.8)
     await expect(canvas).toBeVisible()
     await expect(page.locator('[data-compra-frase]')).toContainText('Role a página')
-    const antes = await quadro()
-    // Mais para baixo: a imagem chega perto do alto da tela
-    await page.locator('.compra__tela').evaluate((t) => window.scrollTo(0, t.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.2))
-    await expect.poll(quadro).toBeGreaterThan(antes + 30)
+    await expect.poll(quadro).toBeLessThanOrEqual(3)
+    await centroEm(0.5)
+    // Os dois limites juntos: a rolagem suave ainda está andando, então espera o quadro assentar
+    await expect.poll(async () => { const q = await quadro(); return q >= 45 && q <= 75 }).toBe(true)
+    await centroEm(0.2)
+    await expect.poll(quadro).toBe(120)
   })
 
   test('com "reduzir movimento", fica a imagem parada e nenhum quadro baixa', async ({ page }) => {

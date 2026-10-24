@@ -1173,8 +1173,9 @@ main > section:not(.capa) > h2,
   gap: var(--espaco-2);
 }
 
-/* O que vem na sua compra: a imagem (último quadro) fica embaixo e o canvas por cima.
-   Sem JavaScript ou com "reduzir movimento", só a imagem aparece (src/sections/compra.js). */
+/* O que vem na sua compra: a imagem fica embaixo e o canvas por cima. Com a animação
+   ligada, a imagem é o primeiro quadro (espera os outros carregarem); sem JavaScript ou
+   com "reduzir movimento", é o último, parado (src/sections/compra.js). */
 .compra__frase {
   max-width: 40ch;
   color: var(--cor-texto-secundario);
