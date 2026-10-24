@@ -7,6 +7,7 @@ import { botaoOuvir } from '../lib/ouvir.js'
 import { caminho } from '../lib/caminho.js'
 import { emReais } from '../lib/dinheiro.js'
 import { cartazDePreco } from '../lib/cartaz.js'
+import { voarParaSacola } from '../lib/voo.js'
 
 const IMAGEM_PROVISORIA = caminho('img/placeholder.svg')
 const ICONES = caminho('icons/icones.svg')
@@ -193,10 +194,12 @@ function montarCatalogo(lista) {
     const card = botao.closest('.card-produto')
     const produto = produtos.find((p) => p.id === card.dataset.id)
     const acao = botao.dataset.acao
+    const caixaDoBotao = botao.getBoundingClientRect() // antes de o card ser redesenhado
 
     mudarQuantidade(produto.id, acao === 'mais' ? 1 : -1)
     atualizarCard(card, produto)
     apertarCard(card)
+    if (acao === 'mais') voarParaSacola(caixaDoBotao)
 
     // O botão tocado foi redesenhado: devolve o foco para quem usa teclado (RNF-02).
     const mesmoBotao = card.querySelector(`[data-acao="${acao}"]`) ?? card.querySelector('[data-acao]')

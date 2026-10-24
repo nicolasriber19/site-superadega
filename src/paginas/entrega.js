@@ -8,6 +8,7 @@
 import '../styles/tokens.css'
 import '../styles/base.css'
 import '../styles/sections.css'
+import '../styles/marca.css' // a boca de sacola kraft acima dos títulos, igual à página principal
 
 const formulario = document.querySelector('[data-entrega]')
 const quadro = document.querySelector('[data-quadro]')

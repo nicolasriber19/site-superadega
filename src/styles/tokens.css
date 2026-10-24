@@ -49,6 +49,7 @@
   --cor-botao: #d6a062;            /* Cobre: botão principal · tinta sobre ele 7,93:1 */
   --cor-botao-escuro: #c38e52;     /* hover do botão principal · tinta sobre ele 6,39:1 */
   --cor-sobre-botao: #17140f;      /* texto e ícone sobre o cobre */
+  --cor-kraft: var(--cor-botao);   /* papel de sacola, no mesmo cobre do botão: a borda dentada acima dos títulos (só enfeite, sem texto em cima) */
   --cor-foco: #17140f;             /* contorno de foco: 16,59:1 no fundo (o cobre claro só teria 2,09:1) */
   --cor-borda: #8c8071;            /* Juta: campos · 3,49:1 no fundo · 3,86:1 na superfície (mínimo 3:1) */
   --cor-linha: #d9d1c4;            /* linha fina decorativa entre blocos (não marca nada clicável) */
