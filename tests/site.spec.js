@@ -166,6 +166,56 @@ test.describe('Cartaz de preço e cupom', () => {
   })
 })
 
+test.describe('Identidade: mês na capa, voo até a sacola', () => {
+  test('a capa diz o mês de hoje e cabe na tela, até com o mês mais comprido', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-02-10T12:00:00'))
+    await page.goto('./')
+    const linha = page.locator('.capa__linha--baixo')
+    await expect(linha).toHaveText('de fevereiro')
+    await page.evaluate(() => document.fonts.ready)
+    const sobra = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
+    expect(sobra).toBeLessThanOrEqual(0)
+    const cabe = await linha.evaluate((l) => {
+      const r = document.createRange()
+      r.selectNodeContents(l)
+      const texto = r.getBoundingClientRect()
+      return texto.left >= 0 && texto.right <= document.documentElement.clientWidth
+    })
+    expect(cabe).toBe(true)
+  })
+
+  // Conta os pontinhos criados (eles somem sozinhos no fim do voo)
+  const contarVoos = (page) =>
+    page.addInitScript(() => {
+      window.__voos = 0
+      new MutationObserver((mudancas) => {
+        for (const m of mudancas) for (const n of m.addedNodes) if (n.classList?.contains('voo')) window.__voos++
+      }).observe(document, { childList: true, subtree: true }) // o documento já existe; o <html> ainda não
+    })
+
+  test('ao adicionar, um pontinho voa até a sacola e some', async ({ page }) => {
+    await contarVoos(page)
+    await page.goto('./')
+    const card = page.locator('.card-produto').first()
+    await card.scrollIntoViewIfNeeded()
+    await card.getByRole('button', { name: /Adicionar/ }).click()
+    await expect.poll(() => page.evaluate(() => window.__voos)).toBe(1)
+    await expect(page.locator('.voo')).toHaveCount(0) // terminou e saiu da página
+    // Tirar um não voa
+    await card.getByRole('button', { name: 'Tirar 1' }).click()
+    expect(await page.evaluate(() => window.__voos)).toBe(1)
+  })
+
+  test('com "reduzir movimento", nada voa', async ({ page }) => {
+    await contarVoos(page)
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto('./')
+    await page.locator('.card-produto').first().getByRole('button', { name: /Adicionar/ }).click()
+    await expect(page.locator('[data-contador-lista]')).toHaveText('1')
+    expect(await page.evaluate(() => window.__voos)).toBe(0)
+  })
+})
+
 test.describe('O que vem na sua compra', () => {
   test('o filme acompanha a imagem: começo embaixo, metade no meio, fim no alto', async ({ page }) => {
     await page.goto('./')
