@@ -3,6 +3,7 @@
 // no celular (390 px) e no notebook (1440 px). Ver playwright.config.js.
 
 import { test, expect } from '@playwright/test'
+import { audiosGravados } from '../src/data/audios.js'
 
 // Junta os erros do console e as respostas com erro (400 ou mais) de cada página.
 function vigiar(page) {
@@ -51,10 +52,16 @@ test.describe('Página principal', () => {
   })
 
   test('com "reduzir movimento", a capa fica parada', async ({ page }) => {
+    const linha = page.locator('.capa__linha--cima')
+    const nomeDaAnimacao = () => linha.evaluate((e) => getComputedStyle(e).animationName)
+    // Contraprova: sem o pedido, a animação existe (se ela sumir, o teste avisa)
+    await page.emulateMedia({ reducedMotion: 'no-preference' })
+    await page.goto('./')
+    expect(await nomeDaAnimacao()).toBe('capa-linha-esquerda')
+    // Com o pedido, fica parada
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('./')
-    const animacao = await page.locator('.capa__linha--cima').evaluate((e) => getComputedStyle(e).animationName)
-    expect(animacao).toBe('none')
+    expect(await nomeDaAnimacao()).toBe('none')
   })
 
   test('pôr um produto na lista atualiza o contador e a sacola', async ({ page }) => {
@@ -97,21 +104,15 @@ test.describe('Página principal', () => {
     await janela.getByRole('button', { name: 'Salvar' }).click()
     await expect(janela).toBeHidden()
     await expect(page.locator('#nome')).toHaveValue('Maria Teste')
+    await expect(page.locator('#endereco')).toHaveValue('Rua das Flores, 10')
     await page.reload()
     await expect(page.locator('#nome')).toHaveValue('Maria Teste')
+    await expect(page.locator('#endereco')).toHaveValue('Rua das Flores, 10')
   })
 
-  test('os 12 áudios do "Ouvir" existem', async ({ page, request }) => {
-    await page.goto('./')
-    const arquivos = await page.evaluate(async () => {
-      const { audiosGravados } = await import('./src/data/audios.js').catch(() => ({ audiosGravados: null }))
-      return audiosGravados
-    })
-    // No build, os módulos viram um arquivo só: confere pelos nomes conhecidos
-    const nomes = arquivos?.map((a) => a.arquivo) ?? [
-      ...['passo-1', 'passo-2', 'passo-3', 'passo-4'].map((n) => `audio/passos/${n}.mp3`),
-      ...['arroz', 'feijao', 'oleo', 'cafe', 'leite', 'detergente', 'sabao-po', 'papel-higienico'].map((n) => `audio/produtos/${n}.mp3`),
-    ]
+  test('os 12 áudios do "Ouvir" existem', async ({ request }) => {
+    // A lista vem de src/data/audios.js: mudou lá, o teste acompanha
+    const nomes = audiosGravados.map((a) => a.arquivo)
     expect(nomes).toHaveLength(12)
     for (const nome of nomes) {
       const resposta = await request.get(nome)
