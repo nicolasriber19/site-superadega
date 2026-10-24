@@ -252,6 +252,45 @@ test.describe('A Helena', () => {
   })
 })
 
+test.describe('Pagamento de demonstração', () => {
+  test('"Pagar aqui no site" mostra um Pix de exemplo, simula a aprovação e segue para o WhatsApp', async ({ page }) => {
+    await page.addInitScript(() => {
+      window.open = (url) => {
+        window.__linkAberto = url
+        return { opener: null }
+      }
+    })
+    await page.goto('./')
+    await page.locator('.card-produto').first().getByRole('button', { name: /Adicionar/ }).click()
+    const formulario = page.locator('[data-pedido]')
+    await formulario.locator('input[name="dia"]').first().check({ force: true })
+    await formulario.locator('input[name="faixa"]').first().check({ force: true })
+    await page.locator('#nome').fill('Teste automático')
+    await page.locator('#endereco').fill('Rua de Teste, 1')
+    await formulario.locator('label.escolha').filter({ hasText: 'Pagar aqui no site' }).click()
+    await expect(formulario.locator('[data-aviso-pagamento="site"]')).toBeVisible()
+    await expect(formulario.locator('[data-aviso-pagamento="whatsapp"]')).toBeHidden()
+
+    await formulario.getByRole('button', { name: 'Pagar aqui (demonstração)' }).click()
+    const janela = page.getByRole('dialog', { name: 'Pagar com Pix' })
+    await expect(janela).toBeVisible()
+    await expect(janela).toContainText('Demonstração')
+    await expect(janela).toContainText('Não faça nenhum Pix.')
+    await expect(janela).toContainText('EXEMPLO-SUPERADEGA-NAO-PAGUE')
+    // Nenhum campo para digitar (cartão, banco, senha): é só uma tela de exemplo
+    await expect(janela.locator('input, textarea, select')).toHaveCount(0)
+    expect(await page.evaluate(() => window.__linkAberto)).toBeUndefined() // ainda não foi para o WhatsApp
+
+    await janela.getByRole('button', { name: 'Simular pagamento aprovado' }).click()
+    await expect(janela).toContainText('Pagamento de demonstração aprovado.')
+    await janela.getByRole('button', { name: /Enviar pedido no WhatsApp/ }).click()
+    await expect(janela).toBeHidden()
+    const link = decodeURIComponent(await page.evaluate(() => window.__linkAberto))
+    expect(link).toContain('wa.me/')
+    expect(link).toContain('demonstração de pagamento no site (nada foi cobrado)')
+  })
+})
+
 test.describe('O que vem na sua compra', () => {
   test('o filme acompanha a imagem: começo embaixo, metade no meio, fim no alto', async ({ page }) => {
     await page.goto('./')
