@@ -167,21 +167,28 @@ test.describe('Cartaz de preço e cupom', () => {
 })
 
 test.describe('Identidade: mês na capa, voo até a sacola', () => {
-  test('a capa diz o mês de hoje e cabe na tela, até com o mês mais comprido', async ({ page }) => {
-    await page.clock.setFixedTime(new Date('2026-02-10T12:00:00'))
+  test('a capa diz o mês de hoje e cabe dentro da margem, até com o mês mais largo', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-11-10T12:00:00')) // "de novembro" é o mais largo
     await page.goto('./')
-    const linha = page.locator('.capa__linha--baixo')
-    await expect(linha).toHaveText('de fevereiro')
+    const linhas = page.locator('.capa__linha')
+    await expect(page.locator('.capa__linha--baixo')).toHaveText('de novembro')
     await page.evaluate(() => document.fonts.ready)
-    const sobra = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
-    expect(sobra).toBeLessThanOrEqual(0)
-    const cabe = await linha.evaluate((l) => {
-      const r = document.createRange()
-      r.selectNodeContents(l)
-      const texto = r.getBoundingClientRect()
-      return texto.left >= 0 && texto.right <= document.documentElement.clientWidth
+    const medida = await page.locator('.capa').evaluate((capa) => {
+      const estilo = getComputedStyle(capa)
+      const caixa = capa.getBoundingClientRect()
+      const esquerda = caixa.left + parseFloat(estilo.paddingLeft)
+      const direita = caixa.right - parseFloat(estilo.paddingRight)
+      return [...capa.querySelectorAll('.capa__linha')].map((l) => {
+        const r = document.createRange()
+        r.selectNodeContents(l)
+        const t = r.getBoundingClientRect()
+        return { dentro: t.left >= esquerda - 0.5 && t.right <= direita + 0.5, fonte: getComputedStyle(l).fontSize, ajustada: l.style.fontSize !== '' }
+      })
     })
-    expect(cabe).toBe(true)
+    expect(medida.map((m) => m.dentro)).toEqual([true, true])
+    expect(medida[0].fonte).toBe(medida[1].fonte) // as duas linhas com a mesma letra
+    expect(medida[1].ajustada).toBe(true) // novembro não cabe no tamanho cheio: o ajuste agiu
+    await expect(linhas).toHaveCount(2)
   })
 
   // Conta os pontinhos criados (eles somem sozinhos no fim do voo)
@@ -198,9 +205,22 @@ test.describe('Identidade: mês na capa, voo até a sacola', () => {
     await page.goto('./')
     const card = page.locator('.card-produto').first()
     await card.scrollIntoViewIfNeeded()
+    // Anota quando a sacola da barra começa a pular, contando do toque
+    await page.evaluate(() => {
+      window.__pulos = []
+      document.addEventListener('pointerdown', () => (window.__toque = performance.now()), true)
+      document.addEventListener('animationstart', (e) => {
+        if (e.target.closest?.('[data-barra-lista]') && e.animationName === 'sacola-pulo')
+          window.__pulos.push(performance.now() - window.__toque)
+      })
+    })
     await card.getByRole('button', { name: /Adicionar/ }).click()
     await expect.poll(() => page.evaluate(() => window.__voos)).toBe(1)
     await expect(page.locator('.voo')).toHaveCount(0) // terminou e saiu da página
+    // A sacola da barra pulou quando o pontinho chegou, e não no toque
+    const pulos = await page.evaluate(() => window.__pulos)
+    expect(pulos.length).toBeGreaterThanOrEqual(1)
+    expect(pulos.every((ms) => ms >= 400)).toBe(true)
     // Tirar um não voa
     await card.getByRole('button', { name: 'Tirar 1' }).click()
     expect(await page.evaluate(() => window.__voos)).toBe(1)
