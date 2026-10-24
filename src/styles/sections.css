@@ -741,8 +741,9 @@ main > section:not(.capa) > h2,
   }
 }
 
-/* 7. Finalizar: a lista vira um cupom (papel branco com a borda de baixo serrilhada).
-   No computador: o formulário à esquerda e o cupom fixo à direita. */
+/* 7. Finalizar: a lista vira um cupom de caixa (o papel, os dentes e o cabeçalho
+   ficam em src/styles/marca.css). No computador: o formulário à esquerda e o cupom
+   fixo à direita. */
 .finalizar {
   display: grid;
   grid-template-areas:
@@ -759,28 +760,9 @@ main > section:not(.capa) > h2,
 
 .cupom {
   grid-area: cupom;
-  --dente: 12px; /* tamanho de cada dente da borda serrilhada */
+  --dente: 12px; /* tamanho de cada dente do papel (marca.css) */
   padding: var(--espaco-6) var(--espaco-6) calc(var(--espaco-6) + var(--dente));
   background: var(--cor-superficie);
-  /* Borda serrilhada embaixo: uma máscara corta triângulos no pé do papel.
-     "black" e "transparent" aqui não são cores na tela: só dizem o que aparece e o que some. */
-  -webkit-mask:
-    conic-gradient(from -45deg at bottom, transparent, black 1deg 89deg, transparent 90deg)
-    50% / calc(2 * var(--dente)) 100%;
-  mask:
-    conic-gradient(from -45deg at bottom, transparent, black 1deg 89deg, transparent 90deg)
-    50% / calc(2 * var(--dente)) 100%;
-}
-
-.cupom h3 {
-  margin: 0 0 var(--espaco-4);
-  padding-bottom: var(--espaco-3);
-  border-bottom: 2px dashed var(--cor-linha);
-  font-family: var(--fonte-titulo);
-  font-size: var(--texto-g);
-  letter-spacing: var(--espaco-titulo);
-  text-align: center;
-  text-transform: uppercase;
 }
 
 .finalizar .pedido {
