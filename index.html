@@ -383,6 +383,12 @@
             <span>Seu nome e endereço servem só para entregar este pedido e vão na conversa do WhatsApp com a loja. Eles só ficam guardados se você salvar em "Meus dados", e aí ficam só neste aparelho.</span>
           </p>
 
+          <!-- Aparece quando a janela de demonstração fecha sem enviar o pedido -->
+          <p class="aviso aviso--demo" role="status" data-pix-nao-enviado hidden>
+            <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#balao"></use></svg>
+            <span><strong>Seu pedido ainda não foi enviado.</strong> Toque no botão abaixo de novo, ou escolha "Pix no WhatsApp".</span>
+          </p>
+
           <!-- Aparece quando falta algo para enviar (preenchido por finalizar.js) -->
           <div class="aviso aviso--erro" role="alert" tabindex="-1" data-erros hidden></div>
 
@@ -492,11 +498,11 @@
 
     <!-- Pagamento de DEMONSTRAÇÃO (src/sections/finalizar.js). Nada é cobrado: o QR Code e o
          código são exemplos que não funcionam. Sem campo de cartão nem de dado bancário. -->
-    <dialog class="pix-demo" aria-labelledby="titulo-pix-demo" data-pix-demo>
+    <dialog class="pix-demo" aria-labelledby="selo-pix-demo titulo-pix-demo" aria-describedby="alerta-pix-demo" data-pix-demo>
       <form method="dialog">
-        <p class="pix-demo__selo">Demonstração</p>
-        <h2 id="titulo-pix-demo">Pagar com Pix</h2>
-        <p class="pix-demo__alerta"><strong>Não faça nenhum Pix.</strong> Esta tela só mostra como seria pagar aqui no site. Nenhum dinheiro é cobrado.</p>
+        <p class="pix-demo__selo" id="selo-pix-demo">Demonstração</p>
+        <h2 id="titulo-pix-demo" tabindex="-1" autofocus>Pagar com Pix</h2>
+        <p class="pix-demo__alerta" id="alerta-pix-demo"><strong>Não faça nenhum Pix.</strong> Esta tela só mostra como seria pagar aqui no site. Nenhum dinheiro é cobrado.</p>
 
         <div data-pix-passo="pagar">
           <p class="pix-demo__total">Total <strong data-pix-total>R$ 0,00</strong></p>
@@ -515,17 +521,17 @@
         </div>
 
         <div data-pix-passo="aprovado" hidden>
-          <p class="pix-demo__ok" role="status">
+          <p class="pix-demo__ok" id="ok-pix-demo">
             <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#confere"></use></svg>
-            <span><strong>Pagamento de demonstração aprovado.</strong> Nenhum dinheiro foi cobrado.</span>
+            <span><strong>Fim da demonstração: você ainda não pagou nada.</strong> Seu pedido ainda não foi enviado.</span>
           </p>
-          <p>Para a loja receber o pedido de verdade, envie pelo WhatsApp. A loja manda a chave Pix de verdade.</p>
+          <p>Para a loja receber o pedido, envie pelo WhatsApp. A loja manda a chave Pix de verdade.</p>
           <div class="pix-demo__acoes">
-            <button type="button" class="botao botao--primario botao--grande" data-pix-whatsapp>
+            <button type="button" class="botao botao--primario botao--grande" data-pix-whatsapp aria-describedby="ok-pix-demo">
               <svg class="icone" aria-hidden="true"><use href="/icons/icones.svg#balao"></use></svg>
               Enviar pedido no WhatsApp
             </button>
-            <button type="submit" class="botao" value="fechar">Fechar</button>
+            <button type="submit" class="botao" value="fechar">Voltar sem enviar o pedido</button>
           </div>
         </div>
       </form>

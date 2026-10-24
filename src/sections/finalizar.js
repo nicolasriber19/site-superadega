@@ -277,9 +277,8 @@ export function mensagemDoPedido(pedido) {
     `Nome: ${pedido.nome}`,
     endereco,
     '',
-    pedido.pagamentoDemo
-      ? 'Pagamento: testei a demonstração de pagamento no site (nada foi cobrado). Aguardo a chave Pix.'
-      : 'Pagamento: Pix antes da entrega. Aguardo a chave Pix.',
+    'Pagamento: Pix antes da entrega. Aguardo a chave Pix.',
+    ...(pedido.pagamentoDemo ? ['(No site vi só a demonstração de pagamento; ainda não paguei nada.)'] : []),
   ].join('\n')
 }
 
@@ -296,7 +295,7 @@ function enviarPedido(formulario, dias) {
     abrirPixDemo(janelaDemo, formulario, pedido)
     return
   }
-  abrirWhatsApp(formulario, pedido)
+  abrirWhatsApp(formulario, { ...pedido, pagamentoDemo: false })
 }
 
 function abrirWhatsApp(formulario, pedido) {
@@ -321,25 +320,19 @@ function abrirWhatsApp(formulario, pedido) {
 // A janela mostra um desenho com cara de QR Code (não é um Pix, nenhum banco lê) e um
 // código escrito "EXEMPLO". "Simular pagamento aprovado" só troca a tela.
 
-// Os três quadrados dos cantos e pontinhos sorteados (sempre os mesmos). Não codifica nada.
+// Pontinhos redondos sorteados (sempre os mesmos), SEM os três quadrados dos cantos que
+// as câmeras procuram: lembra um QR Code, mas nenhum leitor tenta ler. Não codifica nada.
 function desenhoDeQr() {
   const lado = 25
   let semente = 7
   const sorteio = () => (semente = (semente * 9301 + 49297) % 233280) / 233280
-  const canto = (x, y) => x < 7 && y < 7
-  const ehCanto = (x, y) => canto(x, y) || canto(lado - 1 - x, y) || canto(x, lado - 1 - y)
-  const quadrados = []
-  for (const [cx, cy] of [[0, 0], [lado - 7, 0], [0, lado - 7]]) {
-    quadrados.push(`<rect x="${cx}" y="${cy}" width="7" height="7"/>`)
-    quadrados.push(`<rect x="${cx + 1}" y="${cy + 1}" width="5" height="5" class="vazio"/>`)
-    quadrados.push(`<rect x="${cx + 2}" y="${cy + 2}" width="3" height="3"/>`)
-  }
+  const pontos = []
   for (let y = 0; y < lado; y++) {
     for (let x = 0; x < lado; x++) {
-      if (!ehCanto(x, y) && sorteio() > 0.55) quadrados.push(`<rect x="${x}" y="${y}" width="1" height="1"/>`)
+      if (sorteio() > 0.55) pontos.push(`<circle cx="${x + 0.5}" cy="${y + 0.5}" r="0.42"/>`)
     }
   }
-  return `<svg viewBox="-2 -2 ${lado + 4} ${lado + 4}" shape-rendering="crispEdges">${quadrados.join('')}</svg>`
+  return `<svg viewBox="-1 -1 ${lado + 2} ${lado + 2}">${pontos.join('')}</svg>`
 }
 
 function abrirPixDemo(janela, formulario, pedido) {
@@ -350,15 +343,27 @@ function abrirPixDemo(janela, formulario, pedido) {
   const qr = janela.querySelector('[data-pix-qr]')
   if (!qr.firstChild) qr.innerHTML = desenhoDeQr() // desenho fixo, feito pelo próprio site
 
+  const naoEnviado = formulario.querySelector('[data-pix-nao-enviado]')
+  naoEnviado.hidden = true
+  let enviou = false
+
   janela.querySelector('[data-pix-simular]').onclick = () => {
     passo('aprovado')
     janela.querySelector('[data-pix-whatsapp]').focus()
   }
   janela.querySelector('[data-pix-whatsapp]').onclick = () => {
+    enviou = true
     janela.close()
     abrirWhatsApp(formulario, pedido)
   }
+  // Fechou sem enviar (Voltar, Esc): o formulário avisa que o pedido não foi
+  janela.onclose = () => {
+    if (!enviou) naoEnviado.hidden = false
+  }
   janela.showModal()
+  // Abre do topo, com o foco no título: no celular o selo "Demonstração" fica à vista
+  janela.scrollTop = 0
+  janela.querySelector('#titulo-pix-demo').focus()
 }
 
 // O botão de envio e o aviso acompanham a forma de pagamento escolhida
@@ -366,6 +371,7 @@ function ligarPagamento(formulario) {
   const texto = formulario.querySelector('[data-enviar-texto]')
   const icone = formulario.querySelector('[data-enviar-icone]')
   const atualizar = () => {
+    formulario.querySelector('[data-pix-nao-enviado]').hidden = true
     const forma = formulario.elements.pagamento?.value ?? 'whatsapp'
     formulario.querySelectorAll('[data-aviso-pagamento]').forEach((aviso) => {
       aviso.hidden = aviso.dataset.avisoPagamento !== forma

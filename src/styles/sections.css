@@ -1193,6 +1193,10 @@ main > .capa {
   font-size: var(--titulo-3);
 }
 
+.pix-demo h2:focus {
+  outline: none; /* o foco vai ao título só para a janela abrir do topo; quem usa Tab segue nos botões */
+}
+
 .pix-demo__selo {
   display: inline-block;
   margin: 0;
@@ -1241,10 +1245,6 @@ main > .capa {
   height: 100%;
   fill: currentColor;
   opacity: 0.45; /* apagado de propósito: é só um exemplo */
-}
-
-.pix-demo__qr-desenho .vazio {
-  fill: var(--cor-superficie);
 }
 
 /* Carimbo "EXEMPLO" atravessado no QR */
