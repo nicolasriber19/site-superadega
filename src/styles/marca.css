@@ -48,12 +48,12 @@
 
 .cartaz__moeda {
   margin-top: 0.3em;
-  font-size: 0.875rem;
+  font-size: 1rem; /* nenhum texto abaixo de 16 px (público com pouca prática digital) */
 }
 
 .cartaz__reais {
-  font-size: 1.75rem; /* reserva para navegador sem cqi (a linha de baixo seria ignorada) */
-  font-size: min(1.75rem, 19cqi); /* 28 px, ou menos se o card for estreito */
+  font-size: 1.5rem; /* reserva para navegador sem cqi (a linha de baixo seria ignorada): cabe a 360 px */
+  font-size: min(1.75rem, 16cqi); /* 28 px, ou menos se o card for estreito */
 }
 
 .cartaz--longo .cartaz__placa {
@@ -62,8 +62,8 @@
 }
 
 .cartaz--longo .cartaz__reais {
-  font-size: 1.375rem;
-  font-size: min(1.375rem, 15cqi); /* 22 px, ou menos: "129" cabe no card de 157 px */
+  font-size: 1.125rem;
+  font-size: min(1.375rem, 12cqi); /* 22 px, ou menos: "129" cabe no card de 157 px */
 }
 
 .cartaz__centavos {
@@ -78,7 +78,7 @@
   font-size: 1rem;
 }
 
-/* O selo "Oferta" ganha o mesmo formato de etiqueta, inclinado para o outro lado */
+/* O selo "Oferta" ganha o mesmo formato de etiqueta, um pouco mais inclinado que o preço */
 .card-produto__selo {
   padding-left: 18px;
   clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%);
@@ -108,10 +108,8 @@
   text-align: center;
 }
 
-.cupom .cupom__marca {
+.cupom__marca {
   margin: 0;
-  padding: 0;
-  border: 0; /* a linha tracejada fica só embaixo do cabeçalho inteiro */
   font-family: var(--fonte-titulo);
   font-size: var(--texto-g);
   font-weight: var(--peso-titulo);
