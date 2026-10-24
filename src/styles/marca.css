@@ -2,7 +2,8 @@
    1. Cartaz de preço: a plaquinha de oferta do mercado.
    2. Boca da sacola: a borda dentada de papel kraft acima dos títulos das seções.
    3. Voo: ao adicionar, um pontinho cobre vai do botão até a sacola na tela.
-   4. Cupom: a lista do "Finalizar" como um cupom de caixa, com dentes em cima e embaixo.
+   4. Helena: o retrato da voz do site, no "Como funciona".
+   5. Cupom: a lista do "Finalizar" como um cupom de caixa, com dentes em cima e embaixo.
    Só cores e fontes de tokens.css. */
 
 /* ---------- 1. Cartaz de preço ---------- */
@@ -119,7 +120,50 @@ main > section:not(.capa) > h2::before,
   pointer-events: none;
 }
 
-/* ---------- 4. Cupom ---------- */
+/* ---------- 4. A Helena, a voz do site ---------- */
+
+.helena {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-4);
+  max-width: 640px;
+  margin-top: var(--espaco-6);
+}
+
+.helena__retrato {
+  flex: none;
+  width: 96px;
+  height: 96px;
+  border: 3px solid var(--cor-kraft);
+  border-radius: 50%; /* o único círculo do site: é um rosto, não um cartão */
+  background: var(--cor-superficie);
+}
+
+.helena p {
+  margin: 0;
+}
+
+.helena__oi {
+  font-family: var(--fonte-titulo);
+  font-size: var(--texto-g);
+  font-weight: var(--peso-titulo);
+  letter-spacing: var(--espaco-titulo);
+}
+
+.helena__nota {
+  margin-top: 4px;
+  color: var(--cor-texto-secundario);
+  font-size: var(--texto-p);
+}
+
+@media (min-width: 600px) {
+  .helena__retrato {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* ---------- 5. Cupom ---------- */
 
 /* Dentes em cima e embaixo: duas máscaras cortam triângulos nas pontas do papel.
    "black" e "transparent" não são cores na tela: só dizem o que aparece e o que some. */
